@@ -1,8 +1,8 @@
 """
 
 usage:
-    main.exe <command>
-    main.exe [options]
+    epic7 <command>
+    epic7 [options]
 
 The most commonly used commands are:
     shop            Start secret shop auto buy
