@@ -8,7 +8,7 @@ def setup_device():
     d = client.devices()[0]
     global device
     device = d
-    device.shell("wm size 1536x864")
+    device.shell("wm size 1600x900")
 
 
 def get_device():

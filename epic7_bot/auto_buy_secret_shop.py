@@ -16,7 +16,7 @@ def check_bookmarks():
     if mystic_pos is not None:
         x, y = helper.get_position_of_image(mystic_pos)
 
-        helper.click_position(x + 700, y + 20, 1)
+        helper.click_position(x + 650, y + 50, 1)
 
         helper.click_image(templates.buy_button_mystic, 1)
 
@@ -26,7 +26,7 @@ def check_bookmarks():
     if coven_pos is not None:
         x, y = helper.get_position_of_image(coven_pos)
 
-        helper.click_position(x + 700, y + 20, 1)
+        helper.click_position(x + 650, y + 50, 1)
 
         helper.click_image(templates.buy_button_covenant, 1)
 
