@@ -47,7 +47,7 @@ def battle_rotation():
     #     time.sleep(2)
     #     print(finished)
     #     finished = helper.check_image(templates.skip_button)
-    time.sleep(60)
+    time.sleep(90)
 
     # click on skip
     click_middle_and_check_change_retry(x1=1476, x2=1574, y1=23, y2=76)
