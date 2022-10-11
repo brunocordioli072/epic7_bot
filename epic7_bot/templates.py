@@ -34,3 +34,8 @@ refresh_button: Template = {
     "image": cv2.imread(dirPath + '/images/refresh_button.png', 0),
     "name": "refresh_button"
 }
+
+skip_button: Template = {
+    "image": cv2.imread(dirPath + '/images/skip_button.png', 0),
+    "name": "skip_button"
+}

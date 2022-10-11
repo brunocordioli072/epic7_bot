@@ -4,6 +4,7 @@ from epic7_bot.utils.devices import get_device
 import base64
 import time
 import cv2
+import io
 import numpy as np
 from random import random
 import math
@@ -44,9 +45,9 @@ def check_image(template: Template):
     images = cv2.imdecode(np.frombuffer(png_screenshot_data, np.uint8), 0)
     result = cv2.matchTemplate(images, template['image'], cv2.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-    # print(f"Checked {template['name']}, percentage: {max_val}")
+    print(f"Checked {template['name']}, percentage: {max_val}")
 
-    if max_val > 0.7:
+    if max_val > 0.6:
         return result
     else:
         return None
@@ -64,3 +65,26 @@ def click_image(template, waitTime=0):
                      str(x) + " " + str(y))
         # logging.info('Found at position: [ %s , %s ]', str(
         #     x), str(y))
+
+
+def take_screnshot(x1=None, x2=None, y1=None, y2=None):
+
+    device = get_device()
+    png_screenshot_data = device.shell("screencap -p | busybox base64")
+    png_screenshot_data = base64.b64decode(png_screenshot_data)
+    nparr = np.frombuffer(png_screenshot_data, np.uint8)
+    img = cv2.imdecode(nparr, cv2.COLOR_BGR2GRAY)
+    if x1 != None and y1 != None and x2 != None and y2 != None:
+        img = img[y1:y2, x1:x2]
+
+    return img
+
+
+def check_if_screen_changed(img1, img2):
+    if img1 is None or img2 is None:
+        return False
+    res = cv2.absdiff(img1, img2)
+    res = res.astype(np.uint8)
+    percentage = (np.count_nonzero(res) * 100) / res.size
+    print(f"percentage: {percentage}")
+    return percentage >= 90
