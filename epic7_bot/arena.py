@@ -1,45 +1,22 @@
 import time
 
-import cv2
 from epic7_bot import templates
 from epic7_bot.utils.devices import get_device
 import epic7_bot.utils.helper as helper
 
 
-def midpoint(x1, y1, x2, y2):
-    return ((x1 + x2)/2, (y1 + y2)/2)
-
-
-def click_middle_and_check_change(x1, y1, x2, y2):
-    beforeImage = helper.take_screnshot(x1, x2, y1, y2)
-    position_x, position_y = midpoint(x1, y1, x2, y2)
-    helper.click_position(position_x, position_y, waitTime=0)
-    time.sleep(2)
-    afterImage = helper.take_screnshot(x1, x2, y1, y2)
-    return (beforeImage, afterImage)
-
-
-def click_middle_and_check_change_retry(x1, y1, x2, y2):
-    time.sleep(1)
-    beforeImage, afterImage = None, None
-    count = 0
-    while helper.check_if_screen_changed(beforeImage, afterImage) is False and count < 2:
-        beforeImage, afterImage = click_middle_and_check_change(x1, y1, x2, y2)
-        count += 1
-    return count < 2
-
-
 def battle_rotation():
     # click on start battle
-    click_middle_and_check_change_retry(x1=1065, x2=1216, y1=799, y2=852)
+    helper.click_middle_and_check_change_retry(
+        x1=1065, x2=1216, y1=799, y2=852)
 
     time.sleep(4)
 
     # click on skip
-    click_middle_and_check_change_retry(x1=1476, x2=1574, y1=23, y2=76)
+    helper.click_middle_and_check_change_retry(x1=1476, x2=1574, y1=23, y2=76)
 
     # click on auto battle
-    click_middle_and_check_change_retry(x1=1379, x2=1439, y1=14, y2=68)
+    helper.click_middle_and_check_change_retry(x1=1379, x2=1439, y1=14, y2=68)
 
     # TODO: Fix skip_button checker
     # finished = None
@@ -47,19 +24,21 @@ def battle_rotation():
     #     time.sleep(2)
     #     print(finished)
     #     finished = helper.check_image(templates.skip_button)
-    time.sleep(90)
+    while helper.check_change_on_area(x1=1471, x2=1581, y1=19, y2=76, template=templates.skip_button) is None:
+        time.sleep(1)
 
     # click on skip
-    click_middle_and_check_change_retry(x1=1476, x2=1574, y1=23, y2=76)
+    helper.click_middle_and_check_change_retry(x1=1476, x2=1574, y1=23, y2=76)
 
     time.sleep(2)
 
     # click on confirm
-    click_middle_and_check_change_retry(x1=1378, x2=1546, y1=802, y2=853)
+    helper.click_middle_and_check_change_retry(
+        x1=1378, x2=1546, y1=802, y2=853)
 
 
 def do_battle_rotation(x1, y1, x2, y2):
-    clicked = click_middle_and_check_change_retry(
+    clicked = helper.click_middle_and_check_change_retry(
         x1, y1, x2, y2)
     if clicked:
         battle_rotation()
@@ -77,15 +56,15 @@ def scroll_and_do_battle_rotation(x1, y1, x2, y2):
 
 
 def start_arena_npc_auto_battle():
-    helper.click_position(position_x=871, position_y=814, waitTime=0)
-    # click on arena icon on lobby
-    click_middle_and_check_change_retry(x1=1022, x2=1129, y1=749, y2=882)
+    # helper.click_position(position_x=871, position_y=814, waitTime=0)
+    # # click on arena icon on lobby
+    # click_middle_and_check_change_retry(x1=1022, x2=1129, y1=749, y2=882)
 
-    # click on arena ranked
-    click_middle_and_check_change_retry(x1=246, x2=438, y1=218, y2=283)
+    # # click on arena ranked
+    # click_middle_and_check_change_retry(x1=246, x2=438, y1=218, y2=283)
 
-    # click on NPC opponents
-    click_middle_and_check_change_retry(x1=1334, x2=1551, y1=236, y2=298)
+    # # click on NPC opponents
+    # click_middle_and_check_change_retry(x1=1334, x2=1551, y1=236, y2=298)
 
     # click on first opponent
     do_battle_rotation(x1=1109, x2=1212, y1=218, y2=294)
