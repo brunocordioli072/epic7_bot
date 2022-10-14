@@ -3,37 +3,41 @@ import time
 from epic7_bot import templates
 from epic7_bot.utils.devices import get_device
 import epic7_bot.utils.helper as helper
+import logging
+
+from epic7_bot.utils.logger import log_process
 
 
 def battle_rotation():
-    # click on start battle
+    logging.debug(f"Started battle rotation")
+
     helper.click_middle_and_check_change_retry(
-        x1=1065, x2=1216, y1=799, y2=852)
+        x1=1065, x2=1216, y1=799, y2=852, action="Click on start battle")
 
     time.sleep(4)
 
-    # click on skip
-    helper.click_middle_and_check_change_retry(x1=1476, x2=1574, y1=23, y2=76)
+    helper.click_middle_and_check_change_retry(
+        x1=1476, x2=1574, y1=23, y2=76, action="Click on skip")
 
-    # click on auto battle
-    helper.click_middle_and_check_change_retry(x1=1379, x2=1439, y1=14, y2=68)
+    helper.click_middle_and_check_change_retry(
+        x1=1379, x2=1439, y1=14, y2=68, action="Click on auto battle")
 
     while helper.check_change_on_area(x1=1471, x2=1581, y1=19, y2=76, template=templates.skip_button, percentage=0.55) is None:
+        logging.debug(f"Wait for skip button to appear")
         time.sleep(1)
 
-    # click on skip
-    helper.click_middle_and_check_change_retry(x1=1476, x2=1574, y1=23, y2=76)
+    helper.click_middle_and_check_change_retry(
+        x1=1476, x2=1574, y1=23, y2=76, action="Click on skip button")
 
     time.sleep(2)
 
-    # click on confirm
     helper.click_middle_and_check_change_retry(
-        x1=1378, x2=1546, y1=802, y2=853)
+        x1=1378, x2=1546, y1=802, y2=853, action="Click on confirm")
 
 
-def do_battle_rotation(x1, y1, x2, y2):
+def do_battle_rotation(x1, y1, x2, y2, action):
     clicked = helper.click_middle_and_check_change_retry(
-        x1, y1, x2, y2)
+        x1, y1, x2, y2, action)
     if clicked:
         battle_rotation()
 
@@ -44,9 +48,9 @@ def scroll():
         "input touchscreen swipe 1200 700 1200 400 200")
 
 
-def scroll_and_do_battle_rotation(x1, y1, x2, y2):
+def scroll_and_do_battle_rotation(x1, y1, x2, y2, action):
     scroll()
-    do_battle_rotation(x1, y1, x2, y2)
+    do_battle_rotation(x1, y1, x2, y2, action)
 
 
 def start_arena_npc_auto_battle():
@@ -60,32 +64,32 @@ def start_arena_npc_auto_battle():
     # # click on NPC opponents
     # click_middle_and_check_change_retry(x1=1334, x2=1551, y1=236, y2=298)
 
-    # click on first opponent
-    do_battle_rotation(x1=1109, x2=1212, y1=218, y2=294)
+    do_battle_rotation(x1=1109, x2=1212, y1=218, y2=294,
+                       action="Click on first opponent")
 
-    # click on second opponent
-    do_battle_rotation(x1=1115, x2=1208, y1=354, y2=418)
+    do_battle_rotation(x1=1115, x2=1208, y1=354, y2=418,
+                       action="Click on second opponent")
 
-    # click on third opponent
-    do_battle_rotation(x1=1117, x2=1203, y1=480, y2=544)
+    do_battle_rotation(x1=1117, x2=1203, y1=480, y2=544,
+                       action="Click on third opponent")
 
-    # click on fouth opponent
-    do_battle_rotation(x1=1117, x2=1207, y1=615, y2=681)
+    do_battle_rotation(x1=1117, x2=1207, y1=615, y2=681,
+                       action="Click on fouth opponent")
 
-    # click on fifth opponent
-    do_battle_rotation(x1=1114, x2=1212, y1=740, y2=815)
+    do_battle_rotation(x1=1114, x2=1212, y1=740, y2=815,
+                       action="Click on fifth opponent")
 
-    # click on sixty opponent
-    scroll_and_do_battle_rotation(x1=1121, x2=1209, y1=274, y2=339)
+    scroll_and_do_battle_rotation(x1=1121, x2=1209, y1=274, y2=339,
+                                  action="Click on sixty opponent")
 
-    # click on seventy opponent
-    scroll_and_do_battle_rotation(x1=1117, x2=1208, y1=408, y2=479)
+    scroll_and_do_battle_rotation(x1=1117, x2=1208, y1=408, y2=479,
+                                  action="Click on seventy opponent")
 
-    # click on eighth opponent
-    scroll_and_do_battle_rotation(x1=1117, x2=1203, y1=546, y2=594)
+    scroll_and_do_battle_rotation(x1=1117, x2=1203, y1=546, y2=594,
+                                  action="Click on eighth opponent")
 
-    # click on nineth opponent
-    scroll_and_do_battle_rotation(x1=1117, x2=1207, y1=676, y2=735)
+    scroll_and_do_battle_rotation(x1=1117, x2=1207, y1=676, y2=735,
+                                  action="Click on nineth opponent")
 
-    # click on tenth opponent
-    scroll_and_do_battle_rotation(x1=1114, x2=1212, y1=804, y2=865)
+    scroll_and_do_battle_rotation(x1=1114, x2=1212, y1=804, y2=865,
+                                  action="Click on tenth opponent")

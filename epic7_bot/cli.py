@@ -19,6 +19,8 @@ from sys import exit
 from epic7_bot.auto_buy_secret_shop import start_auto_buy_secret_shop
 from epic7_bot.arena import start_arena_npc_auto_battle
 from epic7_bot.utils.devices import setup_device
+from epic7_bot.utils.logger import init_logger
+from dotenv import load_dotenv
 import sys
 
 
@@ -26,6 +28,8 @@ def main():
     args = docopt(__doc__, version="1.0.0", options_first=True)
 
     if args['<command>'] != None:
+        load_dotenv()
+        init_logger()
         setup_device()
     if args['<command>'] == "shop":
         start_auto_buy_secret_shop()

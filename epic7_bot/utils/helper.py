@@ -1,4 +1,6 @@
+import logging
 import time
+from typing import TypedDict
 from epic7_bot.templates import Template
 from epic7_bot.utils.devices import get_device
 import base64
@@ -45,7 +47,7 @@ def check_image(template: Template):
     images = cv2.imdecode(np.frombuffer(png_screenshot_data, np.uint8), 0)
     result = cv2.matchTemplate(images, template['image'], cv2.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-    print(f"Checked {template['name']}, percentage: {max_val}")
+    logging.debug(f"Checked {template['name']}, percentage: {max_val}")
 
     if max_val > 0.6:
         return result
@@ -86,7 +88,6 @@ def check_if_images_changed(img1, img2):
     res = cv2.absdiff(img1, img2)
     res = res.astype(np.uint8)
     percentage = (np.count_nonzero(res) * 100) / res.size
-    print(f"percentage: {percentage}")
     return percentage >= 90
 
 
@@ -115,10 +116,12 @@ def click_middle_get_change(x1, y1, x2, y2):
     return (beforeImage, afterImage)
 
 
-def click_middle_and_check_change_retry(x1, y1, x2, y2):
+def click_middle_and_check_change_retry(x1, y1, x2, y2, action=None):
     time.sleep(1)
     beforeImage, afterImage = None, None
     count = 0
+    if action is not None:
+        logging.debug(f"{action}")
     while check_if_images_changed(beforeImage, afterImage) is False and count < 2:
         beforeImage, afterImage = click_middle_get_change(x1, y1, x2, y2)
         count += 1
