@@ -67,7 +67,7 @@ def click_image(template, waitTime=0):
         #     x), str(y))
 
 
-def take_screnshot(x1=None, x2=None, y1=None, y2=None):
+def take_screnshot_from_area(x1=None, x2=None, y1=None, y2=None):
 
     device = get_device()
     png_screenshot_data = device.shell("screencap -p | busybox base64")
@@ -80,7 +80,7 @@ def take_screnshot(x1=None, x2=None, y1=None, y2=None):
     return img
 
 
-def check_if_screen_changed(img1, img2):
+def check_if_images_changed(img1, img2):
     if img1 is None or img2 is None:
         return False
     res = cv2.absdiff(img1, img2)
@@ -94,24 +94,24 @@ def midpoint(x1, y1, x2, y2):
     return ((x1 + x2)/2, (y1 + y2)/2)
 
 
-def check_change_on_area(x1, y1, x2, y2, template):
-    image = take_screnshot(x1, x2, y1, y2)
+def check_change_on_area(x1, y1, x2, y2, template, percentage=0.55):
+    image = take_screnshot_from_area(x1, x2, y1, y2)
     result = cv2.matchTemplate(
         image, template['image'], cv2.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
     print(f"Checked {template['name']}, percentage: {max_val}")
-    if max_val > 0.55:
+    if max_val > percentage:
         return result
     else:
         return None
 
 
-def click_middle_and_check_change(x1, y1, x2, y2):
-    beforeImage = take_screnshot(x1, x2, y1, y2)
+def click_middle_get_change(x1, y1, x2, y2):
+    beforeImage = take_screnshot_from_area(x1, x2, y1, y2)
     position_x, position_y = midpoint(x1, y1, x2, y2)
     click_position(position_x, position_y, waitTime=0)
     time.sleep(2)
-    afterImage = take_screnshot(x1, x2, y1, y2)
+    afterImage = take_screnshot_from_area(x1, x2, y1, y2)
     return (beforeImage, afterImage)
 
 
@@ -119,7 +119,7 @@ def click_middle_and_check_change_retry(x1, y1, x2, y2):
     time.sleep(1)
     beforeImage, afterImage = None, None
     count = 0
-    while check_if_screen_changed(beforeImage, afterImage) is False and count < 2:
-        beforeImage, afterImage = click_middle_and_check_change(x1, y1, x2, y2)
+    while check_if_images_changed(beforeImage, afterImage) is False and count < 2:
+        beforeImage, afterImage = click_middle_get_change(x1, y1, x2, y2)
         count += 1
     return count < 2

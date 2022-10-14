@@ -18,13 +18,7 @@ def battle_rotation():
     # click on auto battle
     helper.click_middle_and_check_change_retry(x1=1379, x2=1439, y1=14, y2=68)
 
-    # TODO: Fix skip_button checker
-    # finished = None
-    # while finished is None:
-    #     time.sleep(2)
-    #     print(finished)
-    #     finished = helper.check_image(templates.skip_button)
-    while helper.check_change_on_area(x1=1471, x2=1581, y1=19, y2=76, template=templates.skip_button) is None:
+    while helper.check_change_on_area(x1=1471, x2=1581, y1=19, y2=76, template=templates.skip_button, percentage=0.55) is None:
         time.sleep(1)
 
     # click on skip
