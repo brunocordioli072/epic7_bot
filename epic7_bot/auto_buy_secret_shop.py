@@ -80,7 +80,7 @@ def show_stats():
     print("="*20)
 
 
-def auto_buy_secret_shop():
+def start_auto_buy_secret_shop():
     try:
         while True:
             check_store()
@@ -89,8 +89,3 @@ def auto_buy_secret_shop():
     except KeyboardInterrupt:
         print("ctrol-c pressed")
         exit(1)
-
-
-def start_auto_buy_secret_shop():
-    setup_device()
-    auto_buy_secret_shop()
