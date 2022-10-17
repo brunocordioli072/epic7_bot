@@ -39,3 +39,8 @@ skip_button: Template = {
     "image": cv2.imread(dirPath + '/images/skip_button.png', 0),
     "name": "skip_button"
 }
+
+connecting_problem: Template = {
+    "image": cv2.imread(dirPath + '/images/connecting.png', 0),
+    "name": "connecting_problem"
+}

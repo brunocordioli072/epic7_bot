@@ -1,50 +1,46 @@
 import time
-
 from epic7_bot import templates
-from epic7_bot.utils.devices import get_device
-import epic7_bot.utils.helper as helper
+import epic7_bot.common.config as config
+import epic7_bot.common.screen as screen
 import logging
-
-from epic7_bot.utils.logger import log_process
 
 
 def battle_rotation():
     logging.debug(f"Started battle rotation")
 
-    helper.click_middle_and_check_change_retry(
+    screen.click_middle_and_check_change_retry(
         x1=1065, x2=1216, y1=799, y2=852, action="Click on start battle")
 
     time.sleep(4)
 
-    helper.click_middle_and_check_change_retry(
+    screen.click_middle_and_check_change_retry(
         x1=1476, x2=1574, y1=23, y2=76, action="Click on skip")
 
-    helper.click_middle_and_check_change_retry(
+    screen.click_middle_and_check_change_retry(
         x1=1379, x2=1439, y1=14, y2=68, action="Click on auto battle")
 
-    while helper.check_change_on_area(x1=1471, x2=1581, y1=19, y2=76, template=templates.skip_button, percentage=0.55) is None:
+    while screen.check_change_on_area(x1=1471, x2=1581, y1=19, y2=76, template=templates.skip_button, percentage=0.55) is None:
         logging.debug(f"Wait for skip button to appear")
         time.sleep(1)
 
-    helper.click_middle_and_check_change_retry(
+    screen.click_middle_and_check_change_retry(
         x1=1476, x2=1574, y1=23, y2=76, action="Click on skip button")
 
     time.sleep(2)
 
-    helper.click_middle_and_check_change_retry(
+    screen.click_middle_and_check_change_retry(
         x1=1378, x2=1546, y1=802, y2=853, action="Click on confirm")
 
 
 def do_battle_rotation(x1, y1, x2, y2, action):
-    clicked = helper.click_middle_and_check_change_retry(
+    clicked = screen.click_middle_and_check_change_retry(
         x1, y1, x2, y2, action)
     if clicked:
         battle_rotation()
 
 
 def scroll():
-    device = get_device()
-    device.shell(
+    config.device.shell(
         "input touchscreen swipe 1200 700 1200 400 200")
 
 

@@ -1,15 +1,9 @@
 from ppadb.client import Client
-
-device = None
+import epic7_bot.common.config as config
 
 
 def setup_device():
     client = Client(host="127.0.0.1", port=5037)
-    d = client.devices()[0]
-    global device
-    device = d
+    device = client.devices()[0]
     device.shell("wm size 1600x900")
-
-
-def get_device():
-    return device
+    config.device = device

@@ -1,8 +1,8 @@
 import time
 import epic7_bot.templates as templates
 from sys import exit
-import epic7_bot.utils.helper as helper
-from epic7_bot.utils.devices import get_device, setup_device
+import epic7_bot.common.screen as screen
+import epic7_bot.common.config as config
 
 
 def check_bookmarks():
@@ -10,33 +10,32 @@ def check_bookmarks():
     global covenant
     global mystic
 
-    mystic_pos = helper.check_image(templates.mystic)
-    coven_pos = helper.check_image(templates.covenant)
+    mystic_pos = screen.check_image(templates.mystic)
+    coven_pos = screen.check_image(templates.covenant)
 
     if mystic_pos is not None:
-        x, y = helper.get_position_of_image(mystic_pos)
+        x, y = screen.get_position_of_image(mystic_pos)
 
-        helper.click_position(x + 650, y + 50, 1)
+        screen.click_position(x + 650, y + 50, 1)
 
-        helper.click_image(templates.buy_button_mystic, 1)
+        screen.click_image(templates.buy_button_mystic, 1)
 
         bought = True
         mystic += 1
 
     if coven_pos is not None:
-        x, y = helper.get_position_of_image(coven_pos)
+        x, y = screen.get_position_of_image(coven_pos)
 
-        helper.click_position(x + 650, y + 50, 1)
+        screen.click_position(x + 650, y + 50, 1)
 
-        helper.click_image(templates.buy_button_covenant, 1)
+        screen.click_image(templates.buy_button_covenant, 1)
 
         bought = True
         covenant += 1
 
 
 def scroll():
-    device = get_device()
-    device.shell(
+    config.device.shell(
         "input touchscreen swipe 1200 700 1200 300 200")
 
 
@@ -51,10 +50,10 @@ def check_store():
 
 
 def refresh(error_counter=0):
-    helper.click_image(templates.refresh_button)
-    helper.click_image(templates.confirm_button, 1)
+    screen.click_image(templates.refresh_button)
+    screen.click_image(templates.confirm_button, 1)
     time.sleep(0.5)
-    confirm_button = helper.check_image(templates.confirm_button)
+    confirm_button = screen.check_image(templates.confirm_button)
     if confirm_button is not None:
         if error_counter < 5:
             refresh(error_counter + 1)

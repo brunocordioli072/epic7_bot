@@ -1,12 +1,10 @@
 import logging
 import time
-from typing import TypedDict
 from epic7_bot.templates import Template
-from epic7_bot.utils.devices import get_device
+import epic7_bot.common.config as config
 import base64
 import time
 import cv2
-import io
 import numpy as np
 from random import random
 import math
@@ -29,8 +27,7 @@ def click_position(position_x, position_y, waitTime, message=None):
     # if message is not None:
     #     logging.info(message)
     x, y = randomPoint(position_x, position_y)
-    device = get_device()
-    device.shell("input tap " + str(x) + " " + str(y))
+    config.device.shell("input tap " + str(x) + " " + str(y))
     # logging.info('Input tap at position: [ %s , %s ]',  str(x), str(y))
 
 
@@ -41,8 +38,7 @@ def get_position_of_image(result):
 
 
 def check_image(template: Template):
-    device = get_device()
-    png_screenshot_data = device.shell("screencap -p | busybox base64")
+    png_screenshot_data = config.device.shell("screencap -p | busybox base64")
     png_screenshot_data = base64.b64decode(png_screenshot_data)
     images = cv2.imdecode(np.frombuffer(png_screenshot_data, np.uint8), 0)
     result = cv2.matchTemplate(images, template['image'], cv2.TM_CCOEFF_NORMED)
@@ -57,22 +53,19 @@ def check_image(template: Template):
 
 def click_image(template, waitTime=0):
     time.sleep(waitTime)
-    device = get_device()
     result = check_image(template)
     if result is not None:
         position_x = np.unravel_index(result.argmax(), result.shape)[1]
         position_y = np.unravel_index(result.argmax(), result.shape)[0]
         x, y = randomPoint(position_x, position_y)
-        device.shell("input tap " +
-                     str(x) + " " + str(y))
+        config.device.shell("input tap " +
+                            str(x) + " " + str(y))
         # logging.info('Found at position: [ %s , %s ]', str(
         #     x), str(y))
 
 
 def take_screnshot_from_area(x1=None, x2=None, y1=None, y2=None):
-
-    device = get_device()
-    png_screenshot_data = device.shell("screencap -p | busybox base64")
+    png_screenshot_data = config.device.shell("screencap -p | busybox base64")
     png_screenshot_data = base64.b64decode(png_screenshot_data)
     nparr = np.frombuffer(png_screenshot_data, np.uint8)
     img = cv2.imdecode(nparr, 0)
@@ -100,7 +93,7 @@ def check_change_on_area(x1, y1, x2, y2, template, percentage=0.55):
     result = cv2.matchTemplate(
         image, template['image'], cv2.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-    print(f"Checked {template['name']}, percentage: {max_val}")
+    # print(f"Checked {template['name']}, percentage: {max_val}")
     if max_val > percentage:
         return result
     else:
