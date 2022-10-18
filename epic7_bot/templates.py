@@ -44,3 +44,23 @@ connecting_problem: Template = {
     "image": cv2.imread(dirPath + '/images/connecting.png', 0),
     "name": "connecting_problem"
 }
+
+there_was_a_connection_error: Template = {
+    "image": cv2.imread(dirPath + '/images/there_was_a_connection_error.png', 0),
+    "name": "there_was_a_connection_error"
+}
+
+hunt_try_again: Template = {
+    "image": cv2.imread(dirPath + '/images/hunt/try_again.png', 0),
+    "name": "hunt_try_again"
+}
+
+hunt_confirm: Template = {
+    "image": cv2.imread(dirPath + '/images/hunt/confirm.png', 0),
+    "name": "hunt_confirm"
+}
+
+hunt_insufficient_energy: Template = {
+    "image": cv2.imread(dirPath + '/images/hunt/insufficient_energy.png', 0),
+    "name": "hunt_insufficient_energy"
+}

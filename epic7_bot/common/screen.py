@@ -93,9 +93,9 @@ def check_change_on_area(x1, y1, x2, y2, template, percentage=0.55):
     result = cv2.matchTemplate(
         image, template['image'], cv2.TM_CCOEFF_NORMED)
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-    # print(f"Checked {template['name']}, percentage: {max_val}")
     if max_val > percentage:
-        return result
+        print(f"Checked {template['name']}, percentage: {max_val}")
+        return max_val
     else:
         return None
 
