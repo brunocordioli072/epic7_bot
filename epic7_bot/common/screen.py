@@ -64,11 +64,16 @@ def click_image(template, waitTime=0):
         #     x), str(y))
 
 
-def take_screnshot_from_area(x1=None, x2=None, y1=None, y2=None):
+def take_screenshot():
     png_screenshot_data = config.device.shell("screencap -p | busybox base64")
     png_screenshot_data = base64.b64decode(png_screenshot_data)
     nparr = np.frombuffer(png_screenshot_data, np.uint8)
     img = cv2.imdecode(nparr, 0)
+    return img
+
+
+def take_screnshot_from_area(x1=None, x2=None, y1=None, y2=None):
+    img = take_screenshot()
     if x1 != None and y1 != None and x2 != None and y2 != None:
         img = img[y1:y2, x1:x2]
 
@@ -100,10 +105,35 @@ def check_change_on_area(x1, y1, x2, y2, template, percentage=0.55):
         return None
 
 
-def click_middle_get_change(x1, y1, x2, y2):
-    beforeImage = take_screnshot_from_area(x1, x2, y1, y2)
+def click_middle(x1, y1, x2, y2):
     position_x, position_y = midpoint(x1, y1, x2, y2)
     click_position(position_x, position_y, waitTime=0)
+
+
+def click_middle_check_change_on_screen(x1, y1, x2, y2):
+    beforeImage = take_screenshot()
+    click_middle(x1, y1, x2, y2)
+    time.sleep(2)
+    afterImage = take_screenshot()
+    return (beforeImage, afterImage)
+
+
+def click_middle_check_change_on_screen_retry(x1, y1, x2, y2, action=None):
+    time.sleep(1)
+    beforeImage, afterImage = None, None
+    count = 0
+    if action is not None:
+        logging.debug(f"{action}")
+    while check_if_images_changed(beforeImage, afterImage) is False and count < 2:
+        beforeImage, afterImage = click_middle_check_change_on_screen(
+            x1, y1, x2, y2)
+        count += 1
+    return count < 2
+
+
+def click_middle_get_change_on_area(x1, y1, x2, y2):
+    beforeImage = take_screnshot_from_area(x1, x2, y1, y2)
+    click_middle(x1, y1, x2, y2)
     time.sleep(2)
     afterImage = take_screnshot_from_area(x1, x2, y1, y2)
     return (beforeImage, afterImage)
@@ -116,6 +146,7 @@ def click_middle_and_check_change_retry(x1, y1, x2, y2, action=None):
     if action is not None:
         logging.debug(f"{action}")
     while check_if_images_changed(beforeImage, afterImage) is False and count < 2:
-        beforeImage, afterImage = click_middle_get_change(x1, y1, x2, y2)
+        beforeImage, afterImage = click_middle_get_change_on_area(
+            x1, y1, x2, y2)
         count += 1
     return count < 2

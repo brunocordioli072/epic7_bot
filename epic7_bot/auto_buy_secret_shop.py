@@ -1,5 +1,5 @@
 import time
-import epic7_bot.templates as templates
+import epic7_bot.templates.shop as shop_templates
 from sys import exit
 import epic7_bot.common.screen as screen
 import epic7_bot.common.config as config
@@ -10,15 +10,15 @@ def check_bookmarks():
     global covenant
     global mystic
 
-    mystic_pos = screen.check_image(templates.mystic)
-    coven_pos = screen.check_image(templates.covenant)
+    mystic_pos = screen.check_image(shop_templates.mystic)
+    coven_pos = screen.check_image(shop_templates.covenant)
 
     if mystic_pos is not None:
         x, y = screen.get_position_of_image(mystic_pos)
 
         screen.click_position(x + 650, y + 50, 1)
 
-        screen.click_image(templates.buy_button_mystic, 1)
+        screen.click_image(shop_templates.buy_button_mystic, 1)
 
         bought = True
         mystic += 1
@@ -28,7 +28,7 @@ def check_bookmarks():
 
         screen.click_position(x + 650, y + 50, 1)
 
-        screen.click_image(templates.buy_button_covenant, 1)
+        screen.click_image(shop_templates.buy_button_covenant, 1)
 
         bought = True
         covenant += 1
@@ -36,7 +36,7 @@ def check_bookmarks():
 
 def scroll():
     config.device.shell(
-        "input touchscreen swipe 1200 700 1200 300 200")
+        "input touchscreen swipe 1200 700 1200 300 300")
 
 
 def check_store():
@@ -49,20 +49,14 @@ def check_store():
     bought = False
 
 
-def refresh(error_counter=0):
-    screen.click_image(templates.refresh_button)
-    screen.click_image(templates.confirm_button, 1)
-    time.sleep(0.5)
-    confirm_button = screen.check_image(templates.confirm_button)
-    if confirm_button is not None:
-        if error_counter < 5:
-            refresh(error_counter + 1)
-        else:
-            print("Error: Could not refresh")
-            exit(1)
-    else:
-        global refreshes
-        refreshes += 1
+def refresh():
+    screen.click_middle_check_change_on_screen_retry(
+        x1=287, y1=808, x2=387, y2=838, action="Click on Refresh Button")
+    screen.click_middle_check_change_on_screen_retry(
+        x1=878, y1=537, x2=986, y2=568, action="Click on Confirm Button")
+
+    global refreshes
+    refreshes += 1
 
 
 mystic = 0
