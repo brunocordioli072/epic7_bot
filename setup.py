@@ -13,7 +13,7 @@ setup(
     long_description_content_type="text/markdown",
     author="brunocordioli072",
     packages=["epic7_bot"].extend(find_packages("epic7_bot")),
-    package_data={'': ['images/*.png']},
+    package_data={'': ['images/**/*.png']},
     include_package_data=True,
     install_requires=["numpy ==1.23.2",
                       "opencv_python ==4.6.0.66",
