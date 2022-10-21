@@ -4,7 +4,7 @@ from epic7_bot.core.ScreenManager import ScreenManager
 from epic7_bot.templates.HuntTemplates import HuntTemplates
 
 
-class Hunt:
+class Battle:
     def __init__(self):
         self.ScreenManager = ScreenManager()
         self.HuntTemplates = HuntTemplates()

@@ -8,9 +8,10 @@ import numpy as np
 from epic7_bot.core.DeviceManager import DeviceManager
 from epic7_bot.core.MathUtils import MathUtils
 from epic7_bot.templates.Template import Template
+from epic7_bot.utils.Singleton import Singleton
 
 
-class ScreenManager:
+class ScreenManager(metaclass=Singleton):
     def __init__(self):
         self.MathUtils = MathUtils()
         self.DeviceManager = DeviceManager()
@@ -103,6 +104,9 @@ class ScreenManager:
             beforeImage, afterImage = self.click_middle_get_before_and_after_images_from_screen(
                 x1, y1, x2, y2)
             count += 1
+        if count < 2 == False:
+            logging.error(f"{action}")
+
         return count < 2
 
     def click_middle_get_before_and_after_images_from_area(self, x1, y1, x2, y2):
