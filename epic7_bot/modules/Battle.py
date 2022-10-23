@@ -1,12 +1,12 @@
 import logging
 import time
-from epic7_bot.core.ScreenManager import ScreenManager
+from epic7_bot.modules.Module import Module
 from epic7_bot.templates.HuntTemplates import HuntTemplates
 
 
-class Hunt:
+class Battle(Module):
     def __init__(self):
-        self.ScreenManager = ScreenManager()
+        super(self.__class__, self).__init__()
         self.HuntTemplates = HuntTemplates()
 
     def check_try_again_and_confirm_buttons(self):
@@ -19,10 +19,10 @@ class Hunt:
     def do_rotation(self):
         try_again_button, confirm_button = None, None
 
+        logging.debug(
+            f"Wait for try again button or confirm button to appear")
         while try_again_button is None and confirm_button is None:
             try_again_button, confirm_button = self.check_try_again_and_confirm_buttons()
-            logging.debug(
-                f"Wait for try again button or confirm button to appear")
             time.sleep(1)
 
         if confirm_button is not None:

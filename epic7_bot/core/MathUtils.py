@@ -1,8 +1,10 @@
 import math
 from random import random
 
+from epic7_bot.utils.Singleton import Singleton
 
-class MathUtils:
+
+class MathUtils(metaclass=Singleton):
     def randomPoint(self, aroundX, aroundY, scale=1, density=2):
         angle = random()*2*math.pi
 
