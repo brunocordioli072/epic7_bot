@@ -1,11 +1,10 @@
 from time import sleep
-from epic7_bot.core.ScreenManager import ScreenManager
+from epic7_bot.modules.Module import Module
 
 
-class Guild:
-
-    def __init__(self) -> None:
-        self.ScreenManager = ScreenManager()
+class Guild(Module):
+    def __init__(self):
+        super(self.__class__, self).__init__()
 
     def world_boss_rotation(self):
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
@@ -28,7 +27,7 @@ class Guild:
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1=1318, y1=25, x2=1407, y2=62, action="Click on Skip Button")
 
-        sleep(5)
+        sleep(10)
 
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1=735, y1=758, x2=873, y2=798, action="Click on Open All Button")

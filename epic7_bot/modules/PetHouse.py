@@ -1,11 +1,10 @@
 from time import sleep
-from epic7_bot.core.ScreenManager import ScreenManager
+from epic7_bot.modules.Module import Module
 
 
-class PetHouse:
-
-    def __init__(self) -> None:
-        self.ScreenManager = ScreenManager()
+class PetHouse(Module):
+    def __init__(self):
+        super(self.__class__, self).__init__()
 
     def get_free_pet_summon(self):
         self.ScreenManager.click_middle_and_check_change_on_area_retry(

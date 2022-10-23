@@ -1,11 +1,10 @@
 from time import sleep
-from epic7_bot.core.ScreenManager import ScreenManager
+from epic7_bot.modules.Module import Module
 
 
-class Summon:
-
-    def __init__(self) -> None:
-        self.ScreenManager = ScreenManager()
+class Summon(Module):
+    def __init__(self):
+        super(self.__class__, self).__init__()
 
     def get_free_summon(self):
 

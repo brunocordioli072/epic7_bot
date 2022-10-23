@@ -1,11 +1,11 @@
 from epic7_bot.core.DeviceManager import DeviceManager
-from epic7_bot.core.ScreenManager import ScreenManager
+from epic7_bot.modules.Module import Module
 from epic7_bot.templates.SecretShopTemplates import SecretShopTemplates
 
 
-class SecretShop:
+class SecretShop(Module):
     def __init__(self):
-        self.ScreenManager = ScreenManager()
+        super(self.__class__, self).__init__()
         self.DeviceManager = DeviceManager()
         self.SecretShopTemplates = SecretShopTemplates()
 
