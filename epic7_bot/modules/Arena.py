@@ -1,14 +1,14 @@
 import logging
 import time
-from epic7_bot.core.ScreenManager import ScreenManager
 from epic7_bot.core.DeviceManager import DeviceManager
+from epic7_bot.modules.Module import Module
 from epic7_bot.templates.CommonTemplates import CommonTemplates
 
 
-class Arena:
+class Arena(Module):
     def __init__(self):
+        super(self.__class__, self).__init__()
         self.DeviceManager = DeviceManager()
-        self.ScreenManager = ScreenManager()
         self.CommonTemplates = CommonTemplates()
 
     def battle_rotation(self):
@@ -25,9 +25,9 @@ class Arena:
         self.ScreenManager.click_middle_and_check_change_on_area_retry(
             x1=1379, x2=1439, y1=14, y2=68, action="Click on auto battle")
 
+        logging.debug(f"Wait for skip button to appear")
         while self.ScreenManager.match_template_on_screen_area(x1=1471, x2=1581, y1=19, y2=76,
                                                                template=self.CommonTemplates.skip_button, percentage=0.55) is None:
-            logging.debug(f"Wait for skip button to appear")
             time.sleep(1)
 
         self.ScreenManager.click_middle_and_check_change_on_area_retry(

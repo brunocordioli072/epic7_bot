@@ -8,6 +8,7 @@ The most commonly used commands are:
     shop            Start secret shop auto buy
     arena           Start arena npc auto battle
     hunt            Start hunt auto battle
+    daily           Start daily actions
 
 options:
     -h --help       Show this help message and exit
@@ -24,20 +25,21 @@ from epic7_bot.processes.StartCommand import StartCommand
 
 def main():
     args = docopt(__doc__, version="1.0.0", options_first=True)
+    startCommand = StartCommand(args)
+    checkConnection = CheckConnection(startCommand.pid)
 
     if args['<command>'] in [None]:
         sys.argv.append('-h')
         exit(main())
-    elif args['<command>'] not in ["shop", "arena", "hunt"]:
+    elif args['<command>'] not in startCommand.commands.keys():
         exit("%r is not a valid command." %
              args['<command>'])
     else:
-        thread1 = StartCommand(args)
-        thread1.start()
+
+        startCommand.start()
         sleep(3)
-        thread2 = CheckConnection(thread1.pid)
-        thread2.start()
+        checkConnection.start()
         while True:
-            if thread1.is_alive() is False:
+            if startCommand.is_alive() is False:
                 exit()
             sleep(1)
