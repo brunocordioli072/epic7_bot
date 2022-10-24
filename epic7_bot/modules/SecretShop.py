@@ -79,3 +79,11 @@ class SecretShop(Module):
         except KeyboardInterrupt:
             print("ctrol-c pressed")
             exit(1)
+
+    def start_auto_buy_secret_shop_from_lobby(self):
+        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+            x1=894, y1=848, x2=935, y2=879, action="Click on Screen to Ensure not on Sleep Mode")
+
+        self.ScreenManager.click_middle_and_check_change_on_screen_retry(
+            x1=747, y1=172, x2=802, y2=206, action="Click on Bartender")
+        self.start_auto_buy_secret_shop()
