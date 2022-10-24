@@ -13,7 +13,7 @@ class Daily(Command):
         self.Sanctuary = Sanctuary()
 
     def start(self):
+        self.Sanctuary.do_sanctuary_routine()
         self.Summon.get_free_summon()
         self.PetHouse.get_free_pet_summon()
         self.Guild.do_daily_contributions()
-        self.Sanctuary.do_sanctuary_routine()

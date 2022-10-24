@@ -43,7 +43,7 @@ class Guild(Module):
             x1=894, y1=848, x2=935, y2=879, action="Click on Screen to Ensure not on Sleep Mode")
 
         self.ScreenManager.click_middle_and_check_change_on_area_retry(
-            x1=604, y1=812, x2=679, y2=881, action="Click on Guid Button")
+            x1=604, y1=812, x2=679, y2=881, action="Click on Guild Button")
 
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1=759, y1=797, x2=844, y2=833, action="Click on Tap to Close")
