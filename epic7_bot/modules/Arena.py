@@ -53,16 +53,6 @@ class Arena(Module):
         self.do_battle_rotation(x1, y1, x2, y2, action)
 
     def start_arena_npc_auto_battle(self):
-        # helper.click_position(position_x=871, position_y=814, waitTime=0)
-        # # click on arena icon on lobby
-        # click_middle_and_check_change_retry(x1=1022, x2=1129, y1=749, y2=882)
-
-        # # click on arena ranked
-        # click_middle_and_check_change_retry(x1=246, x2=438, y1=218, y2=283)
-
-        # # click on NPC opponents
-        # click_middle_and_check_change_retry(x1=1334, x2=1551, y1=236, y2=298)
-
         self.do_battle_rotation(x1=1109, x2=1212, y1=218, y2=294,
                                 action="Click on first opponent")
 
@@ -92,3 +82,18 @@ class Arena(Module):
 
         self.scroll_and_do_battle_rotation(x1=1114, x2=1212, y1=804, y2=865,
                                            action="Click on tenth opponent")
+
+    def start_arena_npc_auto_battle_from_lobby(self):
+        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+            x1=894, y1=848, x2=935, y2=879, action="Click on Screen to Ensure not on Sleep Mode")
+
+        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+            x1=1022, x2=1129, y1=749, y2=882, action="Click on arena icon on lobby")
+
+        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+            x1=246, x2=438, y1=218, y2=283, action="Click on arena ranked")
+
+        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+            x1=1334, x2=1551, y1=236, y2=298, action="Click on NPC opponents")
+
+        self.start_arena_npc_auto_battle()

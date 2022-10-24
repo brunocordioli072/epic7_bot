@@ -5,6 +5,7 @@ epic7_bot is a [Epic 7](https://epic7.smilegatemegaport.com/) toolkit/bot used v
 
 ## Requirements:
 - [Android Debug Bridge (adb)](https://developer.android.com/studio/command-line/adb)
+    - Can be installed via [Chocolatey](https://chocolatey.org/) ($choco install adb)
 - [Python 3.4+](https://www.python.org/downloads/release/python-392/)
 
 ## Instalation
@@ -16,11 +17,22 @@ pip install git+https://github.com/brunocordioli072/epic7_bot
 ## Usage
 
 ```bash
-# start adb server before using it
-adb start-server
-
 epic7 --help
-epic7 shop
+Usage:
+    epic7 <command> [options]
+
+All commands should be run when game screen is on lobby!
+
+The most commonly used commands are:
+    shop            Start secret shop auto buy
+    arena           Start arena npc auto battle
+    hunt            Start hunt auto battle
+    daily           Start daily actions
+
+Options:
+    -h --help       Show this help message and exit
+    -v --version    Show version and exit
+    -c --current    Run command on current screen
 ```
 
 ## Credits

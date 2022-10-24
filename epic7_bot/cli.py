@@ -1,8 +1,9 @@
 """
 
-usage:
-    epic7 <command>
-    epic7 [options]
+Usage:
+    epic7 <command> [options]
+
+All commands should be run when game screen is on lobby!
 
 The most commonly used commands are:
     shop            Start secret shop auto buy
@@ -10,9 +11,10 @@ The most commonly used commands are:
     hunt            Start hunt auto battle
     daily           Start daily actions
 
-options:
+Options:
     -h --help       Show this help message and exit
     -v --version    Show version and exit
+    -c --current    Run command on current screen
 """
 
 import sys
@@ -20,26 +22,27 @@ from time import sleep
 from docopt import docopt
 from sys import exit
 from epic7_bot.processes.CheckConnection import CheckConnection
-from epic7_bot.processes.StartCommand import StartCommand
+from epic7_bot.processes.CommandRunner import CommandRunner
 
 
 def main():
-    args = docopt(__doc__, version="1.0.0", options_first=True)
-    startCommand = StartCommand(args)
-    checkConnection = CheckConnection(startCommand.pid)
+    args = docopt(__doc__, version="1.0.0", options_first=False)
+
+    commandRunner = CommandRunner(args)
+    checkConnection = CheckConnection(commandRunner.pid)
 
     if args['<command>'] in [None]:
         sys.argv.append('-h')
         exit(main())
-    elif args['<command>'] not in startCommand.commands.keys():
+    elif args['<command>'] not in commandRunner.commands.keys():
         exit("%r is not a valid command." %
              args['<command>'])
     else:
 
-        startCommand.start()
+        commandRunner.start()
         sleep(3)
         checkConnection.start()
         while True:
-            if startCommand.is_alive() is False:
+            if commandRunner.is_alive() is False:
                 exit()
             sleep(1)

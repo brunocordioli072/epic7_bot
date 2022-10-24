@@ -26,7 +26,7 @@ class Sanctuary(Module):
             x1=663, y1=157, x2=748, y2=223, action="Click on Penguin Nest Reward")
 
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
-            x1=1234, y1=226, x2=1326, y2=301, action="Click on Spirit Well Reward")
+            x1=1251, y1=276, x2=1320, y2=322, action="Click on Spirit Well Reward")
 
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1=915, y1=508, x2=989, y2=573, action="Click on MolaGora Farm Reward")
