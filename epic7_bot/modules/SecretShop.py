@@ -85,5 +85,5 @@ class SecretShop(Module):
             x1=894, y1=848, x2=935, y2=879, action="Click on Screen to Ensure not on Sleep Mode")
 
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
-            x1=747, y1=172, x2=802, y2=206, action="Click on Bartender")
+            x1=683, y1=204, x2=728, y2=246, action="Click on Bartender")
         self.start_auto_buy_secret_shop()
