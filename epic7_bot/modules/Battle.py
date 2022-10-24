@@ -57,3 +57,21 @@ class Battle(Module):
             x1=1404, y1=811, x2=1469, y2=842, action="Click on start button")
 
         self.do_hunt_rotation()
+
+    def start_hunt_from_lobby(self):
+        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+            x1=894, y1=848, x2=935, y2=879, action="Click on Screen to Ensure not on Sleep Mode")
+
+        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+            x1=1164, y1=803, x2=1254, y2=870, action="Click on Battle button")
+
+        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+            x1=907, y1=648, x2=1055, y2=715, action="Click on Hunt button")
+
+        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+            x1=984, y1=259, x2=1113, y2=336, action="Click on Wyvern Hunt")
+
+        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+            x1=1404, y1=810, x2=1559, y2=848, action="Click on Select Team")
+
+        self.start_hunt()

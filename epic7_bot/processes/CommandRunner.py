@@ -1,5 +1,6 @@
 
 import multiprocessing
+import subprocess
 from epic7_bot.commands.Command import Command
 from epic7_bot.core.Logger import init_logger
 from dotenv import load_dotenv
@@ -12,7 +13,7 @@ from epic7_bot.commands.Arena import Arena
 from epic7_bot.commands.Shop import Shop
 
 
-class StartCommand(multiprocessing.Process):
+class CommandRunner(multiprocessing.Process):
     def __init__(self, args):
         multiprocessing.Process.__init__(self, daemon=True)
         self.args = args
@@ -26,6 +27,10 @@ class StartCommand(multiprocessing.Process):
     def run(self):
         load_dotenv()
         init_logger()
+        self.ensure_adb_is_running()
 
         command = self.commands[self.args['<command>']]
-        command().start()
+        command(currentScreen=self.args['--current']).start()
+
+    def ensure_adb_is_running(self):
+        subprocess.run(["adb", "start-server"])
