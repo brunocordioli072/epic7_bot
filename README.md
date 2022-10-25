@@ -43,7 +43,6 @@ The most commonly used commands are:
 Options:
     -h --help       Show this help message and exit
     -v --version    Show version and exit
-    -c --current    Run command on current screen
 ```
 
 ## Credits
