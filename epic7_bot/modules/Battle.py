@@ -53,6 +53,12 @@ class Battle(Module):
         self.do_hunt_rotation()
 
     def start_hunt(self):
+
+        if self.ScreenManager.match_template_on_screen_area(
+                x1=705, y1=675, x2=749, y2=718, template=self.HuntTemplates.pet_auto_battle_active, percentage=0.6) is None:
+            self.ScreenManager.click_middle_and_check_change_on_area_retry(
+                x1=705, y1=675, x2=749, y2=718, action="Click on Pet Auto Battle Active", percentage=20)
+
         self.ScreenManager.click_middle_and_check_change_on_area_retry(
             x1=1404, y1=811, x2=1469, y2=842, action="Click on start button")
 
