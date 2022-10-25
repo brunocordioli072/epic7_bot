@@ -1,5 +1,6 @@
 import logging
 import subprocess
+from time import sleep
 from ppadb.client import Client
 from epic7_bot.utils.Singleton import Singleton
 
@@ -15,6 +16,8 @@ class DeviceManager(metaclass=Singleton):
         if len(devices) == 0:
             logging.debug("No device found")
             self.ensure_device_is_connected()
+            sleep(2)
+            devices = client.devices()
 
         device = devices[0]
         device.shell("wm size 1600x900")
