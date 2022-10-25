@@ -2,6 +2,7 @@
 > epic7_bot
 
 epic7_bot is a [Epic 7](https://epic7.smilegatemegaport.com/) toolkit/bot used via cli to perform automated actions inside the game like:
+
 - Automatic buy of covenant and mystic charms on secret shop until out of gold or skystone.
 - Automatic battle all NPCs available on Arena.
 - Automatic battle chosen hunt until out of energy.
@@ -22,7 +23,7 @@ pip install git+https://github.com/brunocordioli072/epic7_bot
 
 ## Usage
 
-- Enable Android Debug Bridge(ADB) on your emulator of choice
+- Enable Android Debug Bridge(ADB) on your emulator of choice. **(more stable on Bluestacks)**
     - Bluestacks: Settings > Advanced > Enable Android Debug Bridge
     - Nox: Settings > Device > Enable Network Bridge Mode
 
