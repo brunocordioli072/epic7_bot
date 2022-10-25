@@ -25,11 +25,26 @@ class Sanctuary(Module):
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1=663, y1=157, x2=748, y2=223, action="Click on Penguin Nest Reward")
 
+        sleep(2)
+
+        self.ScreenManager.click_middle_and_check_change_on_screen_retry(
+            x1=722, y1=608, x2=882, y2=647, action="Click on Tap to Close")
+
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1=1251, y1=276, x2=1320, y2=322, action="Click on Spirit Well Reward")
 
+        sleep(2)
+
+        self.ScreenManager.click_middle_and_check_change_on_screen_retry(
+            x1=722, y1=608, x2=882, y2=647, action="Click on Tap to Close")
+
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1=915, y1=508, x2=989, y2=573, action="Click on MolaGora Farm Reward")
+
+        sleep(2)
+
+        self.ScreenManager.click_middle_and_check_change_on_screen_retry(
+            x1=722, y1=608, x2=882, y2=647, action="Click on Tap to Close")
 
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1=34, y1=12, x2=225, y2=67, action="Go Back to Sanctuary")
