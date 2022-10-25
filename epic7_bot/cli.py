@@ -3,7 +3,7 @@
 Usage:
     epic7 <command> [options]
 
-All commands should be run when game screen is on lobby!
+All commands should be run when the game screen is in the lobby!
 
 The most commonly used commands are:
     shop            Start secret shop auto buy

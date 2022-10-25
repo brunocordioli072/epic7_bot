@@ -16,12 +16,16 @@ pip install git+https://github.com/brunocordioli072/epic7_bot
 
 ## Usage
 
-```bash
+- Enable Android Debug Bridge(ADB) on your emulator of choice
+    - Bluestacks: Settings > Advanced > Enable Android Debug Bridge
+    - Nox: Settings > Device > Enable Network Bridge Mode
+
+```
 epic7 --help
 Usage:
     epic7 <command> [options]
 
-All commands should be run when game screen is on lobby!
+All commands should be run when the game screen is in the lobby!
 
 The most commonly used commands are:
     shop            Start secret shop auto buy
