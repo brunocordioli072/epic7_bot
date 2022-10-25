@@ -69,13 +69,13 @@ class ScreenManager(metaclass=Singleton):
             self.DeviceManager.device.shell("input tap " +
                                             str(x) + " " + str(y))
 
-    def check_if_images_changed(self, img1, img2):
+    def check_if_images_changed(self, img1, img2, percentage=70):
         if img1 is None or img2 is None:
             return False
         res = cv2.absdiff(img1, img2)
         res = res.astype(np.uint8)
-        percentage = (np.count_nonzero(res) * 100) / res.size
-        return percentage >= 90
+        result = (np.count_nonzero(res) * 100) / res.size
+        return result >= percentage
 
     def click_position(self, position_x, position_y, waitTime, message=None):
         time.sleep(waitTime)
@@ -111,17 +111,18 @@ class ScreenManager(metaclass=Singleton):
     def click_middle_get_before_and_after_images_from_area(self, x1, y1, x2, y2):
         beforeImage = self.take_screnshot_from_area(x1, x2, y1, y2)
         self.click_middle(x1, y1, x2, y2)
-        time.sleep(2)
+        time.sleep(3)
         afterImage = self.take_screnshot_from_area(x1, x2, y1, y2)
         return (beforeImage, afterImage)
 
-    def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None):
+    def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=70):
         time.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
         if action is not None:
             logging.debug(f"{action}")
-        while self.check_if_images_changed(beforeImage, afterImage) is False and count < 2:
+        while self.check_if_images_changed(beforeImage, afterImage, percentage) is False and count < 2:
+            print(self.check_if_images_changed(beforeImage, afterImage))
             beforeImage, afterImage = self.click_middle_get_before_and_after_images_from_area(
                 x1, y1, x2, y2)
             count += 1

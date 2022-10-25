@@ -21,3 +21,8 @@ class HuntTemplates(BaseTemplates):
             "image": cv2.imread(self.dirPath + '/../images/hunt/insufficient_energy.png', 0),
             "name": "insufficient_energy"
         }
+
+        self.pet_auto_battle_active: Template = {
+            "image": cv2.imread(self.dirPath + '/../images/hunt/pet_auto_battle_active.png', 0),
+            "name": "pet_auto_battle_active"
+        }
