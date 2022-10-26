@@ -1,3 +1,4 @@
+import logging
 from epic7_bot.core.DeviceManager import DeviceManager
 from epic7_bot.modules.Module import Module
 from epic7_bot.templates.SecretShopTemplates import SecretShopTemplates
@@ -64,11 +65,9 @@ class SecretShop(Module):
         self.refreshes_count += 1
 
     def show_stats(self):
-        print("="*20)
-        print("Total Covenant: " + str(self.covenant_count))
-        print("Total Mystic: " + str(self.mystic_count))
-        print("Total Refreshes: " + str(self.refreshes_count))
-        print("="*20)
+        # print(
+        #     f"\r\033[F\033[F\n Total Covenant: {str(self.covenant_count)}{' '*30} \n Total Mystic: {str(self.mystic_count)}{' '*30} \n Total Refreshes: {str(self.refreshes_count)}{' '*30}\n\n\n")
+        pass
 
     def start_auto_buy_secret_shop(self):
         try:
