@@ -39,8 +39,7 @@ class Guild(Module):
             x1=1388, y1=806, x2=1505, y2=844, action="Click on Confirm Button Again")
 
     def do_daily_contributions(self):
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
-            x1=894, y1=848, x2=935, y2=879, action="Click on Screen to Ensure not on Sleep Mode")
+        self.ScreenManager.ensure_not_on_sleep_mode_on_lobby()
 
         self.ScreenManager.click_middle_and_check_change_on_area_retry(
             x1=604, y1=812, x2=679, y2=881, action="Click on Guild Button")
