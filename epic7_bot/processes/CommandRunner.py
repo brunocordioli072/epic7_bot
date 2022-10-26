@@ -22,8 +22,11 @@ class CommandRunner(multiprocessing.Process):
         }
 
     def run(self):
-        load_dotenv()
-        init_logger()
+        try:
+            load_dotenv()
+            init_logger()
 
-        command = self.commands[self.args['<command>']]
-        command(currentScreen=self.args['--current']).start()
+            command = self.commands[self.args['<command>']]
+            command(currentScreen=self.args['--current']).start()
+        except:
+            pass

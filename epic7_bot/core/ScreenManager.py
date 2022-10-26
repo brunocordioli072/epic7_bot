@@ -43,7 +43,8 @@ class ScreenManager(metaclass=Singleton):
         match = cv2.matchTemplate(
             image, template['image'], cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(match)
-        logging.debug(f"Checked {template['name']}, percentage: {max_val}")
+        logging.debug(
+            f"match_template_on_screen {template['name']}, percentage: {max_val}")
 
         if max_val > percentage:
             return match
@@ -95,13 +96,13 @@ class ScreenManager(metaclass=Singleton):
         afterImage = self.take_screenshot()
         return (beforeImage, afterImage)
 
-    def click_middle_and_check_change_on_screen_retry(self, x1, y1, x2, y2, action=None):
+    def click_middle_and_check_change_on_screen_retry(self, x1, y1, x2, y2, action=None, percentage=70):
         time.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
         if action is not None:
-            logging.debug(f"{action}")
-        while self.check_if_images_changed(beforeImage, afterImage) is False and count < 2:
+            logging.info(f"{action}")
+        while self.check_if_images_changed(beforeImage, afterImage, percentage=percentage, action=action) is False and count < 2:
             beforeImage, afterImage = self.click_middle_get_before_and_after_images_from_screen(
                 x1, y1, x2, y2)
             count += 1
@@ -117,12 +118,12 @@ class ScreenManager(metaclass=Singleton):
         afterImage = self.take_screnshot_from_area(x1, x2, y1, y2)
         return (beforeImage, afterImage)
 
-    def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=20):
+    def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=70):
         time.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
         if action is not None:
-            logging.debug(f"{action}")
+            logging.info(f"{action}")
         while self.check_if_images_changed(beforeImage, afterImage, percentage, action) is False and count < 2:
             beforeImage, afterImage = self.click_middle_get_before_and_after_images_from_area(
                 x1, y1, x2, y2)
@@ -130,7 +131,7 @@ class ScreenManager(metaclass=Singleton):
         return count < 2
 
     def ensure_not_on_sleep_mode_on_lobby(self):
-        logging.debug(
+        logging.info(
             "Double Click on Screen to Ensure not on Sleep Mode on Lobby")
         self.click_middle(
             x1=894, y1=848, x2=935, y2=879)

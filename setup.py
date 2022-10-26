@@ -20,7 +20,8 @@ setup(
                       "pure_python_adb ==0.3.0.dev0",
                       "docopt",
                       "python-dotenv",
-                      "psutil"],
+                      "psutil",
+                      "pyspin"],
     entry_points={
         "console_scripts": [
             "epic7=epic7_bot.cli:main",
