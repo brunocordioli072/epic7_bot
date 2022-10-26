@@ -17,29 +17,29 @@ Options:
     -c --current    Run command on current screen
 """
 
-import logging
 import sys
 from time import sleep
 from docopt import docopt
 from sys import exit
+from epic7_bot.core.Logger import init_logger
 from epic7_bot.processes.CheckConnection import CheckConnection
 from epic7_bot.processes.CommandRunner import CommandRunner
 
 
 def main():
-    args = docopt(__doc__, version="1.0.0", options_first=False)
+    try:
+        args = docopt(__doc__, version="1.0.0", options_first=False)
 
-    commandRunner = CommandRunner(args)
-    checkConnection = CheckConnection(commandRunner.pid)
+        commandRunner = CommandRunner(args)
+        checkConnection = CheckConnection(commandRunner.pid)
 
-    if args['<command>'] in [None]:
-        sys.argv.append('-h')
-        exit(main())
-    elif args['<command>'] not in commandRunner.commands.keys():
-        exit("%r is not a valid command." %
-             args['<command>'])
-    else:
-        try:
+        if args['<command>'] in [None]:
+            sys.argv.append('-h')
+            exit(main())
+        elif args['<command>'] not in commandRunner.commands.keys():
+            exit("%r is not a valid command." %
+                 args['<command>'])
+        else:
             commandRunner.start()
             sleep(3)
             checkConnection.start()
@@ -47,6 +47,13 @@ def main():
                 if commandRunner.is_alive() is False:
                     exit()
                 sleep(1)
-        except KeyboardInterrupt:
-            print("\n\nCtrol-C pressed, bot closing")
-            exit(1)
+    except KeyboardInterrupt:
+        print("\n\nCtrol-C pressed, bot closing")
+
+        if commandRunner.is_alive():
+            commandRunner.terminate()
+        if checkConnection.is_alive():
+            checkConnection.terminate()
+        sleep(1)
+
+        exit(1)

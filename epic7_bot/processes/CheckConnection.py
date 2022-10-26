@@ -23,29 +23,32 @@ class CheckConnection(multiprocessing.Process):
             x1=694, x2=908, y1=421, y2=451, template=self.CommonTemplates.connecting_problem, percentage=0.7)
 
     def run(self):
-        main_process = psutil.Process(self.main_process_pid)
-        seconds = 21600  # 6 hours
+        try:
+            main_process = psutil.Process(self.main_process_pid)
+            seconds = 21600  # 6 hours
 
-        # problems with - RecursionError: maximum recursion depth exceeded in comparison
-        while seconds != 0:
-            seconds -= 1
-            time.sleep(1)
-            there_was_a_connection_error = self.match_there_was_a_connection_error_template()
-            connecting_problem = self.match_connecting_problem_template()
-            if connecting_problem is not None or there_was_a_connection_error is not None:
-                logging.error(f"Found Connection Problem")
-                main_process.suspend()
-                while True:
-                    time.sleep(1)
-                    if there_was_a_connection_error is not None:
-                        there_was_a_connection_error = self.match_there_was_a_connection_error_template()
-                        self.ScreenManager.click_middle_and_check_change_on_area_retry(
-                            x1=475, y1=372, x2=1122, y2=406, action="Click on there_was_a_connection_error")
-                        if there_was_a_connection_error is None:
-                            main_process.resume()
-                            break
-                    if connecting_problem is not None:
-                        connecting_problem = self.match_connecting_problem_template()
-                        if connecting_problem is None:
-                            main_process.resume()
-                            break
+            # problems with - RecursionError: maximum recursion depth exceeded in comparison
+            while seconds != 0:
+                seconds -= 1
+                time.sleep(1)
+                there_was_a_connection_error = self.match_there_was_a_connection_error_template()
+                connecting_problem = self.match_connecting_problem_template()
+                if connecting_problem is not None or there_was_a_connection_error is not None:
+                    logging.error(f"Found Connection Problem")
+                    main_process.suspend()
+                    while True:
+                        time.sleep(1)
+                        if there_was_a_connection_error is not None:
+                            there_was_a_connection_error = self.match_there_was_a_connection_error_template()
+                            self.ScreenManager.click_middle_and_check_change_on_area_retry(
+                                x1=475, y1=372, x2=1122, y2=406, action="Click on there_was_a_connection_error")
+                            if there_was_a_connection_error is None:
+                                main_process.resume()
+                                break
+                        if connecting_problem is not None:
+                            connecting_problem = self.match_connecting_problem_template()
+                            if connecting_problem is None:
+                                main_process.resume()
+                                break
+        except:
+            pass
