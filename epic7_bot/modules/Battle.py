@@ -24,20 +24,17 @@ class Battle(Module):
         return True
 
     def do_hunt_rotation(self):
-        try_again_button, confirm_button = None, None
-
         if self.has_energy() == False:
             return
 
         logging.info(
-            f"Wait for try again button or confirm button to appear")
-        while try_again_button is None and confirm_button is None:
-            try_again_button, confirm_button = self.check_try_again_and_confirm_buttons()
+            f"Wait for repeat battling has ended to appear")
+        while self.ScreenManager.match_template_on_screen_area(
+                x1=605, y1=94, x2=883, y2=119, template=self.HuntTemplates.repeat_battling_has_ended) is None:
             time.sleep(1)
 
-        time.sleep(6)
-
-        if confirm_button is not None:
+        if self.ScreenManager.match_template_on_screen_area(
+                x1=1395, y1=808, x2=1492, y2=839, template=self.HuntTemplates.confirm, percentage=0.6) is not None:
             self.ScreenManager.click_middle_and_check_change_on_area_retry(
                 x1=1395, y1=808, x2=1492, y2=839, action="Click on confirm button")
 
