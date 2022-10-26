@@ -91,7 +91,7 @@ class ScreenManager(metaclass=Singleton):
     def click_middle_get_before_and_after_images_from_screen(self, x1, y1, x2, y2):
         beforeImage = self.take_screenshot()
         self.click_middle(x1, y1, x2, y2)
-        time.sleep(2)
+        time.sleep(3)
         afterImage = self.take_screenshot()
         return (beforeImage, afterImage)
 
