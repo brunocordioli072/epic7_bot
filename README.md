@@ -8,7 +8,7 @@ epic7_bot is a [Epic 7](https://epic7.smilegatemegaport.com/) toolkit/bot used v
 - Automatic battle chosen hunt until out of energy.
 - Automatic perform all daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc.
 
-The bot uses Android Debug Bridge to perform actions inside the game and openCV to enable image recognition. All actions are performed in the background directly inside the emulator of your choice. So the user can still use the computer while the bot is running. 
+The bot uses [Android Debug Bridge](https://developer.android.com/studio/command-line/adb) to perform actions inside the game and [openCV](https://opencv.org/) to enable image recognition. All actions are performed in the background directly inside the emulator of your choice. So the user can still use the computer while the bot is running. 
 
 ## Requirements:
 - [Android Debug Bridge (adb)](https://developer.android.com/studio/command-line/adb)
