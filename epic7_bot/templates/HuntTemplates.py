@@ -26,3 +26,8 @@ class HuntTemplates(BaseTemplates):
             "image": cv2.imread(self.dirPath + '/../images/hunt/pet_auto_battle_active.png', 0),
             "name": "pet_auto_battle_active"
         }
+
+        self.repeat_battling_has_ended: Template = {
+            "image": cv2.imread(self.dirPath + '/../images/hunt/repeat_battling_has_ended.png', 0),
+            "name": "repeat_battling_has_ended"
+        }
