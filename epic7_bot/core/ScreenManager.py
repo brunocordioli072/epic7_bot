@@ -43,7 +43,7 @@ class ScreenManager(metaclass=Singleton):
         match = cv2.matchTemplate(
             image, template['image'], cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(match)
-        logging.debug(f"Checked {template['name']}, percentage: {max_val}")
+        # logging.debug(f"Checked {template['name']}, percentage: {max_val}")
 
         if max_val > percentage:
             return match
@@ -75,8 +75,8 @@ class ScreenManager(metaclass=Singleton):
         res = cv2.absdiff(img1, img2)
         res = res.astype(np.uint8)
         result = (np.count_nonzero(res) * 100) / res.size
-        if action is not None:
-            logging.debug(f"{action}, check_if_images_changed: {result}")
+        # if action is not None:
+        #     logging.debug(f"{action}, check_if_images_changed: {result}")
         return result >= percentage
 
     def click_position(self, position_x, position_y, waitTime, message=None):
@@ -117,7 +117,7 @@ class ScreenManager(metaclass=Singleton):
         afterImage = self.take_screnshot_from_area(x1, x2, y1, y2)
         return (beforeImage, afterImage)
 
-    def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=20):
+    def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=70):
         time.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
