@@ -17,6 +17,7 @@ Options:
     -c --current    Run command on current screen
 """
 
+import logging
 import sys
 from time import sleep
 from docopt import docopt
@@ -38,11 +39,14 @@ def main():
         exit("%r is not a valid command." %
              args['<command>'])
     else:
-
-        commandRunner.start()
-        sleep(3)
-        checkConnection.start()
-        while True:
-            if commandRunner.is_alive() is False:
-                exit()
-            sleep(1)
+        try:
+            commandRunner.start()
+            sleep(3)
+            checkConnection.start()
+            while True:
+                if commandRunner.is_alive() is False:
+                    exit()
+                sleep(1)
+        except KeyboardInterrupt:
+            print("\n\nCtrol-C pressed, bot closing")
+            exit(1)

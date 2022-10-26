@@ -16,12 +16,14 @@ class SecretShop(Module):
         self.bought = False
 
     def check_bookmarks(self):
+        logging.info("Check Mystic and Covenant Bookmarks")
         mystic_pos = self.ScreenManager.match_template_on_screen(
             self.SecretShopTemplates.mystic)
         coven_pos = self.ScreenManager.match_template_on_screen(
             self.SecretShopTemplates.covenant)
 
         if mystic_pos is not None:
+            logging.info("Found Mystic Bookmark")
             x, y = self.ScreenManager.get_position_of_template_match(
                 mystic_pos)
 
@@ -34,6 +36,7 @@ class SecretShop(Module):
             self.mystic_count += 1
 
         if coven_pos is not None:
+            logging.info("Found Covenant Bookmark")
             x, y = self.ScreenManager.get_position_of_template_match(coven_pos)
 
             self.ScreenManager.click_position(x + 650, y + 50, 1)
@@ -70,14 +73,10 @@ class SecretShop(Module):
         pass
 
     def start_auto_buy_secret_shop(self):
-        try:
-            while True:
-                self.check_store()
-                self.refresh()
-                self.show_stats()
-        except KeyboardInterrupt:
-            print("ctrol-c pressed")
-            exit(1)
+        while True:
+            self.check_store()
+            self.refresh()
+            self.show_stats()
 
     def start_auto_buy_secret_shop_from_lobby(self):
         self.ScreenManager.ensure_not_on_sleep_mode_on_lobby()
