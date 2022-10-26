@@ -9,7 +9,7 @@ class Sanctuary(Module):
     def do_sanctuary_routine(self):
         self.ScreenManager.ensure_not_on_sleep_mode_on_lobby()
 
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+        self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1=259, y1=240, x2=359, y2=301, action="Click on Sanctuary Button")
 
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
