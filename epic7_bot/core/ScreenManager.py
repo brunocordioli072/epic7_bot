@@ -115,7 +115,7 @@ class ScreenManager(metaclass=Singleton):
         afterImage = self.take_screnshot_from_area(x1, x2, y1, y2)
         return (beforeImage, afterImage)
 
-    def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=70):
+    def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=20):
         time.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
