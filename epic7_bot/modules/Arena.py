@@ -39,7 +39,7 @@ class Arena(Module):
             x1=1378, x2=1546, y1=802, y2=853, action="Click on confirm")
 
     def do_battle_rotation(self, x1, y1, x2, y2, action):
-        clicked = self.ScreenManager.click_middle_and_check_change_on_area_retry(
+        clicked = self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1, y1, x2, y2, action)
         if clicked:
             self.battle_rotation()
@@ -84,8 +84,7 @@ class Arena(Module):
                                            action="Click on tenth opponent")
 
     def start_arena_npc_auto_battle_from_lobby(self):
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
-            x1=894, y1=848, x2=935, y2=879, action="Click on Screen to Ensure not on Sleep Mode")
+        self.ScreenManager.ensure_not_on_sleep_mode_on_lobby()
 
         self.ScreenManager.click_middle_and_check_change_on_area_retry(
             x1=1022, x2=1129, y1=749, y2=882, action="Click on arena icon on lobby")
