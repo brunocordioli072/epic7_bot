@@ -54,6 +54,5 @@ def main():
             commandRunner.terminate()
         if checkConnection.is_alive():
             checkConnection.terminate()
-        sleep(1)
 
         exit(1)
