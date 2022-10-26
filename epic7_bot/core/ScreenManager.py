@@ -122,7 +122,6 @@ class ScreenManager(metaclass=Singleton):
         if action is not None:
             logging.debug(f"{action}")
         while self.check_if_images_changed(beforeImage, afterImage, percentage) is False and count < 2:
-            print(self.check_if_images_changed(beforeImage, afterImage))
             beforeImage, afterImage = self.click_middle_get_before_and_after_images_from_area(
                 x1, y1, x2, y2)
             count += 1
