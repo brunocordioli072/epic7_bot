@@ -40,7 +40,7 @@ class Arena(Module):
 
     def do_battle_rotation(self, x1, y1, x2, y2, action):
         clicked = self.ScreenManager.click_middle_and_check_change_on_screen_retry(
-            x1, y1, x2, y2, action)
+            x1, y1, x2, y2, action, percentage=50)
         if clicked:
             self.battle_rotation()
 
