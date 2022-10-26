@@ -1,5 +1,6 @@
 import logging
 import multiprocessing
+import sys
 import time
 from epic7_bot.core.ScreenManager import ScreenManager
 from epic7_bot.templates.CommonTemplates import CommonTemplates
@@ -23,8 +24,11 @@ class CheckConnection(multiprocessing.Process):
 
     def run(self):
         main_process = psutil.Process(self.main_process_pid)
+        seconds = 21600  # 6 hours
 
-        def check():
+        # problems with - RecursionError: maximum recursion depth exceeded in comparison
+        while seconds != 0:
+            seconds -= 1
             time.sleep(1)
             there_was_a_connection_error = self.match_there_was_a_connection_error_template()
             connecting_problem = self.match_connecting_problem_template()
@@ -45,6 +49,3 @@ class CheckConnection(multiprocessing.Process):
                         if connecting_problem is None:
                             main_process.resume()
                             break
-            else:
-                check()
-        check()
