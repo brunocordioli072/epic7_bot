@@ -69,12 +69,14 @@ class ScreenManager(metaclass=Singleton):
             self.DeviceManager.device.shell("input tap " +
                                             str(x) + " " + str(y))
 
-    def check_if_images_changed(self, img1, img2, percentage=70):
+    def check_if_images_changed(self, img1, img2, percentage=70, action=None):
         if img1 is None or img2 is None:
             return False
         res = cv2.absdiff(img1, img2)
         res = res.astype(np.uint8)
         result = (np.count_nonzero(res) * 100) / res.size
+        if action is not None:
+            logging.debug(f"{action}, check_if_images_changed: {result}")
         return result >= percentage
 
     def click_position(self, position_x, position_y, waitTime, message=None):
@@ -89,7 +91,7 @@ class ScreenManager(metaclass=Singleton):
     def click_middle_get_before_and_after_images_from_screen(self, x1, y1, x2, y2):
         beforeImage = self.take_screenshot()
         self.click_middle(x1, y1, x2, y2)
-        time.sleep(2)
+        time.sleep(3)
         afterImage = self.take_screenshot()
         return (beforeImage, afterImage)
 
@@ -115,15 +117,23 @@ class ScreenManager(metaclass=Singleton):
         afterImage = self.take_screnshot_from_area(x1, x2, y1, y2)
         return (beforeImage, afterImage)
 
-    def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=70):
+    def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=20):
         time.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
         if action is not None:
             logging.debug(f"{action}")
-        while self.check_if_images_changed(beforeImage, afterImage, percentage) is False and count < 2:
-            print(self.check_if_images_changed(beforeImage, afterImage))
+        while self.check_if_images_changed(beforeImage, afterImage, percentage, action) is False and count < 2:
             beforeImage, afterImage = self.click_middle_get_before_and_after_images_from_area(
                 x1, y1, x2, y2)
             count += 1
         return count < 2
+
+    def ensure_not_on_sleep_mode_on_lobby(self):
+        logging.debug(
+            "Double Click on Screen to Ensure not on Sleep Mode on Lobby")
+        self.click_middle(
+            x1=894, y1=848, x2=935, y2=879)
+        time.sleep(1)
+        self.click_middle(
+            x1=894, y1=848, x2=935, y2=879)

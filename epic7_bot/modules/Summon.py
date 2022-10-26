@@ -7,9 +7,7 @@ class Summon(Module):
         super(self.__class__, self).__init__()
 
     def get_free_summon(self):
-
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
-            x1=894, y1=848, x2=935, y2=879, action="Click on Screen to Ensure not on Sleep Mode")
+        self.ScreenManager.ensure_not_on_sleep_mode_on_lobby()
 
         self.ScreenManager.click_middle_and_check_change_on_area_retry(
             x1=245, y1=801, x2=349, y2=878, action="Click on Summon Lobby Button")

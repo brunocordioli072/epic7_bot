@@ -81,8 +81,7 @@ class SecretShop(Module):
             exit(1)
 
     def start_auto_buy_secret_shop_from_lobby(self):
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
-            x1=894, y1=848, x2=935, y2=879, action="Click on Screen to Ensure not on Sleep Mode")
+        self.ScreenManager.ensure_not_on_sleep_mode_on_lobby()
 
         self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1=683, y1=204, x2=728, y2=246, action="Click on Bartender")
