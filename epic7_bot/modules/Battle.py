@@ -19,7 +19,7 @@ class Battle(Module):
     def has_energy(self):
         if self.ScreenManager.match_template_on_screen_area(
                 x1=629, y1=175, x2=960, y2=224, template=self.HuntTemplates.insufficient_energy, percentage=0.6) is not None:
-            logging.debug(f"Insufficient Energy, finishing hunting")
+            logging.info(f"Insufficient Energy, finishing hunting")
             return False
         return True
 
@@ -29,7 +29,7 @@ class Battle(Module):
         if self.has_energy() == False:
             return
 
-        logging.debug(
+        logging.info(
             f"Wait for try again button or confirm button to appear")
         while try_again_button is None and confirm_button is None:
             try_again_button, confirm_button = self.check_try_again_and_confirm_buttons()

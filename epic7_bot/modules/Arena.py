@@ -12,7 +12,7 @@ class Arena(Module):
         self.CommonTemplates = CommonTemplates()
 
     def battle_rotation(self):
-        logging.debug(f"Started battle rotation")
+        logging.info(f"Started battle rotation")
 
         self.ScreenManager.click_middle_and_check_change_on_area_retry(
             x1=1065, x2=1216, y1=799, y2=852, action="Click on start battle")
@@ -25,7 +25,7 @@ class Arena(Module):
         self.ScreenManager.click_middle_and_check_change_on_area_retry(
             x1=1379, x2=1439, y1=14, y2=68, action="Click on auto battle")
 
-        logging.debug(f"Wait for skip button to appear")
+        logging.info(f"Wait for skip button to appear")
         while self.ScreenManager.match_template_on_screen_area(x1=1471, x2=1581, y1=19, y2=76,
                                                                template=self.CommonTemplates.skip_button, percentage=0.55) is None:
             time.sleep(1)
