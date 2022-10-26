@@ -23,7 +23,7 @@ class SpinnerHandler(logging.Handler):
                  stream=None,
                  spin_style=Default,
                  spin_interval=0.1,
-                 format=u' {message} {spinner}',
+                 format=u'{message} {spinner}',
                  level=logging.NOTSET):
         super(SpinnerHandler, self).__init__(level)
         self._stream = stream
@@ -69,7 +69,7 @@ class SpinnerHandler(logging.Handler):
                 f"{datetime.datetime.now()} :: {self._current_record.getMessage()} \n")
             stream.flush()
         else:
-            format_line = u'\r\033[F{0:{1}}\n \x1B[3mUse Ctrol-C to stop program.\x1B[0m'.format
+            format_line = u'\r\033[F{0:{1}}\n\x1B[3mUse Ctrol-C to stop program.\x1B[0m'.format
             previous_line_length = 0
             while True:
                 record = self._current_record
