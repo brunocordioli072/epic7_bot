@@ -68,8 +68,14 @@ class SecretShop(Module):
         self.refreshes_count += 1
 
     def show_stats(self):
-        # print(
-        #     f"\r\033[F\033[F\n Total Covenant: {str(self.covenant_count)}{' '*30} \n Total Mystic: {str(self.mystic_count)}{' '*30} \n Total Refreshes: {str(self.refreshes_count)}{' '*30}\n\n\n")
+        comment = f"\nTotal Covenant: {str(self.covenant_count)}{' '*30}" + \
+            f"\nTotal Mystic: {str(self.mystic_count)}{' '*30}" + \
+            f"\nTotal Refreshes: {str(self.refreshes_count)}{' '*30}\n\n\n"
+        previus_line = "\033[F"
+        if self.refreshes_count == 1:
+            print(f"\r{previus_line*2}{comment}")
+        else:
+            print(f"\r{previus_line*7}{comment}")
         pass
 
     def start_auto_buy_secret_shop(self):

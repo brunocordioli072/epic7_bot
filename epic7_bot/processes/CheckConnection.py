@@ -2,6 +2,7 @@ import logging
 import multiprocessing
 import sys
 import time
+from epic7_bot.core.Logger import get_log_level
 from epic7_bot.core.ScreenManager import ScreenManager
 from epic7_bot.templates.CommonTemplates import CommonTemplates
 import psutil
@@ -50,5 +51,8 @@ class CheckConnection(multiprocessing.Process):
                             if connecting_problem is None:
                                 main_process.resume()
                                 break
-        except:
-            pass
+        except BaseException as e:
+            if get_log_level() == "DEBUG":
+                raise e
+            else:
+                pass

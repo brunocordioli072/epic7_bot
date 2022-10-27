@@ -44,7 +44,7 @@ class ScreenManager(metaclass=Singleton):
             image, template['image'], cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(match)
         logging.debug(
-            f"match_template_on_screen {template['name']}, percentage: {max_val}")
+            f"match_template_on_screen {template['name']}, percentage: {max_val}, {max_val > percentage}")
 
         if max_val > percentage:
             return match
@@ -56,6 +56,8 @@ class ScreenManager(metaclass=Singleton):
         result = cv2.matchTemplate(
             image, template['image'], cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+        logging.debug(
+            f"match_template_on_screen_area {template['name']}, percentage: {max_val}, {max_val > percentage}")
         if max_val > percentage:
             return max_val
         else:
@@ -97,11 +99,12 @@ class ScreenManager(metaclass=Singleton):
         return (beforeImage, afterImage)
 
     def click_middle_and_check_change_on_screen_retry(self, x1, y1, x2, y2, action=None, percentage=70):
+        if action is not None:
+            logging.info(f"{action}")
+
         time.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
-        if action is not None:
-            logging.info(f"{action}")
         while self.check_if_images_changed(beforeImage, afterImage, percentage=percentage, action=action) is False and count < 2:
             beforeImage, afterImage = self.click_middle_get_before_and_after_images_from_screen(
                 x1, y1, x2, y2)
@@ -119,11 +122,12 @@ class ScreenManager(metaclass=Singleton):
         return (beforeImage, afterImage)
 
     def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=70):
+        if action is not None:
+            logging.info(f"{action}")
+
         time.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
-        if action is not None:
-            logging.info(f"{action}")
         while self.check_if_images_changed(beforeImage, afterImage, percentage, action) is False and count < 2:
             beforeImage, afterImage = self.click_middle_get_before_and_after_images_from_area(
                 x1, y1, x2, y2)

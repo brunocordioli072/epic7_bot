@@ -1,7 +1,7 @@
 
 import multiprocessing
 from epic7_bot.commands.Command import Command
-from epic7_bot.core.Logger import init_logger
+from epic7_bot.core.Logger import get_log_level, init_logger
 from dotenv import load_dotenv
 from epic7_bot.modules.Arena import Arena
 from epic7_bot.commands.Daily import Daily
@@ -28,5 +28,8 @@ class CommandRunner(multiprocessing.Process):
 
             command = self.commands[self.args['<command>']]
             command(currentScreen=self.args['--current']).start()
-        except:
-            pass
+        except BaseException as e:
+            if get_log_level() == "DEBUG":
+                raise e
+            else:
+                pass
