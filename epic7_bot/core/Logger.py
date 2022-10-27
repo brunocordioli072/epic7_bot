@@ -9,11 +9,14 @@ import datetime
 from pyspin.spin import Default, Spinner
 
 
-def init_logger():
+def get_log_level():
     LOG_LEVEL = os.getenv("LOG_LEVEL") if os.getenv(
         "LOG_LEVEL") is not None else "INFO"
-    level = logging.getLevelName(
-        LOG_LEVEL)
+    return LOG_LEVEL
+
+
+def init_logger():
+    level = logging.getLevelName(get_log_level())
     logging.basicConfig(level=level, handlers=[SpinnerHandler(level=level)])
 
 
