@@ -45,15 +45,18 @@ def main():
             checkConnection.start()
             while True:
                 if commandRunner.is_alive() is False:
+                    print("\n\nJob Finished, bot closing")
+
                     exit()
                 sleep(1)
     except KeyboardInterrupt:
         print("\n\nCtrol-C pressed, bot closing")
 
-        if commandRunner.is_alive():
-            commandRunner.terminate()
-        if checkConnection.is_alive():
-            checkConnection.terminate()
-        sleep(1)
-
-        exit(1)
+        while True:
+            if commandRunner.is_alive():
+                commandRunner.terminate()
+            if checkConnection.is_alive():
+                checkConnection.terminate()
+            if commandRunner.is_alive() is not True and commandRunner.is_alive() is not True:
+                exit()
+            sleep(0.5)
