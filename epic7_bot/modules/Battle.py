@@ -8,6 +8,8 @@ class Battle(Module):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.HuntTemplates = HuntTemplates()
+        self.total_single_rotations = 0
+        self.total_full_rotations = 0
 
     def check_try_again_and_confirm_buttons(self):
         try_again_button = self.ScreenManager.match_template_on_screen_area(
@@ -24,6 +26,7 @@ class Battle(Module):
         return True
 
     def do_hunt_rotation(self):
+        self.show_stats()
         if self.has_energy() == False:
             return
 
@@ -31,7 +34,14 @@ class Battle(Module):
             f"Wait for repeat battling has ended to appear")
         while self.ScreenManager.match_template_on_screen_area(
                 x1=605, y1=94, x2=883, y2=119, template=self.HuntTemplates.repeat_battling_has_ended) is None:
+            try_again_button, confirm_button = self.check_try_again_and_confirm_buttons(
+                self)
+            if try_again_button is not None or confirm_button is not None:
+                self.total_single_rotations += 1
+                self.show_stats()
             time.sleep(1)
+
+        self.total_full_rotations += 1
 
         if self.ScreenManager.match_template_on_screen_area(
                 x1=1395, y1=808, x2=1492, y2=839, template=self.HuntTemplates.confirm, percentage=0.6) is not None:
@@ -49,13 +59,21 @@ class Battle(Module):
 
         self.do_hunt_rotation()
 
-    def start_hunt(self):
+    def show_stats(self):
+        comment = f"\nTotal Single Rotations: {str(self.total_single_rotations)}{' '*30}" + \
+            f"\nTotal Full Rotations: {str(self.total_full_rotations)}{' '*30} \n\n"
+        previus_line = "\033[F"
+        if self.total_single_rotations == 0:
+            print(f"\r{previus_line*2}{comment}")
+        else:
+            print(f"\r{previus_line*5}{comment}")
 
+    def start_hunt(self):
         if self.ScreenManager.match_template_on_screen(template=self.HuntTemplates.pet_auto_battle_active, percentage=0.9) is None:
             self.ScreenManager.click_middle_and_check_change_on_area_retry(
                 x1=705, y1=675, x2=749, y2=718, action="Click on Pet Auto Battle Active", percentage=20)
 
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+        self.ScreenManager.click_middle_and_check_change_on_screen_retry(
             x1=1404, y1=811, x2=1469, y2=842, action="Click on start button")
 
         self.do_hunt_rotation()
