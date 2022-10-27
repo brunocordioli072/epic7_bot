@@ -51,7 +51,7 @@ class CheckConnection(multiprocessing.Process):
                             if connecting_problem is None:
                                 main_process.resume()
                                 break
-        except Exception as e:
+        except BaseException as e:
             if get_log_level() == "DEBUG":
                 raise e
             else:

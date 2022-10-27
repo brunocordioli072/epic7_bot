@@ -28,7 +28,7 @@ class CommandRunner(multiprocessing.Process):
 
             command = self.commands[self.args['<command>']]
             command(currentScreen=self.args['--current']).start()
-        except Exception as e:
+        except BaseException as e:
             if get_log_level() == "DEBUG":
                 raise e
             else:
