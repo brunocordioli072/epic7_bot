@@ -1,5 +1,6 @@
 import logging
 from epic7_bot.core.DeviceManager import DeviceManager
+from epic7_bot.core.MathUtils import MathUtils
 from epic7_bot.modules.Module import Module
 from epic7_bot.templates.SecretShopTemplates import SecretShopTemplates
 
@@ -9,6 +10,7 @@ class SecretShop(Module):
         super(self.__class__, self).__init__()
         self.DeviceManager = DeviceManager()
         self.SecretShopTemplates = SecretShopTemplates()
+        self.MathUtils = MathUtils()
 
         self.mystic_count = 0
         self.refreshes_count = 0
@@ -48,8 +50,11 @@ class SecretShop(Module):
             self.covenant_count += 1
 
     def scroll(self):
+        x1, y1 = self.MathUtils.randomPoint(1200, 700)
+        x2, y2 = self.MathUtils.randomPoint(1200, 300)
+
         self.DeviceManager.device.shell(
-            "input touchscreen swipe 1200 700 1200 300 300")
+            f"input touchscreen swipe {x1} {y1} {x2} {y2} 300")
 
     def check_store(self):
         self.check_bookmarks()
