@@ -3,17 +3,18 @@
 
 epic7_bot is a [Epic 7](https://epic7.smilegatemegaport.com/) toolkit/bot used via cli to perform automated actions inside the game like:
 
-- Automatic buy of covenant and mystic bookmarks on secret shop until out of gold or skystone.
-- Automatic battle all NPCs available on Arena.
-- Automatic battle chosen hunt until out of energy.
-- Automatic perform all daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc.
+- Secret shop refreshing;
+- Hunt battling;
+- Arena NPC battling;
+- All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc.
 
-The bot uses [Android Debug Bridge](https://developer.android.com/studio/command-line/adb) to perform actions inside the game and [openCV](https://opencv.org/) to enable image recognition. All actions are performed in the background directly inside the emulator of your choice. So the user can still use the computer while the bot is running. 
+The bot uses [Android Debug Bridge](https://developer.android.com/studio/command-line/adb) to perform actions inside the game and [openCV](https://opencv.org/) to enable image recognition. All actions are performed in the background directly inside the emulator of your choice. So the user can still use the computer while the bot is running. All actions are several sorted clicks sent by the [Android Debug Bridge](https://developer.android.com/studio/command-line/adb) as a input to the screen, which are randomized so that the bot can't click in the same place twice, avoiding any cheat detection Super Creative might have.
 
 ## Requirements:
-- [Android Debug Bridge (adb)](https://developer.android.com/studio/command-line/adb)
-    - Can be installed via [Chocolatey](https://chocolatey.org/) ($choco install adb)
+- [Chocolatey](https://chocolatey.org/)
+- [Android Debug Bridge (adb)](https://community.chocolatey.org/packages/adb)
 - [Python 3.4+](https://www.python.org/downloads/release/python-392/)
+- [Git](https://community.chocolatey.org/packages/git)
 
 ## Instalation
 
