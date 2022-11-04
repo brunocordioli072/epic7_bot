@@ -37,7 +37,7 @@ Take a moment to review all the commands available.
 
 See the [User Guide] for more complete documentation of all of Epic7 Bot' features.
 
-To get help with MkDocs, please use the [GitHub discussions] or [GitHub issues].
+To get help with Epic7 Bot, please use the [GitHub discussions] or [GitHub issues].
 
 [Installation Guide]: user-guide/installation.md
 [GitHub discussions]: https://github.com/brunocordioli072/epic7_bot/discussions
