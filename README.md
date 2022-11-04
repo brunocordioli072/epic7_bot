@@ -10,6 +10,8 @@ epic7_bot is a [Epic 7](https://epic7.smilegatemegaport.com/) toolkit/bot used v
 
 The bot uses [Android Debug Bridge](https://developer.android.com/studio/command-line/adb) to perform actions inside the game and [openCV](https://opencv.org/) to enable image recognition. All actions are performed in the background directly inside the emulator of your choice. So the user can still use the computer while the bot is running. All actions are several sorted clicks sent by the [Android Debug Bridge](https://developer.android.com/studio/command-line/adb) as a input to the screen, which are randomized so that the bot can't click in the same place twice, avoiding any cheat detection Super Creative might have.
 
+Check the [Docs](https://brunocordioli072.github.io/epic7_bot/) for more info! 
+
 ## Requirements:
 - [Chocolatey](https://chocolatey.org/)
 - [Android Debug Bridge (adb)](https://community.chocolatey.org/packages/adb)
