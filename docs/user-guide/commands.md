@@ -12,7 +12,7 @@ $ epic7 --help
 
 ![Epic7 Bot help command](../img/epic7-help-terminal.png)
 
-# Shop Command
+## Shop
 The shop command does the automatic Secret Shop Refresh. 
 
 To use it run the following command:
@@ -24,7 +24,7 @@ $ epic7 shop
 Example of shop command running:
 ![Shop Command](../gif/shop.gif)
 
-# Arena Command
+## Arena
 The arena command does the automatic battle of NPCs on arena. 
 
 To use it run the following command:
@@ -36,7 +36,7 @@ $ epic7 arena
 Example of arena command running:
 ![Shop Command](../gif/arena.gif)
 
-# Hunt Command
+## Hunt
 The hunt command does the automatic battle of wyvern hunt, restart battle after each finished autobattle until out of energy. 
 
 To use it run the following command:
@@ -48,7 +48,7 @@ $ epic7 hunt
 Example of hunt command running:
 ![Shop Command](../gif/hunt.gif)
 
-# Daily Command
+## Daily
 The daily command does all daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc.
 
 To use it run the following command:
