@@ -6,7 +6,7 @@ repo_url: https://github.com/brunocordioli072/epic7_bot
 edit_uri: blob/master/docs/
 
 theme:
-    name: mkdocs
+    name: readthedocs
     locale: en
 
 nav:
