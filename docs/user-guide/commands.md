@@ -12,7 +12,7 @@ $ epic7 --help
 
 ![Epic7 Bot help command](../img/epic7-help-terminal.png)
 
-## Shop
+## Shop 
 The shop command does the automatic Secret Shop Refresh. 
 
 To use it run the following command:
