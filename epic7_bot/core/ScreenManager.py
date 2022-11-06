@@ -43,7 +43,7 @@ class ScreenManager(metaclass=Singleton):
         match = cv2.matchTemplate(
             image, template['image'], cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(match)
-        logging.debug(
+        print(
             f"match_template_on_screen {template['name']}, percentage: {max_val}, {max_val > percentage}")
 
         if max_val > percentage:
