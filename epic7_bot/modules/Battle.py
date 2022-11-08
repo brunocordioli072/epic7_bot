@@ -24,11 +24,14 @@ class Battle(Module):
             return
 
         logging.info(
-            f"Wait for repeat battling has ended to appear")
-        while self.ScreenManager.match_template_on_screen(template=self.HuntTemplates.repeat_battling_has_ended, percentage=0.9) is None:
+            f"Wait for stage clear to appear")
+        while self.ScreenManager.match_template_on_screen(template=self.HuntTemplates.stage_clear, percentage=0.6) is None: #change this to match other screen
             self.ScreenManager.sleep(1)
 
         self.total_rotations += 1
+       
+        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
+            x1=1404, y1=811, x2=1469, y2=842, action="Click on stage clear button")
 
         if self.ScreenManager.match_template_on_screen_area(
                 x1=1395, y1=808, x2=1492, y2=839, template=self.HuntTemplates.confirm, percentage=0.6) is not None:
@@ -40,6 +43,8 @@ class Battle(Module):
 
         self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=1404, y1=811, x2=1469, y2=842, action="Click on start button")
+
+
 
         if self.has_energy() == False:
             return
