@@ -20,7 +20,7 @@ class ScreenManager(metaclass=Singleton):
         self.DeviceManager = DeviceManager()
 
     def sleep(self, waitTime):
-        time.sleep(random.uniform(waitTime - 0.5, waitTime + 0.5))
+        time.sleep(random.uniform(waitTime, waitTime + 1))
 
     def get_position_of_template_match(self, matchTemplate):
         position_x = np.unravel_index(
@@ -109,6 +109,7 @@ class ScreenManager(metaclass=Singleton):
         return (beforeImage, afterImage)
 
     def random_click_on_area_and_check_change_on_screen_retry(self, x1, y1, x2, y2, action=None, percentage=70):
+        self.sleep(1)
         if action is not None:
             logging.info(f"{action}")
 
@@ -131,6 +132,7 @@ class ScreenManager(metaclass=Singleton):
         return (beforeImage, afterImage)
 
     def random_click_on_area_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=70):
+        self.sleep(1)
         if action is not None:
             logging.info(f"{action}")
 
