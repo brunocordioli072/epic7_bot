@@ -31,3 +31,7 @@ class HuntTemplates(BaseTemplates):
             "image": cv2.imread(self.dirPath + '/../images/hunt/repeat_battling_has_ended.png', 0),
             "name": "repeat_battling_has_ended"
         }
+        self.stage_clear: Template = {
+            "image": cv2.imread(self.dirPath + '/../images/hunt/stage_clear.png', 0),
+            "name": "stage_clear"
+        }

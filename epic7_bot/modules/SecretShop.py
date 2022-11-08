@@ -78,6 +78,7 @@ class SecretShop(Module):
 
         if self.bought is False:
             self.scroll()
+            self.ScreenManager.sleep(1)
             self.check_bookmarks()
         self.bought = False
 

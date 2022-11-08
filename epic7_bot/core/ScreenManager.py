@@ -20,7 +20,7 @@ class ScreenManager(metaclass=Singleton):
         self.DeviceManager = DeviceManager()
 
     def sleep(self, waitTime):
-        time.sleep(random.uniform(waitTime, waitTime + 0.2))
+        time.sleep(random.uniform(waitTime - 0.5, waitTime + 0.5))
 
     def get_position_of_template_match(self, matchTemplate):
         position_x = np.unravel_index(
@@ -112,7 +112,6 @@ class ScreenManager(metaclass=Singleton):
         if action is not None:
             logging.info(f"{action}")
 
-        self.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
         while self.check_if_images_changed(beforeImage, afterImage, percentage=percentage, action=action) is False and count < 2:
@@ -135,7 +134,6 @@ class ScreenManager(metaclass=Singleton):
         if action is not None:
             logging.info(f"{action}")
 
-        self.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
         while self.check_if_images_changed(beforeImage, afterImage, percentage, action) is False and count < 2:
