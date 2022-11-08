@@ -41,7 +41,7 @@ class CheckConnection(multiprocessing.Process):
                         time.sleep(1)
                         if there_was_a_connection_error is not None:
                             there_was_a_connection_error = self.match_there_was_a_connection_error_template()
-                            self.ScreenManager.click_middle_and_check_change_on_area_retry(
+                            self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
                                 x1=475, y1=372, x2=1122, y2=406, action="Click on there_was_a_connection_error")
                             if there_was_a_connection_error is None:
                                 main_process.resume()

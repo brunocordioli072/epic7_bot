@@ -14,15 +14,15 @@ class Arena(Module):
     def battle_rotation(self):
         logging.info(f"Started battle rotation")
 
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
             x1=1065, x2=1216, y1=799, y2=852, action="Click on start battle")
 
         time.sleep(4)
 
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
             x1=1476, x2=1574, y1=23, y2=76, action="Click on skip")
 
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
             x1=1379, x2=1439, y1=14, y2=68, action="Click on auto battle")
 
         logging.info(f"Wait for skip button to appear")
@@ -30,16 +30,16 @@ class Arena(Module):
                                                                template=self.CommonTemplates.skip_button, percentage=0.55) is None:
             time.sleep(1)
 
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
             x1=1476, x2=1574, y1=23, y2=76, action="Click on skip button")
 
         time.sleep(2)
 
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
             x1=1378, x2=1546, y1=802, y2=853, action="Click on confirm")
 
     def do_battle_rotation(self, x1, y1, x2, y2, action):
-        clicked = self.ScreenManager.click_middle_and_check_change_on_screen_retry(
+        clicked = self.ScreenManager.random_click_at_area_and_check_change_on_screen_retry(
             x1, y1, x2, y2, action, percentage=50)
         if clicked:
             self.battle_rotation()
@@ -86,13 +86,13 @@ class Arena(Module):
     def start_arena_npc_auto_battle_from_lobby(self):
         self.ScreenManager.ensure_not_on_sleep_mode_on_lobby()
 
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
             x1=1022, x2=1129, y1=749, y2=882, action="Click on arena icon on lobby")
 
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
             x1=246, x2=438, y1=218, y2=283, action="Click on arena ranked")
 
-        self.ScreenManager.click_middle_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
             x1=1334, x2=1551, y1=236, y2=298, action="Click on NPC opponents")
 
         self.start_arena_npc_auto_battle()

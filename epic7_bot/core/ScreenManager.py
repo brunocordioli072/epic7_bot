@@ -3,6 +3,9 @@ import base64
 import logging
 import time
 import cv2
+import random
+
+from cv2 import Mat
 
 import numpy as np
 from epic7_bot.core.DeviceManager import DeviceManager
@@ -15,6 +18,9 @@ class ScreenManager(metaclass=Singleton):
     def __init__(self):
         self.MathUtils = MathUtils()
         self.DeviceManager = DeviceManager()
+
+    def sleep(self, waitTime):
+        time.sleep(random.uniform(waitTime, waitTime + 0.2))
 
     def get_position_of_template_match(self, matchTemplate):
         position_x = np.unravel_index(
@@ -43,6 +49,7 @@ class ScreenManager(metaclass=Singleton):
         match = cv2.matchTemplate(
             image, template['image'], cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(match)
+
         logging.debug(
             f"match_template_on_screen {template['name']}, percentage: {max_val}, {max_val > percentage}")
 
@@ -64,7 +71,7 @@ class ScreenManager(metaclass=Singleton):
             return None
 
     def match_template_on_screen_and_click_it(self, template, waitTime=0):
-        time.sleep(waitTime)
+        self.sleep(random.uniform(waitTime, waitTime + 0.5))
         match = self.match_template_on_screen(template)
         if match is not None:
             position_x, position_y = self.get_position_of_template_match(match)
@@ -83,30 +90,33 @@ class ScreenManager(metaclass=Singleton):
         return result >= percentage
 
     def click_position(self, position_x, position_y, waitTime, message=None):
-        time.sleep(waitTime)
+        self.sleep(waitTime)
         x, y = self.MathUtils.randomPoint(position_x, position_y)
         self.DeviceManager.device.shell("input tap " + str(x) + " " + str(y))
 
-    def click_middle(self, x1, y1, x2, y2):
-        position_x, position_y = self.MathUtils.midpoint(x1, y1, x2, y2)
+    def random_click_at_area(self, x1, y1, x2, y2):
+        position_x, position_y = self.MathUtils.random_point_in_area(
+            x1, y1, x2, y2)
         self.click_position(position_x, position_y, waitTime=0)
+        # position_x, position_y = self.MathUtils.midpoint(x1, y1, x2, y2)
+        # self.click_position(position_x, position_y, waitTime=0)
 
-    def click_middle_get_before_and_after_images_from_screen(self, x1, y1, x2, y2):
+    def random_click_at_area_get_before_and_after_images_from_screen(self, x1, y1, x2, y2):
         beforeImage = self.take_screenshot()
-        self.click_middle(x1, y1, x2, y2)
-        time.sleep(3)
+        self.random_click_at_area(x1, y1, x2, y2)
+        self.sleep(3)
         afterImage = self.take_screenshot()
         return (beforeImage, afterImage)
 
-    def click_middle_and_check_change_on_screen_retry(self, x1, y1, x2, y2, action=None, percentage=70):
+    def random_click_at_area_and_check_change_on_screen_retry(self, x1, y1, x2, y2, action=None, percentage=70):
         if action is not None:
             logging.info(f"{action}")
 
-        time.sleep(1)
+        self.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
         while self.check_if_images_changed(beforeImage, afterImage, percentage=percentage, action=action) is False and count < 2:
-            beforeImage, afterImage = self.click_middle_get_before_and_after_images_from_screen(
+            beforeImage, afterImage = self.random_click_at_area_get_before_and_after_images_from_screen(
                 x1, y1, x2, y2)
             count += 1
         if count < 2 == False:
@@ -114,22 +124,22 @@ class ScreenManager(metaclass=Singleton):
 
         return count < 2
 
-    def click_middle_get_before_and_after_images_from_area(self, x1, y1, x2, y2):
+    def random_click_at_area_get_before_and_after_images_from_area(self, x1, y1, x2, y2):
         beforeImage = self.take_screnshot_from_area(x1, x2, y1, y2)
-        self.click_middle(x1, y1, x2, y2)
-        time.sleep(3)
+        self.random_click_at_area(x1, y1, x2, y2)
+        self.sleep(3)
         afterImage = self.take_screnshot_from_area(x1, x2, y1, y2)
         return (beforeImage, afterImage)
 
-    def click_middle_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=70):
+    def random_click_at_area_and_check_change_on_area_retry(self, x1, y1, x2, y2, action=None, percentage=70):
         if action is not None:
             logging.info(f"{action}")
 
-        time.sleep(1)
+        self.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
         while self.check_if_images_changed(beforeImage, afterImage, percentage, action) is False and count < 2:
-            beforeImage, afterImage = self.click_middle_get_before_and_after_images_from_area(
+            beforeImage, afterImage = self.random_click_at_area_get_before_and_after_images_from_area(
                 x1, y1, x2, y2)
             count += 1
         return count < 2
@@ -137,8 +147,8 @@ class ScreenManager(metaclass=Singleton):
     def ensure_not_on_sleep_mode_on_lobby(self):
         logging.info(
             "Double Click on Screen to Ensure not on Sleep Mode on Lobby")
-        self.click_middle(
+        self.random_click_at_area(
             x1=894, y1=848, x2=935, y2=879)
-        time.sleep(1)
-        self.click_middle(
+        self.sleep(1)
+        self.random_click_at_area(
             x1=894, y1=848, x2=935, y2=879)
