@@ -16,7 +16,7 @@ pyspin="1.1.1"
 
 [scripts]
 epic7 = "python ."
-screen_verifier = "python tests/manual/TestScreen.py"
+"test:screen" = "python tests/manual/TestScreen.py"
 
 [requires]
 python_version = "3.9"
