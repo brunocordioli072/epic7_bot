@@ -20,7 +20,7 @@ class ScreenManager(metaclass=Singleton):
         self.DeviceManager = DeviceManager()
 
     def sleep(self, waitTime):
-        time.sleep(random.uniform(waitTime, waitTime + 0.2))
+        time.sleep(random.uniform(waitTime - 0.5, waitTime + 0.5))
 
     def get_position_of_template_match(self, matchTemplate):
         position_x = np.unravel_index(
