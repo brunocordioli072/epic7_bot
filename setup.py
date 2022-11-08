@@ -18,10 +18,10 @@ setup(
     install_requires=["numpy ==1.23.2",
                       "opencv_python ==4.6.0.66",
                       "pure_python_adb ==0.3.0.dev0",
-                      "docopt",
-                      "python-dotenv",
-                      "psutil",
-                      "pyspin"],
+                      "docopt ==0.6.2",
+                      "python-dotenv ==0.21.0",
+                      "psutil ==5.9.3",
+                      "pyspin ==1.1.1"],
     entry_points={
         "console_scripts": [
             "epic7=epic7_bot.cli:main",
