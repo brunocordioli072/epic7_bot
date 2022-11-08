@@ -17,7 +17,7 @@ class Arena(Module):
         self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=1065, x2=1216, y1=799, y2=852, action="Click on start battle")
 
-        time.sleep(4)
+        self.ScreenManager.sleep(4)
 
         self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=1476, x2=1574, y1=23, y2=76, action="Click on skip")
@@ -28,12 +28,12 @@ class Arena(Module):
         logging.info(f"Wait for skip button to appear")
         while self.ScreenManager.match_template_on_screen_area(x1=1471, x2=1581, y1=19, y2=76,
                                                                template=self.CommonTemplates.skip_button, percentage=0.55) is None:
-            time.sleep(1)
+            self.ScreenManager.sleep(1)
 
         self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=1476, x2=1574, y1=23, y2=76, action="Click on skip button")
 
-        time.sleep(2)
+        self.ScreenManager.sleep(2)
 
         self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=1378, x2=1546, y1=802, y2=853, action="Click on confirm")
