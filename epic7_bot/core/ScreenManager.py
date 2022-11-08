@@ -112,7 +112,6 @@ class ScreenManager(metaclass=Singleton):
         if action is not None:
             logging.info(f"{action}")
 
-        self.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
         while self.check_if_images_changed(beforeImage, afterImage, percentage=percentage, action=action) is False and count < 2:
@@ -135,7 +134,6 @@ class ScreenManager(metaclass=Singleton):
         if action is not None:
             logging.info(f"{action}")
 
-        self.sleep(1)
         beforeImage, afterImage = None, None
         count = 0
         while self.check_if_images_changed(beforeImage, afterImage, percentage, action) is False and count < 2:

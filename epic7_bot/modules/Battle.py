@@ -26,7 +26,7 @@ class Battle(Module):
         logging.info(
             f"Wait for repeat battling has ended to appear")
         while self.ScreenManager.match_template_on_screen(template=self.HuntTemplates.repeat_battling_has_ended, percentage=0.9) is None:
-            time.sleep(1)
+            self.ScreenManager.sleep(1)
 
         self.total_rotations += 1
 
