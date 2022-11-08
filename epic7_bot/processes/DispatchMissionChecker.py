@@ -37,7 +37,7 @@ class DispatchMissionChecker(multiprocessing.Process):
                     main_process.suspend()
                     logging.error(f"Dispatch Mission appeared")
                     time.sleep(5)
-                    self.ScreenManager.click_middle_and_check_change_on_screen_retry(
+                    self.ScreenManager.random_click_at_area_and_check_change_on_screen_retry(
                         x1=1099, y1=703, x2=1228, y2=745, action="Click on Try Again")
                     time.sleep(2)
                     main_process.resume()
