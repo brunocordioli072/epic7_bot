@@ -21,9 +21,10 @@ import sys
 from time import sleep
 from docopt import docopt
 from sys import exit
-from epic7_bot.core.Logger import init_logger
 from epic7_bot.processes.CheckConnection import CheckConnection
 from epic7_bot.processes.CommandRunner import CommandRunner
+from epic7_bot.processes.CommandRunner import CommandRunner
+from epic7_bot.processes.DispatchMissionChecker import DispatchMissionChecker
 
 
 def main():
@@ -31,6 +32,7 @@ def main():
         args = docopt(__doc__, version="1.0.0", options_first=False)
 
         commandRunner = CommandRunner(args)
+        dispatchMissionChecker = DispatchMissionChecker(commandRunner.pid)
         checkConnection = CheckConnection(commandRunner.pid)
 
         if args['<command>'] in [None]:
@@ -43,6 +45,7 @@ def main():
             commandRunner.start()
             sleep(3)
             checkConnection.start()
+            dispatchMissionChecker.start()
             while True:
                 if commandRunner.is_alive() is False:
                     print("\n\nJob Finished, bot closing")
