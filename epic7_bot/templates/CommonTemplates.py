@@ -22,3 +22,13 @@ class CommonTemplates(BaseTemplates):
             "image": cv2.imread(self.dirPath + '/../images/there_was_a_connection_error.png', 0),
             "name": "there_was_a_connection_error"
         }
+
+        self.dispatch_mission_completed: Template = {
+            "image": cv2.imread(self.dirPath + '/../images/dispatch_mission_completed.png', 0),
+            "name": "dispatch_mission_completed"
+        }
+
+        self.dispatch_mission: Template = {
+            "image": cv2.imread(self.dirPath + '/../images/dispatch_mission.png', 0),
+            "name": "dispatch_mission"
+        }

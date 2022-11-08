@@ -1,4 +1,5 @@
 import logging
+import math
 from epic7_bot.core.DeviceManager import DeviceManager
 from epic7_bot.core.MathUtils import MathUtils
 from epic7_bot.modules.Module import Module
@@ -29,10 +30,17 @@ class SecretShop(Module):
             x, y = self.ScreenManager.get_position_of_template_match(
                 mystic_pos)
 
-            self.ScreenManager.click_position(x + 650, y + 50, 1)
+            width, height = self.SecretShopTemplates.mystic["image"].shape[::-1]
 
-            self.ScreenManager.match_template_on_screen_and_click_it(
-                self.SecretShopTemplates.buy_button_mystic, 1)
+            x1 = x + math.floor(width / 2) + 580
+            y1 = y + math.floor(height / 2) + 10
+            x2 = x + math.floor(width / 2) + 800
+            y2 = y + math.floor(height / 2) + 55
+
+            self.ScreenManager.random_click_on_area(x1=x1, y1=y1, x2=x2, y2=y2)
+
+            self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
+                x1=761, y1=605, x2=1059, y2=660, action="Click on Buy")
 
             self.bought = True
             self.mystic_count += 1
@@ -41,20 +49,29 @@ class SecretShop(Module):
             logging.info("Found Covenant Bookmark")
             x, y = self.ScreenManager.get_position_of_template_match(coven_pos)
 
-            self.ScreenManager.click_position(x + 650, y + 50, 1)
+            width, height = self.SecretShopTemplates.covenant["image"].shape[::-1]
 
-            self.ScreenManager.match_template_on_screen_and_click_it(
-                self.SecretShopTemplates.buy_button_covenant, 1)
+            x1 = x + math.floor(width / 2) + 580
+            y1 = y + math.floor(height / 2) + 10
+            x2 = x + math.floor(width / 2) + 800
+            y2 = y + math.floor(height / 2) + 55
+
+            self.ScreenManager.random_click_on_area(x1=x1, y1=y1, x2=x2, y2=y2)
+
+            self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
+                x1=761, y1=605, x2=1059, y2=660, action="Click on Buy")
 
             self.bought = True
             self.covenant_count += 1
 
     def scroll(self):
-        x1, y1 = self.MathUtils.randomPoint(1200, 700)
-        x2, y2 = self.MathUtils.randomPoint(1200, 300)
+        x1, y1 = self.MathUtils.random_point_in_area(
+            x1=750, y1=781, x2=1282, y2=845)
+        x2, y2 = self.MathUtils.random_point_in_area(
+            x1=701, y1=98, x2=1288, y2=174)
 
         self.DeviceManager.device.shell(
-            f"input touchscreen swipe {x1} {y1} {x2} {y2} 300")
+            f"input touchscreen swipe {x1} {y1} {x2} {y2} 400")
 
     def check_store(self):
         self.check_bookmarks()
@@ -65,9 +82,9 @@ class SecretShop(Module):
         self.bought = False
 
     def refresh(self):
-        self.ScreenManager.click_middle_and_check_change_on_screen_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
             x1=287, y1=808, x2=387, y2=838, action="Click on Refresh Button")
-        self.ScreenManager.click_middle_and_check_change_on_screen_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
             x1=878, y1=537, x2=986, y2=568, action="Click on Confirm Button")
 
         self.refreshes_count += 1
@@ -92,6 +109,6 @@ class SecretShop(Module):
     def start_auto_buy_secret_shop_from_lobby(self):
         self.ScreenManager.ensure_not_on_sleep_mode_on_lobby()
 
-        self.ScreenManager.click_middle_and_check_change_on_screen_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
             x1=683, y1=204, x2=728, y2=246, action="Click on Bartender")
         self.start_auto_buy_secret_shop()
