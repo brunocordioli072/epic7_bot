@@ -37,9 +37,9 @@ class SecretShop(Module):
             x2 = x + math.floor(width / 2) + 800
             y2 = y + math.floor(height / 2) + 55
 
-            self.ScreenManager.random_click_at_area(x1=x1, y1=y1, x2=x2, y2=y2)
+            self.ScreenManager.random_click_on_area(x1=x1, y1=y1, x2=x2, y2=y2)
 
-            self.ScreenManager.random_click_at_area_and_check_change_on_screen_retry(
+            self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
                 x1=761, y1=605, x2=1059, y2=660, action="Click on Buy")
 
             self.bought = True
@@ -56,9 +56,9 @@ class SecretShop(Module):
             x2 = x + math.floor(width / 2) + 800
             y2 = y + math.floor(height / 2) + 55
 
-            self.ScreenManager.random_click_at_area(x1=x1, y1=y1, x2=x2, y2=y2)
+            self.ScreenManager.random_click_on_area(x1=x1, y1=y1, x2=x2, y2=y2)
 
-            self.ScreenManager.random_click_at_area_and_check_change_on_screen_retry(
+            self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
                 x1=761, y1=605, x2=1059, y2=660, action="Click on Buy")
 
             self.bought = True
@@ -82,9 +82,9 @@ class SecretShop(Module):
         self.bought = False
 
     def refresh(self):
-        self.ScreenManager.random_click_at_area_and_check_change_on_screen_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
             x1=287, y1=808, x2=387, y2=838, action="Click on Refresh Button")
-        self.ScreenManager.random_click_at_area_and_check_change_on_screen_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
             x1=878, y1=537, x2=986, y2=568, action="Click on Confirm Button")
 
         self.refreshes_count += 1
@@ -109,6 +109,6 @@ class SecretShop(Module):
     def start_auto_buy_secret_shop_from_lobby(self):
         self.ScreenManager.ensure_not_on_sleep_mode_on_lobby()
 
-        self.ScreenManager.random_click_at_area_and_check_change_on_screen_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
             x1=683, y1=204, x2=728, y2=246, action="Click on Bartender")
         self.start_auto_buy_secret_shop()

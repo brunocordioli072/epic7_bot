@@ -32,13 +32,13 @@ class Battle(Module):
 
         if self.ScreenManager.match_template_on_screen_area(
                 x1=1395, y1=808, x2=1492, y2=839, template=self.HuntTemplates.confirm, percentage=0.6) is not None:
-            self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
+            self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
                 x1=1395, y1=808, x2=1492, y2=839, action="Click on confirm button")
 
-        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=1416, x2=1533, y1=810, y2=841, action="Click on try again button")
 
-        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=1404, y1=811, x2=1469, y2=842, action="Click on start button")
 
         if self.has_energy() == False:
@@ -57,10 +57,10 @@ class Battle(Module):
 
     def start_hunt(self):
         if self.ScreenManager.match_template_on_screen(template=self.HuntTemplates.pet_auto_battle_active, percentage=0.9) is None:
-            self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
+            self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
                 x1=705, y1=675, x2=749, y2=718, action="Click on Pet Auto Battle Active", percentage=20)
 
-        self.ScreenManager.random_click_at_area_and_check_change_on_screen_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
             x1=1404, y1=811, x2=1469, y2=842, action="Click on start button")
 
         self.do_hunt_rotation()
@@ -68,16 +68,16 @@ class Battle(Module):
     def start_hunt_from_lobby(self):
         self.ScreenManager.ensure_not_on_sleep_mode_on_lobby()
 
-        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=1164, y1=803, x2=1254, y2=870, action="Click on Battle button")
 
-        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=907, y1=648, x2=1055, y2=715, action="Click on Hunt button")
 
-        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=984, y1=259, x2=1113, y2=336, action="Click on Wyvern Hunt")
 
-        self.ScreenManager.random_click_at_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=1404, y1=810, x2=1559, y2=848, action="Click on Select Team")
 
         self.start_hunt()
