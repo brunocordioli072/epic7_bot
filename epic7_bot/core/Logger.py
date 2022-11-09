@@ -6,7 +6,7 @@ import sys
 import threading
 import datetime
 
-from pyspin.spin import Default, Spinner
+from pyspin.spin import Spinner, Spin1
 
 
 def get_log_level():
@@ -24,7 +24,7 @@ class SpinnerHandler(logging.Handler):
 
     def __init__(self,
                  stream=None,
-                 spin_style=Default,
+                 spin_style=Spin1,
                  spin_interval=0.1,
                  format=u'{message} {spinner}',
                  level=logging.NOTSET):
