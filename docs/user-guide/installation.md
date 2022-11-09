@@ -9,8 +9,6 @@ A detailed guide.
 - [Python 3.4+]
 - [Chocolatey]
 - [Android Debug Bridge]
-- [Git]
-
 
 
 ## Install Python
@@ -37,18 +35,11 @@ Install via [Chocolatey].
 $ choco install adb
 ```
 
-## Installing Git
-[Git] is a distributed version control system. It's used to enable installation direcly via repo.
-
-```console
-$ choco install git
-```
-
 ## Install Epic7 Bot
 To install Epic7 Bot, run the following command from the command line:
 
 ```bash
-pip install git+https://github.com/brunocordioli072/epic7_bot
+pip install epic7-bot
 ```
 
 
@@ -57,4 +48,3 @@ pip install git+https://github.com/brunocordioli072/epic7_bot
 [Chocolatey install page]: https://chocolatey.org/install
 [Android Debug Bridge]: https://community.chocolatey.org/packages/adb
 [Python 3.4+]: https://www.python.org/downloads/release/python-392/
-[Git]: https://community.chocolatey.org/packages/git
