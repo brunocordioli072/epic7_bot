@@ -29,6 +29,6 @@ setup(
         ],
     },
     setup_requires=[
-        'setuptools >= 20.8.1',
+        'setuptools >= 49.2.1',
     ],
 )
