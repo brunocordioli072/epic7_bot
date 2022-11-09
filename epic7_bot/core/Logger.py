@@ -6,6 +6,8 @@ import sys
 import threading
 import datetime
 
+from epic7_bot.utils.Spinner import Spinner
+
 
 def get_log_level():
     LOG_LEVEL = os.getenv("LOG_LEVEL") if os.getenv(
@@ -15,19 +17,20 @@ def get_log_level():
 
 def init_logger():
     level = logging.getLevelName(get_log_level())
-    logging.basicConfig(level=level, handlers=[SpinnerHandler(level=level)])
+    logging.basicConfig(level=level, handlers=[LoggerHandler(level=level)])
 
 
-class SpinnerHandler(logging.Handler):
+class LoggerHandler(logging.Handler):
 
     def __init__(self,
                  stream=None,
                  spin_interval=0.1,
-                 format=u'{message}',
+                 format=u'{message} {spinner}',
                  level=logging.NOTSET):
-        super(SpinnerHandler, self).__init__(level)
+        super(LoggerHandler, self).__init__(level)
         self._stream = stream
         self._message_format = format
+        self._spinner = Spinner()
         self._spin_interval = spin_interval
         self._current_record_changed = threading.Condition()
         self._thread = threading.Thread(target=self._display, daemon=True)
@@ -75,7 +78,8 @@ class SpinnerHandler(logging.Handler):
 
                 if record is None:
                     break
-                s = format_message(record=record,
+                s = format_message(spinner=self._spinner.next(),
+                                   record=record,
                                    message=record.getMessage())
                 stream.write(format_line(s, previous_line_length or 1))
                 previous_line_length = len(s)
