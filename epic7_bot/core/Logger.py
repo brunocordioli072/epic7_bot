@@ -6,8 +6,6 @@ import sys
 import threading
 import datetime
 
-from pyspin.spin import Spinner, Spin1
-
 
 def get_log_level():
     LOG_LEVEL = os.getenv("LOG_LEVEL") if os.getenv(
@@ -24,14 +22,12 @@ class SpinnerHandler(logging.Handler):
 
     def __init__(self,
                  stream=None,
-                 spin_style=Spin1,
                  spin_interval=0.1,
-                 format=u'{message} {spinner}',
+                 format=u'{message}',
                  level=logging.NOTSET):
         super(SpinnerHandler, self).__init__(level)
         self._stream = stream
         self._message_format = format
-        self._spinner = Spinner(spin_style)
         self._spin_interval = spin_interval
         self._current_record_changed = threading.Condition()
         self._thread = threading.Thread(target=self._display, daemon=True)
@@ -79,8 +75,7 @@ class SpinnerHandler(logging.Handler):
 
                 if record is None:
                     break
-                s = format_message(spinner=self._spinner.next(),
-                                   record=record,
+                s = format_message(record=record,
                                    message=record.getMessage())
                 stream.write(format_line(s, previous_line_length or 1))
                 previous_line_length = len(s)
