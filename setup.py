@@ -21,10 +21,14 @@ setup(
                       "docopt ==0.6.2",
                       "python-dotenv ==0.21.0",
                       "psutil ==5.9.3",
-                      "pyspin ==1.1.1"],
+                      "pyspin ==1.1.1",
+                      'futures; python_version > "3.4"'],
     entry_points={
         "console_scripts": [
             "epic7=epic7_bot.cli:main",
         ],
     },
+    setup_requires=[
+        'setuptools >= 49.2.1',
+    ],
 )
