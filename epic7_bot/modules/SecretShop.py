@@ -37,10 +37,11 @@ class SecretShop(Module):
             x2 = x + math.floor(width / 2) + 800
             y2 = y + math.floor(height / 2) + 55
 
-            self.ScreenManager.random_click_on_area(x1=x1, y1=y1, x2=x2, y2=y2)
+            self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
+                x1=x1, y1=y1, x2=x2, y2=y2, action="Click on Buy")
 
             self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
-                x1=761, y1=605, x2=1059, y2=660, action="Click on Buy")
+                x1=761, y1=605, x2=1059, y2=660, action="Click on Confirm Buy")
 
             self.bought = True
             self.mystic_count += 1
@@ -56,10 +57,11 @@ class SecretShop(Module):
             x2 = x + math.floor(width / 2) + 800
             y2 = y + math.floor(height / 2) + 55
 
-            self.ScreenManager.random_click_on_area(x1=x1, y1=y1, x2=x2, y2=y2)
+            self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
+                x1=x1, y1=y1, x2=x2, y2=y2, action="Click on Buy")
 
             self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
-                x1=761, y1=605, x2=1059, y2=660, action="Click on Buy")
+                x1=761, y1=605, x2=1059, y2=660, action="Click on Confirm Buy")
 
             self.bought = True
             self.covenant_count += 1
