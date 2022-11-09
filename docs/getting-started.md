@@ -9,14 +9,13 @@ An introductory tutorial!
 - [Chocolatey](https://chocolatey.org/)
 - [Android Debug Bridge](https://community.chocolatey.org/packages/adb)
 - [Python 3.4+](https://www.python.org/downloads/release/python-392/)
-- [Git](https://community.chocolatey.org/packages/git)
 
 ## Installation
 
 To install Epic7 Bot, run the following command from the command line:
 
 ```bash
-pip install git+https://github.com/brunocordioli072/epic7_bot
+pip install epic7-bot
 ```
 
 For more details, see the [Installation Guide].
