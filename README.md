@@ -15,12 +15,11 @@ Check the [Docs](https://brunocordioli072.github.io/epic7_bot/) for more info!
 - [Chocolatey](https://chocolatey.org/)
 - [Android Debug Bridge (adb)](https://community.chocolatey.org/packages/adb)
 - [Python 3.4+](https://www.python.org/downloads/release/python-392/)
-- [Git](https://community.chocolatey.org/packages/git)
 
 ## Instalation
 
 ```bash
-pip install git+https://github.com/brunocordioli072/epic7_bot
+pip install epic7-bot
 ```
 
 ## Usage
