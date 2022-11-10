@@ -1,5 +1,7 @@
 import logging
 import math
+import asyncio
+from epic7_bot.utils.runInParallel import runInParallel
 from epic7_bot.core.DeviceManager import DeviceManager
 from epic7_bot.core.MathUtils import MathUtils
 from epic7_bot.modules.Module import Module
@@ -20,10 +22,12 @@ class SecretShop(Module):
 
     def check_bookmarks(self):
         logging.info("Check Mystic and Covenant Bookmarks")
-        mystic_pos = self.ScreenManager.match_template_on_screen(
-            self.SecretShopTemplates.mystic)
-        coven_pos = self.ScreenManager.match_template_on_screen(
-            self.SecretShopTemplates.covenant)
+
+        [mystic_pos, coven_pos] = runInParallel(
+            lambda: self.ScreenManager.match_template_on_screen(
+                self.SecretShopTemplates.mystic),
+            lambda: self.ScreenManager.match_template_on_screen(
+                self.SecretShopTemplates.covenant))
 
         if mystic_pos is not None:
             logging.info("Found Mystic Bookmark")
