@@ -15,11 +15,15 @@ from epic7_bot.utils.Singleton import Singleton
 
 
 class ScreenManager(metaclass=Singleton):
-    def __init__(self):
+    def __init__(self, fastMode=False):
         self.MathUtils = MathUtils()
         self.DeviceManager = DeviceManager()
+        self.fastMode = fastMode
 
     def sleep(self, waitTime):
+        if self.fastMode:
+            time.sleep(random.uniform(0.5, 0.8))
+            return
         time.sleep(random.uniform(waitTime, waitTime + 1))
 
     def get_position_of_template_match(self, matchTemplate):
