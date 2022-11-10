@@ -15,6 +15,7 @@ Options:
     -h --help       Show this help message and exit
     -v --version    Show version and exit
     -c --current    Run command on current screen
+    -f --fast       Run command on fast mode (not stable)
 """
 
 import sys

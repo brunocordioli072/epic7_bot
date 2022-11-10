@@ -7,8 +7,8 @@ from epic7_bot.templates.SecretShopTemplates import SecretShopTemplates
 
 
 class SecretShop(Module):
-    def __init__(self):
-        super(self.__class__, self).__init__()
+    def __init__(self, fastMode):
+        super(self.__class__, self).__init__(fastMode)
         self.DeviceManager = DeviceManager()
         self.SecretShopTemplates = SecretShopTemplates()
         self.MathUtils = MathUtils()
