@@ -16,7 +16,6 @@ class SecretShop(Module):
         self.mystic_count = 0
         self.refreshes_count = 0
         self.covenant_count = 0
-        self.bought = False
 
     def check_bookmarks(self):
         logging.info("Check Mystic and Covenant Bookmarks")
@@ -43,8 +42,8 @@ class SecretShop(Module):
             self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
                 x1=761, y1=605, x2=1059, y2=660, action="Click on Confirm Buy")
 
-            self.bought = True
             self.mystic_count += 1
+            self.check_bookmarks()
 
         if coven_pos is not None:
             logging.info("Found Covenant Bookmark")
@@ -63,8 +62,8 @@ class SecretShop(Module):
             self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
                 x1=761, y1=605, x2=1059, y2=660, action="Click on Confirm Buy")
 
-            self.bought = True
             self.covenant_count += 1
+            self.check_bookmarks()
 
     def scroll(self):
         x1, y1 = self.MathUtils.random_point_in_area(
@@ -77,12 +76,9 @@ class SecretShop(Module):
 
     def check_store(self):
         self.check_bookmarks()
-
-        if self.bought is False:
-            self.scroll()
-            self.ScreenManager.sleep(1)
-            self.check_bookmarks()
-        self.bought = False
+        self.scroll()
+        self.ScreenManager.sleep(1)
+        self.check_bookmarks()
 
     def refresh(self):
         self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
