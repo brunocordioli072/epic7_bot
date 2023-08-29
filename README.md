@@ -9,8 +9,6 @@ The bot currently automates:
 - Arena NPC battling;
 - All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc.
 
-Check the [Docs](https://brunocordioli072.github.io/epic7_bot/) for more info! 
-
 ## Requirements:
 - [Chocolatey](https://chocolatey.org/)
 - [Android Debug Bridge (adb)](https://community.chocolatey.org/packages/adb)
