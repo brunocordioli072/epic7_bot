@@ -12,8 +12,9 @@ Epic7 Bot is a [Epic 7](https://epic7.smilegatemegaport.com/) toolkit/bot used v
 - [ ] Hunt Expedition
 - [ ] Spirit Altar
 - [x] Arena NPC battling.
-- [ ] GUI development.
 - [x] All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc;
+- [ ] GUI development.
+- [ ] Create a .exe installer.
 
 ## Requirements:
 - [Chocolatey](https://chocolatey.org/)
@@ -50,8 +51,6 @@ Options:
     -v --version    Show version and exit
 ```
 
-⭐ If you like it, give it a star~ ⭐
-
 ## Contributions
 
 [Issue & Report a Bug](https://github.com/brunocordioli072/epic7_bot/issues/new/choose) | [Fork & Open a New PR](https://github.com/brunocordioli072/epic7_bot/compare)
@@ -59,6 +58,8 @@ Options:
 All kinds of contributions including enhancements, new features, code improvements, issues and bugs reporting are welcome.
 
 - The `main` branch of Epic7 Bot is the stable version, and all development is done in the `development` branch. So if you want to open a Pull Request, your commits need to be submitted to the `development` branch.
+
+⭐ If you like it, give it a star~ ⭐
 
 ## Contributors
 
