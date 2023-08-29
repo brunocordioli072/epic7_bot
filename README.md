@@ -1,5 +1,11 @@
-# epic7_bot
-> epic7_bot
+<p align="center">
+<img src="https://github.com/brunocordioli072/epic7_bot/assets/46489264/7733c50a-51ec-4b08-b31c-4ad97e3cca66">
+</p>
+
+
+<h1 align="center">
+Epic7 Bot
+</h1>
 
 Epic7 Bot is a [Epic 7](https://epic7.smilegatemegaport.com/) toolkit/bot used via cli to perform automated actions inside the game. All actions are **cheat detection proof** by doing only randomized click inputs inside the emulator screen.
 
