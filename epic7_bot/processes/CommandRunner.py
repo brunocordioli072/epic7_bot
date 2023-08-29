@@ -27,7 +27,8 @@ class CommandRunner(multiprocessing.Process):
             init_logger()
 
             command = self.commands[self.args['<command>']]
-            command(currentScreen=self.args['--current']).start()
+            command(currentScreen=self.args['--current'],
+                    fastMode=self.args['--fast']).start()
         except BaseException as e:
             if get_log_level() == "DEBUG":
                 raise e
