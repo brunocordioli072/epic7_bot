@@ -65,6 +65,14 @@ Options:
 
 </div>
 
+## Getting Started
+
+1. Install Python +3.4 https://www.python.org/downloads/release/python-392/
+2. Install Chocolatey https://chocolatey.org/install#individual
+    - Chocolatey is a package manager for windows, It is easier to install Android Debug Bridge with it.
+3. Install Android Debug Bridge, run  `choco install adb` on your terminal as admin.
+    - Android Debug Bridge is command-line tool that enable communication with a device. It enables to send inputs directly to the emulator.
+
 ## Future Goals
 
 - [x] Secret shop refreshing.
