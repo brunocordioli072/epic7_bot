@@ -49,34 +49,34 @@ Options:
     
 ![shop-mp4](https://github.com/brunocordioli072/epic7_bot/assets/46489264/bae8b85b-e08c-46d6-91d9-cf64369e4923)
 
-*Bluestacks running Epic7 on top and Windows Powershell running the epic7-bot commands on the bottom.*
+*Bluestacks running Epic7 above and Windows Powershell running the epic7-bot shop auto buy below.*
 
 </div>
 
 ## Getting Started
 
-1. Install Python +3.4 https://www.python.org/downloads/release/python-392/
-2. Install Chocolatey https://chocolatey.org/install#individual
-    - Chocolatey is a package manager for windows, It is easier to install Android Debug Bridge with it
-3. Install Android Debug Bridge, run  `choco install adb` on your terminal as admin
-    - Android Debug Bridge is command-line tool that enable communication with a device. It enables to send inputs directly to the emulator
-4. Install Epic7 Bot, run `pip install epic7-bot` on your terminal
-5. Enable Android Debug Bridge on your emulator of choice. **(more stable on Bluestacks)**
-    - Bluestacks: Settings > Advanced > Enable Android Debug Bridge
-    - Nox: Settings > Device > Enable Network Bridge Mode
+1. Install Python +3.4 https://www.python.org/downloads/release/python-392/.
+2. Install Chocolatey https://chocolatey.org/install#individual.
+    - Chocolatey is a package manager for Windows. It is easier to install Android Debug Bridge with it.
+3. Install Android Debug Bridge by running  `choco install adb` on your terminal as admin.
+    - Android Debug Bridge is command-line tool that enable communication with a device. It enables to send inputs directly to the emulator.
+4. Install Epic7 Bot by running `pip install epic7-bot` on your terminal.
+5. Enable Android Debug Bridge on your emulator of choice. **(Bluestacks is recommended.)**
+    - Bluestacks: Settings > Advanced > Enable Android Debug Bridge.
+    - Nox: Settings > Device > Enable Network Bridge Mode.
 
 ## Future Goals
 
-- [x] Secret shop refreshing
-- [x] Hunt battling
-- [ ] Labyrith
-- [ ] Automation Tower
-- [ ] Hunt Expedition
-- [ ] Spirit Altar
-- [x] Arena NPC battling
-- [x] All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc
-- [ ] GUI development
-- [ ] Create a .exe installer
+- [x] Secret shop refreshing.
+- [x] Hunt battling.
+- [ ] Labyrinth.
+- [ ] Automaton Tower.
+- [ ] Hunt Expedition.
+- [ ] Spirit Altar.
+- [x] Arena NPC battling.
+- [x] All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc.
+- [ ] GUI development.
+- [ ] Create a .exe installer.
 
 ## Contributions
 
