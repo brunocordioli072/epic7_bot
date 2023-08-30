@@ -14,20 +14,23 @@ Epic7 Bot
 [![GitHub License](https://img.shields.io/github/license/brunocordioli072/epic7_bot?style=flat-square)](https://github.com/brunocordioli072/epic7_bot/blob/main/LICENSE)
 </div>
 
-Epic7 Bot is a [Epic 7](https://epic7.smilegatemegaport.com/) toolkit/bot used via cli to perform automated actions inside the game. All actions are **cheat detection proof** by doing only randomized click inputs inside the emulator screen.
+## Disclaimer
 
-## Future Goals
+This software is an external tool designed to automate playing Epic 7. It is designed to interact with the game only through existing user interfaces and comply with relevant laws and regulations. The package aims to provide simplified and user-friendly interaction with the game, and it is not intended to disrupt game balance in any way or provide any unfair advantages. The package will not modify any game files or game code in any way.
 
-- [x] Secret shop refreshing.
-- [x] Hunt battling.
-- [ ] Labyrith.
-- [ ] Automation Tower.
-- [ ] Hunt Expedition
-- [ ] Spirit Altar
-- [x] Arena NPC battling.
-- [x] All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc;
-- [ ] GUI development.
-- [ ] Create a .exe installer.
+This software is open source, free of charge, and for learning and exchange purposes only. The developer team has the final right to interpret this project. All problems arising from the use of this software are not related to this project and the developer team. If you encounter a merchant using this software to practice on your behalf and charging for it, it may be the cost of equipment and time, etc. The problems and consequences arising from this software have nothing to do with it.
+
+## Requirements
+- [Chocolatey](https://chocolatey.org/)
+- [Android Debug Bridge (adb)](https://community.chocolatey.org/packages/adb)
+- [Python 3.4+](https://www.python.org/downloads/release/python-392/)
+
+
+## Instalation
+
+```bash
+pip install epic7-bot
+```
 
 ## Usage
 
@@ -53,7 +56,6 @@ Options:
     -v --version    Show version and exit
 ```
 
-
 ## Working
 <div align="center">
     
@@ -63,16 +65,19 @@ Options:
 
 </div>
 
-## Requirements
-- [Chocolatey](https://chocolatey.org/)
-- [Android Debug Bridge (adb)](https://community.chocolatey.org/packages/adb)
-- [Python 3.4+](https://www.python.org/downloads/release/python-392/)
+## Future Goals
 
-## Instalation
+- [x] Secret shop refreshing.
+- [x] Hunt battling.
+- [ ] Labyrith.
+- [ ] Automation Tower.
+- [ ] Hunt Expedition
+- [ ] Spirit Altar
+- [x] Arena NPC battling.
+- [x] All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc;
+- [ ] GUI development.
+- [ ] Create a .exe installer.
 
-```bash
-pip install epic7-bot
-```
 ## Contributions
 
 [Issue & Report a Bug](https://github.com/brunocordioli072/epic7_bot/issues/new/choose) | [Fork & Open a New PR](https://github.com/brunocordioli072/epic7_bot/compare)
