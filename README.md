@@ -67,16 +67,16 @@ Options:
 
 ## Future Goals
 
-- [x] Secret shop refreshing.
-- [x] Hunt battling.
-- [ ] Labyrith.
-- [ ] Automation Tower.
+- [x] Secret shop refreshing
+- [x] Hunt battling
+- [ ] Labyrith
+- [ ] Automation Tower
 - [ ] Hunt Expedition
 - [ ] Spirit Altar
-- [x] Arena NPC battling.
-- [x] All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc;
-- [ ] GUI development.
-- [ ] Create a .exe installer.
+- [x] Arena NPC battling
+- [x] All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc
+- [ ] GUI development
+- [ ] Create a .exe installer
 
 ## Contributions
 
