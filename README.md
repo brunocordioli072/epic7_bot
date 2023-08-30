@@ -26,10 +26,6 @@ This software is open source, free of charge, and for learning and exchange purp
 
 ## Usage
 
-- Enable Android Debug Bridge(ADB) on your emulator of choice. **(more stable on Bluestacks)**
-    - Bluestacks: Settings > Advanced > Enable Android Debug Bridge
-    - Nox: Settings > Device > Enable Network Bridge Mode
-
 ```
 epic7 --help
 Usage:
@@ -61,11 +57,13 @@ Options:
 
 1. Install Python +3.4 https://www.python.org/downloads/release/python-392/
 2. Install Chocolatey https://chocolatey.org/install#individual
-    - Chocolatey is a package manager for windows, It is easier to install Android Debug Bridge with it.
-3. Install Android Debug Bridge, run  `choco install adb` on your terminal as admin.
-    - Android Debug Bridge is command-line tool that enable communication with a device. It enables to send inputs directly to the emulator.
-4. Install Epic7 Bot
-    - Run `pip install epic7-bot` on your terminal. 
+    - Chocolatey is a package manager for windows, It is easier to install Android Debug Bridge with it
+3. Install Android Debug Bridge, run  `choco install adb` on your terminal as admin
+    - Android Debug Bridge is command-line tool that enable communication with a device. It enables to send inputs directly to the emulator
+4. Install Epic7 Bot, run `pip install epic7-bot` on your terminal
+5. Enable Android Debug Bridge on your emulator of choice. **(more stable on Bluestacks)**
+    - Bluestacks: Settings > Advanced > Enable Android Debug Bridge
+    - Nox: Settings > Device > Enable Network Bridge Mode
 
 ## Future Goals
 
