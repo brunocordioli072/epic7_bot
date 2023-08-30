@@ -16,12 +16,12 @@ Epic7 Bot
 
 ## Disclaimer
 
-This software is an external tool designed to automate playing Epic 7. It is designed to interact with the game only through existing user interfaces and comply with relevant laws and regulations. The package aims to provide simplified and user-friendly interaction with the game, and it is not intended to disrupt game balance in any way or provide any unfair advantages. The package will not modify any game files or game code in any way.
+This software is an external tool designed to automate playing Epic Seven. It is designed to interact with the game only through existing user interfaces and comply with relevant laws and regulations. The package aims to provide simplified and user-friendly interaction with the game, and it is not intended to disrupt game balance in any way or provide any unfair advantages. The package will not modify any game files or game code in any way.
 
 This software is open source, free of charge, and for learning and exchange purposes only. The developer team has the final right to interpret this project. All problems arising from the use of this software are not related to this project and the developer team. If you encounter a merchant using this software to practice on your behalf and charging for it, it may be the cost of equipment and time, etc. The problems and consequences arising from this software have nothing to do with it.
 
 ## Requirements
-- [Android Debug Bridge (adb)](https://community.chocolatey.org/packages/adb)
+- [Android Debug Bridge](https://community.chocolatey.org/packages/adb)
 - [Python 3.4+](https://www.python.org/downloads/release/python-392/)
 
 ## Usage
