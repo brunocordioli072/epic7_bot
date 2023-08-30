@@ -21,16 +21,8 @@ This software is an external tool designed to automate playing Epic 7. It is des
 This software is open source, free of charge, and for learning and exchange purposes only. The developer team has the final right to interpret this project. All problems arising from the use of this software are not related to this project and the developer team. If you encounter a merchant using this software to practice on your behalf and charging for it, it may be the cost of equipment and time, etc. The problems and consequences arising from this software have nothing to do with it.
 
 ## Requirements
-- [Chocolatey](https://chocolatey.org/)
 - [Android Debug Bridge (adb)](https://community.chocolatey.org/packages/adb)
 - [Python 3.4+](https://www.python.org/downloads/release/python-392/)
-
-
-## Instalation
-
-```bash
-pip install epic7-bot
-```
 
 ## Usage
 
@@ -72,6 +64,8 @@ Options:
     - Chocolatey is a package manager for windows, It is easier to install Android Debug Bridge with it.
 3. Install Android Debug Bridge, run  `choco install adb` on your terminal as admin.
     - Android Debug Bridge is command-line tool that enable communication with a device. It enables to send inputs directly to the emulator.
+4. Install Epic7 Bot
+    - Run `pip install epic7-bot` on your terminal. 
 
 ## Future Goals
 
