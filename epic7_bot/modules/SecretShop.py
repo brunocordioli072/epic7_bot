@@ -47,7 +47,7 @@ class SecretShop(Module):
                 x1=761, y1=605, x2=1059, y2=660, action="Click on Confirm Buy")
 
             self.mystic_count += 1
-            self.mystic_bought = True
+            
             
 
         if coven_pos is not None:
@@ -68,7 +68,7 @@ class SecretShop(Module):
                 x1=761, y1=605, x2=1059, y2=660, action="Click on Confirm Buy")
 
             self.covenant_count += 1
-            self.covenant_bought = True
+            
         
 
     def scroll(self):

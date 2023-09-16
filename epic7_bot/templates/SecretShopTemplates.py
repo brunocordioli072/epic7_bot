@@ -18,11 +18,11 @@ class SecretShopTemplates(BaseTemplates):
         }
 
         self.covenant: Template = {
-            "image": cv2.imread(self.dirPath + '/../images/secret_shop/friendship.png', 0),
+            "image": cv2.imread(self.dirPath + '/../images/secret_shop/covenant.png', 0),
             "name": "covenant"
         }
 
         self.mystic: Template = {
-            "image": cv2.imread(self.dirPath + '/../images/secret_shop/boots.png', 0),
+            "image": cv2.imread(self.dirPath + '/../images/secret_shop/mystic.png', 0),
             "name": "mystic"
         }
