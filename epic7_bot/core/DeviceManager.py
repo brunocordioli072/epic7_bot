@@ -3,7 +3,6 @@ import subprocess
 from time import sleep
 from ppadb.client import Client
 from epic7_bot.utils.Singleton import Singleton
-import configparser
 
 
 class DeviceManager(metaclass=Singleton):
