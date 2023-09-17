@@ -8,12 +8,12 @@ class SecretShopTemplates(BaseTemplates):
         super(self.__class__, self).__init__()
 
         self.buy_button_covenant: Template = {
-            "image": cv2.imread(self.dirPath + '/../images/secret_shop/Buy_button_Covenant.png', 0),
+            "image": cv2.imread(self.dirPath + '/../images/secret_shop/Buy_button.png', 0),
             "name": "buy_button_covenant"
         }
 
         self.buy_button_mystic: Template = {
-            "image": cv2.imread(self.dirPath + '/../images/secret_shop/Buy_button_Mystic.png', 0),
+            "image": cv2.imread(self.dirPath + '/../images/secret_shop/Buy_button.png', 0),
             "name": "buy_button_mystic"
         }
 

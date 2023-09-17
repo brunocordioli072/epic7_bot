@@ -47,7 +47,8 @@ class SecretShop(Module):
                 x1=761, y1=605, x2=1059, y2=660, action="Click on Confirm Buy")
 
             self.mystic_count += 1
-            self.check_bookmarks()
+            
+            
 
         if coven_pos is not None:
             logging.info("Found Covenant Bookmark")
@@ -67,7 +68,8 @@ class SecretShop(Module):
                 x1=761, y1=605, x2=1059, y2=660, action="Click on Confirm Buy")
 
             self.covenant_count += 1
-            self.check_bookmarks()
+            
+        
 
     def scroll(self):
         x1, y1 = self.MathUtils.random_point_in_area(
