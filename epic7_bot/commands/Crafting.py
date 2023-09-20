@@ -5,7 +5,7 @@ from epic7_bot.modules.Equipment import Equipment
 class Crafting(Command):
     def __init__(self, *args, **kwargs):
         super(self.__class__, self).__init__(*args, **kwargs)
-        self.Equipment = Equipment(self.fastMode)
+        self.Equipment = Equipment()
 
     def start(self):
             self.Equipment.start_crafting()

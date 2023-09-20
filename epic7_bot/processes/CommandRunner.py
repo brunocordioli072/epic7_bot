@@ -8,6 +8,7 @@ from epic7_bot.commands.Daily import Daily
 from epic7_bot.commands.Hunt import Hunt
 from epic7_bot.commands.Arena import Arena
 from epic7_bot.commands.Shop import Shop
+from epic7_bot.commands.Crafting import Crafting
 
 
 class CommandRunner(multiprocessing.Process):
@@ -19,6 +20,7 @@ class CommandRunner(multiprocessing.Process):
             "hunt": Hunt,
             "arena": Arena,
             "shop": Shop,
+            "crafting": Crafting,
         }
 
     def run(self):
