@@ -8,7 +8,4 @@ class Crafting(Command):
         self.Equipment = Equipment(self.fastMode)
 
     def start(self):
-        if self.currentScreen == False:
-            self.Equipment.start_crafting_from_lobby()
-        else:
             self.Equipment.start_crafting()
