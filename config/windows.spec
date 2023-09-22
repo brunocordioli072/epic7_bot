@@ -30,10 +30,11 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
+    icon='..\\packages\\app\\public\\icon.ico',
     name='Epic7 Bot',
-    debug=True,
+    debug=False,
     strip=False,
     upx=True,
     runtime_tmpdir=None,
-    console=True,
+    console=False,
 )
