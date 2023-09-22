@@ -1,0 +1,19 @@
+{
+  "name": "epic-seven-assistant",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "install:app": "cd packages/app && npm install",
+    "install:core": "cd packages/core && pip install .",
+    "dev": "concurrently \"npm:build:app:watch\" \"npm:dev:core\"",
+    "dev:core": "cd packages/core && python view.py",
+    "dev:app": "cd packages/app && npm run dev",
+    "build": "pyinstaller config/windows.spec",
+    "build:app": "cd packages/app && npm run build",
+    "build:app:watch": "cd packages/app && npm run build:watch"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
+}
