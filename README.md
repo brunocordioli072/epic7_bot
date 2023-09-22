@@ -84,7 +84,7 @@ Options:
 
 All kinds of contributions including enhancements, new features, code improvements, issues and bugs reporting are welcome.
 
-- The `main` branch of Epic7 Bot is the stable version, and all development is done in the `development` branch. So if you want to open a Pull Request, your commits need to be submitted to the `development` branch.
+- The `master` branch of Epic7 Bot is the stable version, and all development is done in the `development` branch. So if you want to open a Pull Request, your commits need to be submitted to the `development` branch.
 
 ⭐ If you like it, give it a star~ ⭐
 
