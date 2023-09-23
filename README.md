@@ -75,7 +75,7 @@ Options:
 - [ ] Spirit Altar.
 - [x] Arena NPC battling.
 - [x] All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc.
-- [ ] GUI development.
+- [x] GUI development.
 - [ ] Create a .exe installer.
 
 ## Contributions
@@ -86,7 +86,10 @@ All kinds of contributions including enhancements, new features, code improvemen
 
 - The `master` branch of Epic7 Bot is the stable version, and all development is done in the `development` branch. So if you want to open a Pull Request, your commits need to be submitted to the `development` branch.
 
+For more details, see [Contributing Guide](CONTRIBUTING.md).
+
 ⭐ If you like it, give it a star~ ⭐
+
 
 ## Contributors
 
