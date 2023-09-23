@@ -40,6 +40,15 @@ class ScreenManager(metaclass=Singleton):
         nparr = np.frombuffer(png_screenshot_data, np.uint8)
         img = cv2.imdecode(nparr, 0)
         return img
+    
+    def take_screenshot_hsv(self):
+        png_screenshot_data = self.DeviceManager.device.shell(
+            "screencap -p | busybox base64")
+        png_screenshot_data = base64.b64decode(png_screenshot_data)
+        nparr = np.frombuffer(png_screenshot_data, np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        return hsv_img
 
     def take_screnshot_from_area(self, x1=None, x2=None, y1=None, y2=None):
         img = self.take_screenshot()
@@ -47,6 +56,14 @@ class ScreenManager(metaclass=Singleton):
             img = img[y1:y2, x1:x2]
 
         return img
+
+    def take_screnshot_from_area_hsv(self, x1=None, x2=None, y1=None, y2=None):
+        img = self.take_screenshot_hsv()
+        if x1 != None and y1 != None and x2 != None and y2 != None:
+            img = img[y1:y2, x1:x2]
+
+        return img
+
 
     def match_template_on_screen(self, template: Template, percentage=0.6):
         image = self.take_screenshot()
@@ -73,6 +90,27 @@ class ScreenManager(metaclass=Singleton):
             return max_val
         else:
             return None
+
+    def match_template_on_screen_area_hsv(self, x1, y1, x2, y2, template, percentage=0.55):
+        image = self.take_screnshot_from_area_hsv(x1, x2, y1, y2)
+        result = cv2.matchTemplate(
+            image, template['image'], cv2.TM_CCOEFF_NORMED)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+        logging.debug(
+            f"match_template_on_screen_area {template['name']}, percentage: {max_val}, {max_val > percentage}")
+        if max_val > percentage:
+            return max_val
+        else:
+            return None
+        
+    def match_color_on_screen_area(self, x1, y1, x2, y2):
+        image = self.take_screnshot_from_area_hsv(x1, x2, y1, y2)
+        mask = cv2.inRange(image, (31,30,47), (154,255,255))
+        has_color = np.any(mask)
+        if has_color:
+            return True
+        else:
+            return False
 
     def match_template_on_screen_and_click_it(self, template, waitTime=0):
         self.sleep(random.uniform(waitTime, waitTime + 0.5))

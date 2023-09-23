@@ -12,3 +12,8 @@ class EquipmentTemplates(BaseTemplates):
             "name": "equipment_blue"
         }
 
+        self.sword: Template = {
+            "image": cv2.imread(self.dirPath + '/../images/equipment/sword.png', 0),
+            "name": "sword"
+        }
+
