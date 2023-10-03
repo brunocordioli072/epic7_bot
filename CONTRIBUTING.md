@@ -4,7 +4,7 @@ Hi! We're really excited that you're interested in contributing to Epic7 Bot! Be
 
 ## Repo Setup
 
-To develop locally, fork the Epic7 Bot repository and clone it in your local machine.
+To develop locally, fork the Epic7 Bot repository and clone it in your local machine. You will need Node.js 18+ and Python 3.4+.
 
 To develop and test the Epic7 Bot:
 

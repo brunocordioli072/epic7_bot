@@ -22,7 +22,6 @@ This software is open source, free of charge, and for learning and exchange purp
 
 ## Requirements
 - [Android Debug Bridge](https://community.chocolatey.org/packages/adb)
-- [Python 3.4+](https://www.python.org/downloads/release/python-392/)
 
 ## Working
 <div align="center">
