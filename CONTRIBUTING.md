@@ -1,6 +1,6 @@
 # Epic7 Bot Contributing Guide
 
-Hi! We're really excited that you're interested in contributing to Vite! Before submitting your contribution, please read through the following.
+Hi! We're really excited that you're interested in contributing to Epic7 Bot! Before submitting your contribution, please read through the following.
 
 ## Repo Setup
 
@@ -10,7 +10,7 @@ To develop and test the Epic7 Bot:
 
 1. Run `npm run install` in Epic7 Bot root folder.
 
-2. Run `npm run build:app:watch` in Epic7 Bot root folder on separate terminal.
+2. Run `npm run build:app:watch` in Epic7 Bot root folder.
 
 3. Run `npm run dev:core` in in Epic7 Bot root folder on separate terminal.
 

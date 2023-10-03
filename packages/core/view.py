@@ -48,6 +48,13 @@ class Api:
 
 if __name__ == "__main__":
     api = Api()
+
+    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+    if os.path.exists(ROOT_DIR + "\\logs") is not True:
+        with open(ROOT_DIR + "\\logs", "w") as log:
+            pass
+
     webview.create_window(
         "Epic7 Bot",
         "dist-app/index.html",
