@@ -50,9 +50,11 @@ const App: React.FC = () => {
   }
 
   async function handleStop() {
-    await window.pywebview.api.stopRunningCommand()
-    setLogs([...logs, <b>Stopped!</b>])
-    clearInterval(logsInterval)
+    if (!logs.find(el => el.type == "b")) {
+      await window.pywebview.api.stopRunningCommand()
+      setLogs([...logs, <b>Stopped!</b>])
+      clearInterval(logsInterval)
+    }
   }
 
   async function handleStart() {

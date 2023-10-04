@@ -1,4 +1,5 @@
 import multiprocessing
+import os
 from epic7_bot.commands.Command import Command
 from epic7_bot.core.Logger import get_log_level, init_logger
 from dotenv import load_dotenv
@@ -34,3 +35,10 @@ class CommandRunner(multiprocessing.Process):
                 raise e
             else:
                 pass
+
+    def terminate(self) -> None:
+        ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+        if os.path.exists(ROOT_DIR + "\\logs"):
+            print("cai aq")
+            os.remove(ROOT_DIR + "\\logs")
+        return super().terminate()
