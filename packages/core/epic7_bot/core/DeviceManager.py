@@ -33,7 +33,13 @@ class DeviceManager(metaclass=Singleton):
 
     def ensure_adb_is_running(self):
         logging.info("Ensure ADB is running")
-        subprocess.run(["adb", "start-server"])
+        subprocess.Popen(
+            ["adb", "start-server"],
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            stdin=subprocess.PIPE,
+        )
 
     def connect_devices_to_adb(self):
         bluestacks_config_path = "C:\\ProgramData\\BlueStacks_nxt\\bluestacks.conf"
@@ -47,6 +53,10 @@ class DeviceManager(metaclass=Singleton):
                 device_ports.add(c[1].replace('"', ""))
 
         for port in device_ports:
-            subprocess.run(
-                ["adb", "connect", f"127.0.0.1:{port}"], stdout=subprocess.DEVNULL
+            subprocess.Popen(
+                ["adb", "connect", f"127.0.0.1:{port}"],
+                shell=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                stdin=subprocess.PIPE,
             )
