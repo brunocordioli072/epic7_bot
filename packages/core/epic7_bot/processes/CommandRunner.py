@@ -39,6 +39,5 @@ class CommandRunner(multiprocessing.Process):
     def terminate(self) -> None:
         ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
         if os.path.exists(ROOT_DIR + "\\logs"):
-            print("cai aq")
             os.remove(ROOT_DIR + "\\logs")
         return super().terminate()
