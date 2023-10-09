@@ -39,7 +39,7 @@ class DeviceManager(metaclass=Singleton):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             stdin=subprocess.PIPE,
-        )
+        ).wait()
 
     def connect_devices_to_adb(self):
         bluestacks_config_path = "C:\\ProgramData\\BlueStacks_nxt\\bluestacks.conf"
@@ -59,4 +59,4 @@ class DeviceManager(metaclass=Singleton):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 stdin=subprocess.PIPE,
-            )
+            ).wait()

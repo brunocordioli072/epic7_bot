@@ -4,6 +4,7 @@ block_cipher = None
 
 added_files = [
     ('..\\packages\\core\\dist-app', 'dist-app'),
+    ('..\\packages\\core\\epic7_bot\\images', 'epic7_bot\\images'),
 ]
 
 a = Analysis(
