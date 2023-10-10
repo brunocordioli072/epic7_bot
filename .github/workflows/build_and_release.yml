@@ -77,6 +77,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./app_windows/app.exe
-        asset_name: app_windows.exe
+        asset_path: ./app_windows/Epic7 Bot.exe
+        asset_name: Epic7 Bot.exe
         asset_content_type: application
