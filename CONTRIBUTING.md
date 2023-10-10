@@ -16,7 +16,7 @@ To develop and test the Epic7 Bot:
 
 ## Pull Request Guidelines
 
-- Checkout a topic branch from a base branch (e.g. `development`), and merge back against that branch.
+- Checkout a topic branch from a base branch (e.g. `develop`), and merge back against that branch.
 
 - If adding a new feature:
 
