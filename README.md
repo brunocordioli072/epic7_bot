@@ -53,7 +53,7 @@ https://github.com/brunocordioli072/epic7_bot/assets/46489264/29ffd023-9aea-4772
 - [x] Arena NPC battling.
 - [x] All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc.
 - [x] GUI development.
-- [ ] Create a .exe installer.
+- [x] Create a .exe app.
 
 ## Contributions
 
