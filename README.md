@@ -22,46 +22,23 @@ This software is open source, free of charge, and for learning and exchange purp
 
 ## Requirements
 - [Android Debug Bridge](https://community.chocolatey.org/packages/adb)
-- [Python 3.4+](https://www.python.org/downloads/release/python-392/)
-
-## Usage
-
-```
-epic7 --help
-Usage:
-    epic7 <command> [options]
-
-All commands should be run when the game screen is in the lobby!
-
-The most commonly used commands are:
-    shop            Start secret shop auto buy
-    arena           Start arena npc auto battle
-    hunt            Start hunt auto battle
-    daily           Start daily actions
-
-Options:
-    -h --help       Show this help message and exit
-    -v --version    Show version and exit
-```
 
 ## Working
 <div align="center">
     
-![shop-mp4](https://github.com/brunocordioli072/epic7_bot/assets/46489264/bae8b85b-e08c-46d6-91d9-cf64369e4923)
+https://github.com/brunocordioli072/epic7_bot/assets/46489264/29ffd023-9aea-4772-a6b3-62f564d25ab1
 
-*Bluestacks running Epic7 above and Windows Powershell running the epic7-bot shop auto buy below.*
+*Bluestacks running Epic7 on the right and epic7-bot on the left running auto buy.*
 
 </div>
 
 ## Getting Started
 
-1. Install Python +3.4 https://www.python.org/downloads/release/python-392/.
-2. Install Chocolatey https://chocolatey.org/install#individual.
+1. Install Chocolatey https://chocolatey.org/install#individual.
     - Chocolatey is a package manager for Windows. It is easier to install Android Debug Bridge with it.
-3. Install Android Debug Bridge by running  `choco install adb` on your terminal as admin.
+2. Install Android Debug Bridge by running  `choco install adb` on your terminal as admin.
     - Android Debug Bridge is command-line tool that enable communication with a device. It enables to send inputs directly to the emulator.
-4. Install Epic7 Bot by running `pip install epic7-bot` on your terminal.
-5. Enable Android Debug Bridge on your emulator of choice. **(Bluestacks is recommended.)**
+3. Enable Android Debug Bridge on your emulator of choice. **(Bluestacks is recommended.)**
     - Bluestacks: Settings > Advanced > Enable Android Debug Bridge.
     - Nox: Settings > Device > Enable Network Bridge Mode.
 
@@ -75,8 +52,8 @@ Options:
 - [ ] Spirit Altar.
 - [x] Arena NPC battling.
 - [x] All daily actions, like daily summon and pet summon, sanctuary daily rewards, guild donations, etc.
-- [ ] GUI development.
-- [ ] Create a .exe installer.
+- [x] GUI development.
+- [x] Create a .exe app.
 
 ## Contributions
 
@@ -84,9 +61,12 @@ Options:
 
 All kinds of contributions including enhancements, new features, code improvements, issues and bugs reporting are welcome.
 
-- The `main` branch of Epic7 Bot is the stable version, and all development is done in the `development` branch. So if you want to open a Pull Request, your commits need to be submitted to the `development` branch.
+- The `master` branch of Epic7 Bot is the stable version, and all development is done in the `develop` branch. So if you want to open a Pull Request, your commits need to be submitted to the `develop` branch.
+
+For more details, see [Contributing Guide](CONTRIBUTING.md).
 
 ⭐ If you like it, give it a star~ ⭐
+
 
 ## Contributors
 
