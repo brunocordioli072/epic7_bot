@@ -69,7 +69,7 @@ class Api:
             {
                 "label": "Daily",
                 "description": "Daily Actions",
-                "command": "start_daily",
+                "python_command": "start_daily",
                 "icon": "RetweetOutlined",
             },
         ]
