@@ -5,31 +5,12 @@ import './App.css'
 import { useAppContext } from './context/AppContext';
 const { Content, Footer } = Layout;
 
-const commandProps: any = {
-  'shop': {
-    label: 'Shop',
-    description: 'Secret Shop Auto Buy',
-  },
-  'hunt': {
-    label: 'Hunt',
-    description: 'Hunt Auto Battle'
-  },
-  'arena': {
-    label: 'Arena',
-    description: 'Arena NPC Auto Battle'
-  },
-  'daily': {
-    label: 'Daily',
-    description: 'Daily Actions'
-  },
-}
-
 const App: React.FC = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [logsInterval, setLogsInterval] = useState(0)
-  const { command, logs, setLogs } = useAppContext()
+  const { command, setCommands, setCommand, logs, setLogs } = useAppContext()
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
   useEffect(() => {
@@ -37,10 +18,18 @@ const App: React.FC = () => {
       setWindowSize(getWindowSize());
     }
 
+    async function handlePywebviewStart() {
+      const commands = await window.pywebview.api.get_commands()
+      setCommands(commands)
+      setCommand(commands.find((el: any) => el.label === "Shop"))
+    }
+
+    window.addEventListener('pywebviewready', handlePywebviewStart);
     window.addEventListener('resize', handleWindowResize);
 
     return () => {
       window.removeEventListener('resize', handleWindowResize);
+      window.removeEventListener('pywebviewready', handlePywebviewStart);
     };
   }, []);
 
@@ -50,21 +39,22 @@ const App: React.FC = () => {
   }
 
   async function handleStop() {
+    // Ensure it only stops once by checking if <b>Stopped!</b> were already added to logs 
     if (!logs.find(el => el.type == "b")) {
-      await window.pywebview.api.stopRunningCommand()
+      await window.pywebview.api.stop_running_command()
       setLogs([...logs, <b>Stopped!</b>])
       clearInterval(logsInterval)
     }
   }
 
   async function handleStart() {
-    await window.pywebview.api['start' + commandProps[command].label]()
+    await window.pywebview.api[command.python_command]()
     handleLogs()
   }
 
   function handleLogs() {
     const interval = setInterval(async () => {
-      const res: string = await window.pywebview.api.getLogs()
+      const res: string = await window.pywebview.api.get_logs()
       let logs: any[] = []
       res.split('\n').forEach(el => {
         logs.push(<p>{el}</p>)
@@ -81,8 +71,8 @@ const App: React.FC = () => {
         {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
         <Content style={{ margin: '16px 16px' }}>
           <Breadcrumb style={{ marginBottom: '8px' }}>
-            <Breadcrumb.Item>{commandProps[command].label}</Breadcrumb.Item>
-            <Breadcrumb.Item>{commandProps[command].description}</Breadcrumb.Item>
+            <Breadcrumb.Item>{command.label}</Breadcrumb.Item>
+            <Breadcrumb.Item>{command.description}</Breadcrumb.Item>
           </Breadcrumb>
           <Button onClick={() => handleStart()} style={{ marginRight: 8 }}>
             Start
