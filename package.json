@@ -8,7 +8,7 @@
     "install:app": "cd packages/app && npm install",
     "install:core": "cd packages/core && pip install -r requirements.txt",
     "dev": "concurrently \"npm:build:app:watch\" \"npm:dev:core\"",
-    "dev:core": "cd packages/core && nodemon view.py",
+    "dev:core": "nodemon --watch \"packages/core/\" -e js,css,py packages/core/view.py",
     "dev:app": "cd packages/app && npm run dev",
     "build": "pyinstaller config/windows.spec",
     "build:app": "cd packages/app && npm run build",
