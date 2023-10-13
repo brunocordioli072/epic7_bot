@@ -18,6 +18,8 @@ class SecretShop(Module):
         self.mystic_count = 0
         self.refreshes_count = 0
         self.covenant_count = 0
+        self.mystic_bought = False
+        self.covenant_bought = False
 
     def check_bookmarks(self):
         logging.info("Check Mystic and Covenant Bookmarks")
@@ -28,7 +30,7 @@ class SecretShop(Module):
             lambda: self.ScreenManager.match_template_on_screen(
                 self.SecretShopTemplates.covenant))
 
-        if mystic_pos is not None:
+        if mystic_pos is not None and self.mystic_bought is not True:
             logging.info("Found Mystic Bookmark")
             x, y = self.ScreenManager.get_position_of_template_match(
                 mystic_pos)
@@ -47,10 +49,11 @@ class SecretShop(Module):
                 x1=761, y1=605, x2=1059, y2=660, action="Click on Confirm Buy")
 
             self.mystic_count += 1
+            self.mystic_bought = True
             
             
 
-        if coven_pos is not None:
+        if coven_pos is not None and self.covenant_bought is not True:
             logging.info("Found Covenant Bookmark")
             x, y = self.ScreenManager.get_position_of_template_match(coven_pos)
 
@@ -68,6 +71,7 @@ class SecretShop(Module):
                 x1=761, y1=605, x2=1059, y2=660, action="Click on Confirm Buy")
 
             self.covenant_count += 1
+            self.covenant_bought = True
             
         
 
@@ -93,6 +97,8 @@ class SecretShop(Module):
             x1=878, y1=537, x2=986, y2=568, action="Click on Confirm Button")
 
         self.refreshes_count += 1
+        self.mystic_bought = False
+        self.covenant_bought = False
 
     def show_stats(self):
         comment = f"\nTotal Covenant: {str(self.covenant_count)}{' '*30}" + \
