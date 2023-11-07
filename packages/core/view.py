@@ -15,25 +15,31 @@ class Api:
         multiprocessing.set_start_method("spawn", force=True)
         multiprocessing.freeze_support()
 
-    def start_shop(self):
-        args = {"<command>": "shop", "--current": False, "--fast": False}
+    def start_command(self, args):
+        if self.runningCommand is not None:
+            self.stop_running_command()
         self.runningCommand = CommandRunner(args)
         self.runningCommand.start()
+
+    def start_shop(self):
+        args = {
+            "<command>": "shop",
+            "--current": False,
+            "--fast": False,
+        }
+        self.start_command(args)
 
     def start_hunt(self):
         args = {"<command>": "hunt", "--current": False, "--fast": False}
-        self.runningCommand = CommandRunner(args)
-        self.runningCommand.start()
+        self.start_command(args)
 
     def start_arena(self):
         args = {"<command>": "arena", "--current": False, "--fast": False}
-        self.runningCommand = CommandRunner(args)
-        self.runningCommand.start()
+        self.start_command(args)
 
     def start_daily(self):
         args = {"<command>": "daily", "--current": False, "--fast": False}
-        self.runningCommand = CommandRunner(args)
-        self.runningCommand.start()
+        self.start_command(args)
 
     def stop_running_command(self):
         self.runningCommand.terminate()
