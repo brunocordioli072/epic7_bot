@@ -1,5 +1,6 @@
 import logging
-import time
+import os
+from tinydb import TinyDB, table
 from epic7_bot.modules.Module import Module
 from epic7_bot.templates.HuntTemplates import HuntTemplates
 
@@ -9,6 +10,15 @@ class Battle(Module):
         super(self.__class__, self).__init__()
         self.HuntTemplates = HuntTemplates()
         self.total_rotations = 0
+
+        # Init table and contents
+        ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+        db = TinyDB(ROOT_DIR + "\\..\\..\\db.json")
+        self.table = db.table("hunt")
+        if len(self.table.all()) != 1:
+            self.table.insert(table.Document({'total_rotations': 0}, doc_id=1))
+        else:
+            self.table.update({'total_rotations': 0}, doc_ids=[1])
 
     def has_energy(self):
         if (
@@ -41,8 +51,6 @@ class Battle(Module):
         ):  # change this to match other screen
             self.ScreenManager.sleep(1)
 
-        self.total_rotations += 1
-
         if (
             self.ScreenManager.match_template_on_screen_area(
                 x1=1395,
@@ -57,6 +65,7 @@ class Battle(Module):
             self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
                 x1=1395, y1=808, x2=1492, y2=839, action="Click on confirm button"
             )
+            self.total_rotations += 1
 
         self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
             x1=1416, x2=1533, y1=810, y2=841, action="Click on try again button"
@@ -72,15 +81,17 @@ class Battle(Module):
         self.do_hunt_rotation()
 
     def show_stats(self):
-        comment = (
-            f"\nTotal Rotations: {str(self.total_rotations)}{' '*30} \n"
-            + f"{' '*30} \n"
-        )
-        previus_line = "\033[F"
-        if self.total_rotations == 0:
-            print(f"\r{previus_line*2}{comment}")
-        else:
-            print(f"\r{previus_line*4}{comment}")
+        self.table.update({'total_rotations': self.total_rotations}, doc_ids=[1])
+        
+        # comment = (
+        #     f"\nTotal Rotations: {str(self.total_rotations)}{' '*30} \n"
+        #     + f"{' '*30} \n"
+        # )
+        # previus_line = "\033[F"
+        # if self.total_rotations == 0:
+        #     print(f"\r{previus_line*2}{comment}")
+        # else:
+        #     print(f"\r{previus_line*4}{comment}")
 
     def start_hunt(self):
         if (

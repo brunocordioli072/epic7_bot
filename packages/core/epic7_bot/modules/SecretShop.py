@@ -24,6 +24,7 @@ class SecretShop(Module):
         self.mystic_bought = False
         self.covenant_bought = False
 
+        # Init table and contents
         ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
         db = TinyDB(ROOT_DIR + "\\..\\..\\db.json")
         self.table = db.table("secret_shop")

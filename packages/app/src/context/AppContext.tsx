@@ -10,7 +10,7 @@ interface Command {
     label: string;
     description: string;
     python_command: string;
-    module: string
+    table: string
     icon: JSX.Element;
 }
 
@@ -42,28 +42,28 @@ export const AppProvider = ({ children }: { children: any }) => {
             "label": "Shop",
             "description": "Secret Shop Auto Buy",
             "python_command": "start_shop",
-            "module": 'secret_shop',
+            "table": 'secret_shop',
             "icon": <ShoppingOutlined />,
         },
         {
             "label": "Hunt",
             "description": "Hunt Auto Battle",
             "python_command": "start_hunt",
-            "module": 'hunt',
+            "table": 'hunt',
             "icon": <RocketOutlined />,
         },
         {
             "label": "Arena",
             "description": "Arena NPC Auto Battle",
             "python_command": "start_arena",
-            "module": 'arena',
+            "table": 'arena',
             "icon": <BorderlessTableOutlined />,
         },
         {
             "label": "Daily",
             "description": "Daily Actions",
             "python_command": "start_daily",
-            "module": 'daily',
+            "table": 'daily',
             "icon": <RetweetOutlined />,
         },
     ])

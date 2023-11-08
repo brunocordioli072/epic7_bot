@@ -41,33 +41,63 @@ const App: React.FC = () => {
 
   async function handleStart() {
     await window.pywebview.api[command.python_command]()
-    handleLogs()
+    createInterval()
   }
 
-  function handleLogs() {
+  async function handleSummary() {
+    const res_stats = await window.pywebview.api.get_summary(command.table)
+
+    switch (command.table) {
+      case "secret_shop":
+        setSummary(<div style={{ margin: '0' }}>
+          <p>
+            <span style={{ fontWeight: '600' }}>Covenants Bought:</span> {res_stats.covenant_count}
+          </p>
+          <p>
+            <span style={{ fontWeight: '600' }}>Mystics Bought:</span> {res_stats.mystic_count}
+          </p>
+          <p>
+            <span style={{ fontWeight: '600' }}>Refreshes:</span> {res_stats.refreshes_count}
+          </p>
+        </div> as any)
+        break;
+      case "hunt":
+        setSummary(<div style={{ margin: '0' }}>
+          <p>
+            <span style={{ fontWeight: '600' }}>Total Rotations:</span> {res_stats.total_rotations}
+          </p>
+        </div> as any)
+        break;
+      default:
+        setSummary(<div style={{ margin: '0' }}>
+          <p>
+            <span style={{ fontWeight: '600' }}>No summary developed for {command.label} yet...</span>
+          </p>
+        </div> as any)
+        break;
+
+    }
+  }
+
+  function updateLogsScroll() {
+    var element: any = document.getElementById("logs");
+    element.scrollTop = element.scrollHeight;
+  }
+
+  async function handleLogs() {
+    const res_logs: string = await window.pywebview.api.get_logs()
+    let logs: any[] = []
+    res_logs.split('\n').forEach(el => {
+      logs.push(<p>{el}</p>)
+    })
+    setLogs(logs as any)
+    updateLogsScroll()
+  }
+
+  function createInterval() {
     const interval = setInterval(async () => {
-      const res_stats = await window.pywebview.api.get_summary(command.module)
-      if (res_stats) {
-        if (command.module === "secret_shop") {
-          setSummary(<div style={{ margin: '0' }}>
-            <p>
-              <span style={{ fontWeight: '600' }}>Covenants Bought:</span> {res_stats.covenant_count}
-            </p>
-            <p>
-              <span style={{ fontWeight: '600' }}>Mystics Bought:</span> {res_stats.mystic_count}
-            </p>
-            <p>
-              <span style={{ fontWeight: '600' }}>Refreshes:</span> {res_stats.refreshes_count}
-            </p>
-          </div> as any)
-        }
-      }
-      const res_logs: string = await window.pywebview.api.get_logs()
-      let logs: any[] = []
-      res_logs.split('\n').forEach(el => {
-        logs.push(<p>{el}</p>)
-      })
-      setLogs(logs as any)
+      await handleLogs()
+      await handleSummary()
     }, 500)
     setLogsInterval(interval)
   }
@@ -92,7 +122,7 @@ const App: React.FC = () => {
             <div style={{ fontStyle: "italic", fontWeight: "bold", marginBottom: "12px" }}>Summary</div>
             {summary}
           </div>
-          <div className='logs' style={{ padding: 12, marginTop: 8, minHeight: 260, height: windowSize.innerHeight - 1000, background: colorBgContainer }}>
+          <div id='logs' style={{ padding: 12, marginTop: 8, minHeight: 260, maxHeight: 260, height: windowSize.innerHeight - 1000, background: colorBgContainer }}>
             <div style={{ fontStyle: "italic", fontWeight: "bold", marginBottom: "12px" }}>Logs</div>
             {...logs}
           </div>

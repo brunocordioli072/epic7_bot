@@ -8,6 +8,7 @@ from epic7_bot.processes.CommandRunner import CommandRunner
 An example of serverless app architecture
 """
 
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class Api:
     def __init__(self) -> None:
@@ -46,33 +47,29 @@ class Api:
 
     def get_logs(self):
         try:
-            ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
             f = open(ROOT_DIR + "\logs", "r")
             return f.read()
         except BaseException as e:
             raise e
         
-    def get_summary(self, module):
-        ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+    def get_summary(self, table):
         db = TinyDB(ROOT_DIR + "\\db.json")
-        table = db.table(module)
+        table = db.table(table)
         contents = table.all()
         if len(contents) > 0:
             return contents[0]
 
 if __name__ == "__main__":
-    api = Api()
-
-    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-
+    # Create logs file
     if os.path.exists(ROOT_DIR + "\\logs") is not True:
         with open(ROOT_DIR + "\\logs", "w") as log:
             pass
-
+    # Create db file
     if os.path.exists(ROOT_DIR + "\\db.json") is not True:
-        with open(ROOT_DIR + "\\db.json", "w") as log:
+        with open(ROOT_DIR + "\\db.json", "w") as db:
             pass
     
+    api = Api()
     webview.create_window(
         "Epic7 Bot",
         "dist-app/index.html",
