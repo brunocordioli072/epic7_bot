@@ -39,11 +39,12 @@ const icons: any = {
 
 const AppSider: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const { setCommand, commands, setLogs } = useAppContext()
+    const { setCommand, commands, setLogs, setSummary } = useAppContext()
 
     function handleSelect(key: string) {
-        setCommand(commands.find(el => el.label === key))
+        setCommand(commands.find(el => el.label === key) as any)
         setLogs([])
+        setSummary(null as any)
     }
 
     return (

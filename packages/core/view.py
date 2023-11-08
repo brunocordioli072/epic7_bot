@@ -1,4 +1,5 @@
 from typing import Any, Dict
+from tinydb import TinyDB, where
 import webview
 import os
 import multiprocessing
@@ -80,6 +81,14 @@ class Api:
             },
         ]
 
+        
+    def get_stats(self, stats):
+        ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+        db = TinyDB(ROOT_DIR + "\\db.json")
+        table = db.table(stats)
+        contents = table.all()
+        if len(contents) > 0:
+            return contents[0]
 
 if __name__ == "__main__":
     api = Api()
@@ -90,10 +99,14 @@ if __name__ == "__main__":
         with open(ROOT_DIR + "\\logs", "w") as log:
             pass
 
+    if os.path.exists(ROOT_DIR + "\\db.json") is not True:
+        with open(ROOT_DIR + "\\db.json", "w") as log:
+            pass
+    
     webview.create_window(
         "Epic7 Bot",
         "dist-app/index.html",
         js_api=api,
         min_size=(600, 470),
     )
-    webview.start(debug=False)
+    webview.start(debug=True)

@@ -132,3 +132,4 @@ dmypy.json
 test*.png
 logs
 dist-app
+db.json

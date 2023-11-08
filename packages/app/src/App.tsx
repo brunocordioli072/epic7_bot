@@ -10,7 +10,7 @@ const App: React.FC = () => {
     token: { colorBgContainer },
   } = theme.useToken();
   const [logsInterval, setLogsInterval] = useState(0)
-  const { command, setCommands, setCommand, logs, setLogs } = useAppContext()
+  const { command, setCommands, setCommand, logs, setLogs, summary, setSummary } = useAppContext()
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
   useEffect(() => {
@@ -54,9 +54,25 @@ const App: React.FC = () => {
 
   function handleLogs() {
     const interval = setInterval(async () => {
-      const res: string = await window.pywebview.api.get_logs()
+      const res_stats = await window.pywebview.api.get_stats(command.module)
+      if (res_stats) {
+        if (command.module === "secret_shop") {
+          setSummary(<div style={{ margin: '0' }}>
+            <p>
+              <span style={{ fontWeight: '600' }}>Covenants Bought:</span> {res_stats.covenant_count}
+            </p>
+            <p>
+              <span style={{ fontWeight: '600' }}>Mystics Bought:</span> {res_stats.mystic_count}
+            </p>
+            <p>
+              <span style={{ fontWeight: '600' }}>Refreshes:</span> {res_stats.refreshes_count}
+            </p>
+          </div> as any)
+        }
+      }
+      const res_logs: string = await window.pywebview.api.get_logs()
       let logs: any[] = []
-      res.split('\n').forEach(el => {
+      res_logs.split('\n').forEach(el => {
         logs.push(<p>{el}</p>)
       })
       setLogs(logs as any)
@@ -80,7 +96,12 @@ const App: React.FC = () => {
           <Button onClick={() => handleStop()}>
             Stop
           </Button>
-          <div className='logs' style={{ padding: 12, marginTop: 8, minHeight: 360, height: windowSize.innerHeight - 500, background: colorBgContainer }}>
+          <div className='stats' style={{ padding: 12, marginTop: 8, minHeight: 156, background: colorBgContainer }}>
+            <div style={{ fontStyle: "italic", fontWeight: "bold", marginBottom: "12px" }}>Summary</div>
+            {summary}
+          </div>
+          <div className='logs' style={{ padding: 12, marginTop: 8, minHeight: 260, height: windowSize.innerHeight - 1000, background: colorBgContainer }}>
+            <div style={{ fontStyle: "italic", fontWeight: "bold", marginBottom: "12px" }}>Logs</div>
             {...logs}
           </div>
         </Content>
