@@ -11,7 +11,7 @@ interface Command {
     description: string;
     python_command: string;
     module: string
-    icon: string;
+    icon: JSX.Element;
 }
 
 interface AppContextInterface {
@@ -43,28 +43,28 @@ export const AppProvider = ({ children }: { children: any }) => {
             "description": "Secret Shop Auto Buy",
             "python_command": "start_shop",
             "module": 'secret_shop',
-            "icon": 'ShoppingOutlined',
+            "icon": <ShoppingOutlined />,
         },
         {
             "label": "Hunt",
             "description": "Hunt Auto Battle",
             "python_command": "start_hunt",
             "module": 'hunt',
-            "icon": 'RocketOutlined',
+            "icon": <RocketOutlined />,
         },
         {
             "label": "Arena",
             "description": "Arena NPC Auto Battle",
             "python_command": "start_arena",
             "module": 'arena',
-            "icon": 'BorderlessTableOutlined',
+            "icon": <BorderlessTableOutlined />,
         },
         {
             "label": "Daily",
             "description": "Daily Actions",
             "python_command": "start_daily",
             "module": 'daily',
-            "icon": 'RetweetOutlined',
+            "icon": <RetweetOutlined />,
         },
     ])
     const [command, setCommand] = useState<Command>(commands.find((el: any) => el.label === "Shop") as any)

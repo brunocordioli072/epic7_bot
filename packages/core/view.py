@@ -52,40 +52,11 @@ class Api:
             return f.read()
         except BaseException as e:
             raise e
-
-    def get_commands(self):
-        return [
-            {
-                "label": "Shop",
-                "description": "Secret Shop Auto Buy",
-                "python_command": "start_shop",
-                "icon": "ShoppingOutlined",
-            },
-            {
-                "label": "Hunt",
-                "description": "Hunt Auto Battle",
-                "python_command": "start_hunt",
-                "icon": "RocketOutlined",
-            },
-            {
-                "label": "Arena",
-                "description": "Arena NPC Auto Battle",
-                "python_command": "start_arena",
-                "icon": "BorderlessTableOutlined",
-            },
-            {
-                "label": "Daily",
-                "description": "Daily Actions",
-                "python_command": "start_daily",
-                "icon": "RetweetOutlined",
-            },
-        ]
-
         
-    def get_stats(self, stats):
+    def get_summary(self, module):
         ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
         db = TinyDB(ROOT_DIR + "\\db.json")
-        table = db.table(stats)
+        table = db.table(module)
         contents = table.all()
         if len(contents) > 0:
             return contents[0]

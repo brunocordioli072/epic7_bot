@@ -29,14 +29,6 @@ function getItem(
     } as MenuItem;
 }
 
-const icons: any = {
-    "ShoppingOutlined": <ShoppingOutlined />,
-    "RocketOutlined": <RocketOutlined />,
-    "BorderlessTableOutlined": <BorderlessTableOutlined />,
-    "RetweetOutlined": <RetweetOutlined />
-}
-
-
 const AppSider: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
     const { setCommand, commands, setLogs, setSummary } = useAppContext()
@@ -51,7 +43,7 @@ const AppSider: React.FC = () => {
         <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
             <div className="demo-logo-vertical" />
             <Menu theme="dark" onSelect={(e) => handleSelect(e.key)} defaultSelectedKeys={['shop']} mode="inline" items={commands.map(el => {
-                return getItem(el.label, el.label, icons[el.icon])
+                return getItem(el.label, el.label, el.icon)
             })} />
         </Sider>
     )

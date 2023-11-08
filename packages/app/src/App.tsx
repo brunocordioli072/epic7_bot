@@ -10,7 +10,7 @@ const App: React.FC = () => {
     token: { colorBgContainer },
   } = theme.useToken();
   const [logsInterval, setLogsInterval] = useState(0)
-  const { command, setCommands, setCommand, logs, setLogs, summary, setSummary } = useAppContext()
+  const { command, logs, setLogs, summary, setSummary } = useAppContext()
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
   useEffect(() => {
@@ -18,18 +18,10 @@ const App: React.FC = () => {
       setWindowSize(getWindowSize());
     }
 
-    async function handlePywebviewStart() {
-      const commands = await window.pywebview.api.get_commands()
-      setCommands(commands)
-      setCommand(commands.find((el: any) => el.label === "Shop"))
-    }
-
-    window.addEventListener('pywebviewready', handlePywebviewStart);
     window.addEventListener('resize', handleWindowResize);
 
     return () => {
       window.removeEventListener('resize', handleWindowResize);
-      window.removeEventListener('pywebviewready', handlePywebviewStart);
     };
   }, []);
 
@@ -54,7 +46,7 @@ const App: React.FC = () => {
 
   function handleLogs() {
     const interval = setInterval(async () => {
-      const res_stats = await window.pywebview.api.get_stats(command.module)
+      const res_stats = await window.pywebview.api.get_summary(command.module)
       if (res_stats) {
         if (command.module === "secret_shop") {
           setSummary(<div style={{ margin: '0' }}>
