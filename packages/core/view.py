@@ -1,5 +1,4 @@
-from typing import Any, Dict
-from tinydb import TinyDB, where
+from tinydb import TinyDB
 import webview
 import os
 import multiprocessing
