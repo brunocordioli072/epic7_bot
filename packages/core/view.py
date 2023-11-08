@@ -1,20 +1,23 @@
 from tinydb import TinyDB
 import webview
+import requests
 import os
 import multiprocessing
 from epic7_bot.processes.CommandRunner import CommandRunner
 
-"""
-An example of serverless app architecture
-"""
-
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+CURRENT_APP_VERSION = "v2.0.4-beta"
 
 class Api:
     def __init__(self) -> None:
         self.runningCommand = None
         multiprocessing.set_start_method("spawn", force=True)
         multiprocessing.freeze_support()
+
+    def get_version(self):
+        response = requests.get("https://api.github.com/repos/brunocordioli072/epic7_bot/releases/latest")
+        return {'current_app_version': CURRENT_APP_VERSION, 'latest_app_version': response.json()["name"]}
+
 
     def start_command(self, args):
         if self.runningCommand is not None:

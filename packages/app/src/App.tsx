@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Breadcrumb, Button, Layout, theme } from 'antd';
+import React, { useEffect, useRef, useState, } from 'react';
+import { Breadcrumb, Button, Layout, notification, theme } from 'antd';
 import AppSider from './components/AppSider/AppSider'
 import './App.css'
 import { useAppContext } from './context/AppContext';
@@ -9,8 +9,9 @@ const App: React.FC = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const [api, contextHolder] = notification.useNotification();
   const [logsInterval, setLogsInterval] = useState(0)
-  const { command, logs, setLogs, summary, setSummary } = useAppContext()
+  const { command, logs, setLogs, summary, setSummary, setAppVersion } = useAppContext()
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
   useEffect(() => {
@@ -19,11 +20,27 @@ const App: React.FC = () => {
     }
 
     window.addEventListener('resize', handleWindowResize);
+    window.addEventListener('pywebviewready', getVersionAndCheckForUpdate);
 
     return () => {
       window.removeEventListener('resize', handleWindowResize);
+      window.removeEventListener('pywebviewready', getVersionAndCheckForUpdate);
     };
   }, []);
+
+  async function getVersionAndCheckForUpdate() {
+    const res = await window.pywebview.api.get_version()
+    if (res) {
+      setAppVersion(res.current_app_version)
+      if (res.current_app_version != res.latest_app_version) {
+        api.warning({
+          message: `Update Available`,
+          description: <a href='https://github.com/brunocordioli072/epic7_bot/releases/latest' target='_blank'>Update {res.latest_app_version} available!</a>,
+          placement: "topRight",
+        });
+      }
+    }
+  }
 
   function getWindowSize() {
     const { innerWidth, innerHeight } = window;
@@ -104,6 +121,7 @@ const App: React.FC = () => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
+      {contextHolder}
       <AppSider />
       <Layout>
         {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}

@@ -23,6 +23,8 @@ interface AppContextInterface {
     setLogs: React.Dispatch<React.SetStateAction<JSX.Element[]>>
     summary: JSX.Element
     setSummary: React.Dispatch<React.SetStateAction<JSX.Element>>
+    appVersion: string;
+    setAppVersion: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const AppContext = React.createContext<AppContextInterface>({
@@ -34,6 +36,8 @@ export const AppContext = React.createContext<AppContextInterface>({
     setLogs: () => { },
     summary: null as any,
     setSummary: () => { },
+    appVersion: '',
+    setAppVersion: () => { },
 });
 
 export const AppProvider = ({ children }: { children: any }) => {
@@ -70,9 +74,10 @@ export const AppProvider = ({ children }: { children: any }) => {
     const [command, setCommand] = useState<Command>(commands.find((el: any) => el.label === "Shop") as any)
     const [logs, setLogs] = useState<JSX.Element[]>([])
     const [summary, setSummary] = useState<JSX.Element>(null as any)
+    const [appVersion, setAppVersion] = useState('')
 
     return (
-        <AppContext.Provider value={{ commands, setCommands, command, setCommand, logs, setLogs, summary, setSummary }}>
+        <AppContext.Provider value={{ commands, setCommands, command, setCommand, logs, setLogs, summary, setSummary, appVersion, setAppVersion }}>
             {children}
         </AppContext.Provider>
     )
