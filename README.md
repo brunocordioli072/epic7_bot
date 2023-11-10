@@ -41,6 +41,7 @@ https://github.com/brunocordioli072/epic7_bot/assets/46489264/526ad9a4-53d8-4ba6
 3. Enable Android Debug Bridge on your emulator of choice. **(Bluestacks is recommended.)**
     - Bluestacks: Settings > Advanced > Enable Android Debug Bridge.
     - Nox: Settings > Device > Enable Network Bridge Mode.
+4. Download the [latest release](https://github.com/brunocordioli072/epic7_bot/releases/latest) of Epic7 Bot and open it.
 
 ## Future Goals
 
