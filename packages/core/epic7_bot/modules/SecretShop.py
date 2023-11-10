@@ -1,6 +1,9 @@
 import logging
 import math
 import asyncio
+import os
+
+from tinydb import TinyDB, table
 from epic7_bot.utils.runInParallel import runInParallel
 from epic7_bot.core.DeviceManager import DeviceManager
 from epic7_bot.core.MathUtils import MathUtils
@@ -20,6 +23,15 @@ class SecretShop(Module):
         self.covenant_count = 0
         self.mystic_bought = False
         self.covenant_bought = False
+
+        # Init table and contents
+        ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+        db = TinyDB(ROOT_DIR + "\\..\\..\\db.json")
+        self.table = db.table("secret_shop")
+        if len(self.table.all()) != 1:
+            self.table.insert(table.Document({'covenant_count': 0, "mystic_count": 0, 'refreshes_count': 0}, doc_id=1))
+        else:
+            self.table.update({'covenant_count': 0, "mystic_count": 0, 'refreshes_count': 0}, doc_ids=[1])
 
     def check_bookmarks(self):
         logging.info("Check Mystic and Covenant Bookmarks")
@@ -101,15 +113,17 @@ class SecretShop(Module):
         self.covenant_bought = False
 
     def show_stats(self):
-        comment = f"\nTotal Covenant: {str(self.covenant_count)}{' '*30}" + \
-            f"\nTotal Mystic: {str(self.mystic_count)}{' '*30}" + \
-            f"\nTotal Refreshes: {str(self.refreshes_count)}{' '*30}\n\n\n"
-        previus_line = "\033[F"
-        if self.refreshes_count == 1:
-            print(f"\r{previus_line*2}{comment}")
-        else:
-            print(f"\r{previus_line*7}{comment}")
-        pass
+        self.table.update({'covenant_count': self.covenant_count, "mystic_count": self.mystic_count, 'refreshes_count': self.refreshes_count}, doc_ids=[1])
+    
+        # comment = f"\nTotal Covenant: {str(self.covenant_count)}{' '*30}" + \
+        #     f"\nTotal Mystic: {str(self.mystic_count)}{' '*30}" + \
+        #     f"\nTotal Refreshes: {str(self.refreshes_count)}{' '*30}\n\n\n"
+        # previus_line = "\033[F"
+        # if self.refreshes_count == 1:
+        #     print(f"\r{previus_line*2}{comment}")
+        # else:
+        #     print(f"\r{previus_line*7}{comment}")
+        # pass
 
     def start_auto_buy_secret_shop(self):
         while True:

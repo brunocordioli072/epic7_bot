@@ -29,29 +29,22 @@ function getItem(
     } as MenuItem;
 }
 
-const icons: any = {
-    "ShoppingOutlined": <ShoppingOutlined />,
-    "RocketOutlined": <RocketOutlined />,
-    "BorderlessTableOutlined": <BorderlessTableOutlined />,
-    "RetweetOutlined": <RetweetOutlined />
-}
-
-
 const AppSider: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const { setCommand, commands, setLogs } = useAppContext()
+    const { setCommand, commands, setLogs, setSummary, appVersion } = useAppContext()
 
     function handleSelect(key: string) {
-        setCommand(commands.find(el => el.label === key))
+        setCommand(commands.find(el => el.label === key) as any)
         setLogs([])
+        setSummary(null as any)
     }
 
     return (
-        <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-            <div className="demo-logo-vertical" />
+        <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} >
             <Menu theme="dark" onSelect={(e) => handleSelect(e.key)} defaultSelectedKeys={['shop']} mode="inline" items={commands.map(el => {
-                return getItem(el.label, el.label, icons[el.icon])
+                return getItem(el.label, el.label, el.icon)
             })} />
+            <div className='version'>Version: {appVersion}</div>
         </Sider>
     )
 }

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Breadcrumb, Button, Layout, theme } from 'antd';
+import React, { useEffect, useRef, useState, } from 'react';
+import { Breadcrumb, Button, Layout, notification, theme } from 'antd';
 import AppSider from './components/AppSider/AppSider'
 import './App.css'
 import { useAppContext } from './context/AppContext';
@@ -9,8 +9,9 @@ const App: React.FC = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const [api, contextHolder] = notification.useNotification();
   const [logsInterval, setLogsInterval] = useState(0)
-  const { command, setCommands, setCommand, logs, setLogs } = useAppContext()
+  const { command, logs, setLogs, summary, setSummary, setAppVersion } = useAppContext()
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
   useEffect(() => {
@@ -18,20 +19,28 @@ const App: React.FC = () => {
       setWindowSize(getWindowSize());
     }
 
-    async function handlePywebviewStart() {
-      const commands = await window.pywebview.api.get_commands()
-      setCommands(commands)
-      setCommand(commands.find((el: any) => el.label === "Shop"))
-    }
-
-    window.addEventListener('pywebviewready', handlePywebviewStart);
     window.addEventListener('resize', handleWindowResize);
+    window.addEventListener('pywebviewready', getVersionAndCheckForUpdate);
 
     return () => {
       window.removeEventListener('resize', handleWindowResize);
-      window.removeEventListener('pywebviewready', handlePywebviewStart);
+      window.removeEventListener('pywebviewready', getVersionAndCheckForUpdate);
     };
   }, []);
+
+  async function getVersionAndCheckForUpdate() {
+    const res = await window.pywebview.api.get_version()
+    if (res) {
+      setAppVersion(res.current_app_version)
+      if (res.current_app_version != res.latest_app_version) {
+        api.warning({
+          message: `Update Available`,
+          description: <a href='https://github.com/brunocordioli072/epic7_bot/releases/latest' target='_blank'>Update {res.latest_app_version} available!</a>,
+          placement: "topRight",
+        });
+      }
+    }
+  }
 
   function getWindowSize() {
     const { innerWidth, innerHeight } = window;
@@ -49,23 +58,70 @@ const App: React.FC = () => {
 
   async function handleStart() {
     await window.pywebview.api[command.python_command]()
-    handleLogs()
+    createInterval()
   }
 
-  function handleLogs() {
+  async function handleSummary() {
+    const res_stats = await window.pywebview.api.get_summary(command.table)
+
+    switch (command.table) {
+      case "secret_shop":
+        setSummary(<div style={{ margin: '0' }}>
+          <p>
+            <span style={{ fontWeight: '600' }}>Covenants Bought:</span> {res_stats.covenant_count}
+          </p>
+          <p>
+            <span style={{ fontWeight: '600' }}>Mystics Bought:</span> {res_stats.mystic_count}
+          </p>
+          <p>
+            <span style={{ fontWeight: '600' }}>Refreshes:</span> {res_stats.refreshes_count}
+          </p>
+        </div> as any)
+        break;
+      case "hunt":
+        setSummary(<div style={{ margin: '0' }}>
+          <p>
+            <span style={{ fontWeight: '600' }}>Total Rotations:</span> {res_stats.total_rotations}
+          </p>
+        </div> as any)
+        break;
+      default:
+        setSummary(<div style={{ margin: '0' }}>
+          <p>
+            <span style={{ fontWeight: '600' }}>No summary developed for {command.label} yet...</span>
+          </p>
+        </div> as any)
+        break;
+
+    }
+  }
+
+  function updateLogsScroll() {
+    var element: any = document.getElementById("logs");
+    element.scrollTop = element.scrollHeight;
+  }
+
+  async function handleLogs() {
+    const res_logs: string = await window.pywebview.api.get_logs()
+    let logs: any[] = []
+    res_logs.split('\n').forEach(el => {
+      logs.push(<p>{el}</p>)
+    })
+    setLogs(logs as any)
+    updateLogsScroll()
+  }
+
+  function createInterval() {
     const interval = setInterval(async () => {
-      const res: string = await window.pywebview.api.get_logs()
-      let logs: any[] = []
-      res.split('\n').forEach(el => {
-        logs.push(<p>{el}</p>)
-      })
-      setLogs(logs as any)
+      await handleLogs()
+      await handleSummary()
     }, 500)
     setLogsInterval(interval)
   }
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
+      {contextHolder}
       <AppSider />
       <Layout>
         {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
@@ -80,7 +136,12 @@ const App: React.FC = () => {
           <Button onClick={() => handleStop()}>
             Stop
           </Button>
-          <div className='logs' style={{ padding: 12, marginTop: 8, minHeight: 360, height: windowSize.innerHeight - 500, background: colorBgContainer }}>
+          <div className='stats' style={{ padding: 12, marginTop: 8, minHeight: 156, background: colorBgContainer }}>
+            <div style={{ fontStyle: "italic", fontWeight: "bold", marginBottom: "12px" }}>Summary</div>
+            {summary}
+          </div>
+          <div id='logs' style={{ padding: 12, marginTop: 8, minHeight: 260, maxHeight: 260, height: windowSize.innerHeight - 1000, background: colorBgContainer }}>
+            <div style={{ fontStyle: "italic", fontWeight: "bold", marginBottom: "12px" }}>Logs</div>
             {...logs}
           </div>
         </Content>

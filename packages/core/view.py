@@ -1,13 +1,12 @@
-from typing import Any, Dict
+from tinydb import TinyDB
 import webview
+import requests
 import os
 import multiprocessing
 from epic7_bot.processes.CommandRunner import CommandRunner
 
-"""
-An example of serverless app architecture
-"""
-
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+CURRENT_APP_VERSION = "v2.0.4-beta"
 
 class Api:
     def __init__(self) -> None:
@@ -15,75 +14,65 @@ class Api:
         multiprocessing.set_start_method("spawn", force=True)
         multiprocessing.freeze_support()
 
-    def start_shop(self):
-        args = {"<command>": "shop", "--current": False, "--fast": False}
+    def get_version(self):
+        response = requests.get("https://api.github.com/repos/brunocordioli072/epic7_bot/releases/latest")
+        return {'current_app_version': CURRENT_APP_VERSION, 'latest_app_version': response.json()["name"]}
+
+
+    def start_command(self, args):
+        if self.runningCommand is not None:
+            self.stop_running_command()
         self.runningCommand = CommandRunner(args)
         self.runningCommand.start()
+
+    def start_shop(self):
+        args = {
+            "<command>": "shop",
+            "--current": False,
+            "--fast": False,
+        }
+        self.start_command(args)
 
     def start_hunt(self):
         args = {"<command>": "hunt", "--current": False, "--fast": False}
-        self.runningCommand = CommandRunner(args)
-        self.runningCommand.start()
+        self.start_command(args)
 
     def start_arena(self):
         args = {"<command>": "arena", "--current": False, "--fast": False}
-        self.runningCommand = CommandRunner(args)
-        self.runningCommand.start()
+        self.start_command(args)
 
     def start_daily(self):
         args = {"<command>": "daily", "--current": False, "--fast": False}
-        self.runningCommand = CommandRunner(args)
-        self.runningCommand.start()
+        self.start_command(args)
 
     def stop_running_command(self):
         self.runningCommand.terminate()
 
     def get_logs(self):
         try:
-            ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
             f = open(ROOT_DIR + "\logs", "r")
             return f.read()
         except BaseException as e:
             raise e
-
-    def get_commands(self):
-        return [
-            {
-                "label": "Shop",
-                "description": "Secret Shop Auto Buy",
-                "python_command": "start_shop",
-                "icon": "ShoppingOutlined",
-            },
-            {
-                "label": "Hunt",
-                "description": "Hunt Auto Battle",
-                "python_command": "start_hunt",
-                "icon": "RocketOutlined",
-            },
-            {
-                "label": "Arena",
-                "description": "Arena NPC Auto Battle",
-                "python_command": "start_arena",
-                "icon": "BorderlessTableOutlined",
-            },
-            {
-                "label": "Daily",
-                "description": "Daily Actions",
-                "python_command": "start_daily",
-                "icon": "RetweetOutlined",
-            },
-        ]
-
+        
+    def get_summary(self, table):
+        db = TinyDB(ROOT_DIR + "\\db.json")
+        table = db.table(table)
+        contents = table.all()
+        if len(contents) > 0:
+            return contents[0]
 
 if __name__ == "__main__":
-    api = Api()
-
-    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-
+    # Create logs file
     if os.path.exists(ROOT_DIR + "\\logs") is not True:
         with open(ROOT_DIR + "\\logs", "w") as log:
             pass
-
+    # Create db file
+    if os.path.exists(ROOT_DIR + "\\db.json") is not True:
+        with open(ROOT_DIR + "\\db.json", "w") as db:
+            pass
+    
+    api = Api()
     webview.create_window(
         "Epic7 Bot",
         "dist-app/index.html",

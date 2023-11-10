@@ -6,3 +6,5 @@ python-dotenv==0.21.0
 psutil==5.9.3
 pywebview==4.3.2
 pyinstaller==5.13.2
+tinydb==4.8.0
+requests==2.31.0

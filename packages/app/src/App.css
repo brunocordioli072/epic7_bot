@@ -1,4 +1,4 @@
-.logs {
+#logs {
   overflow-y: scroll;
   & p {
     margin: 0
