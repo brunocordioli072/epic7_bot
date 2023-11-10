@@ -25,10 +25,10 @@ This software is open source, free of charge, and for learning and exchange purp
 
 ## Working
 <div align="center">
-    
-https://github.com/brunocordioli072/epic7_bot/assets/46489264/29ffd023-9aea-4772-a6b3-62f564d25ab1
 
-*Bluestacks running Epic7 on the right and epic7-bot on the left running auto buy.*
+https://github.com/brunocordioli072/epic7_bot/assets/46489264/526ad9a4-53d8-4ba6-8047-7dc58a4fd4fb
+
+*Secret shop auto buy feature running.*
 
 </div>
 
