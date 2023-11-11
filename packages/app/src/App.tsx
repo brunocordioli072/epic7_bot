@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, } from 'react';
-import { Breadcrumb, Button, Layout, notification, theme } from 'antd';
+import { Breadcrumb, Button, Checkbox, Layout, Popconfirm, notification, theme } from 'antd';
 import AppSider from './components/AppSider/AppSider'
 import './App.css'
 import { useAppContext } from './context/AppContext';
@@ -13,6 +13,8 @@ const App: React.FC = () => {
   const [logsInterval, setLogsInterval] = useState(0)
   const { command, logs, setLogs, summary, setSummary, setAppVersion } = useAppContext()
   const [windowSize, setWindowSize] = useState(getWindowSize());
+  const [fastMode, setFastMode] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState(false);
 
   useEffect(() => {
     function handleWindowResize() {
@@ -57,7 +59,7 @@ const App: React.FC = () => {
   }
 
   async function handleStart() {
-    await window.pywebview.api[command.python_command]()
+    await window.pywebview.api[command.python_command]({ '--fast': fastMode, '--current': currentScreen })
     createInterval()
   }
 
@@ -119,6 +121,13 @@ const App: React.FC = () => {
     setLogsInterval(interval)
   }
 
+
+  function handleFastMode() {
+    if (fastMode) {
+      setFastMode(false)
+    }
+  }
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       {contextHolder}
@@ -136,6 +145,22 @@ const App: React.FC = () => {
           <Button onClick={() => handleStop()}>
             Stop
           </Button>
+          <Popconfirm
+            title="Are you sure you want to use Fast Mode?"
+            description={<span>It's currently very unstable and requires a high-end PC to work properly.</span>}
+            onConfirm={() => setFastMode(true)}
+            onCancel={() => setFastMode(false)}
+            disabled={fastMode === true}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Checkbox checked={fastMode} style={{ paddingLeft: '12px' }} onClick={handleFastMode}>
+              Fast Mode
+            </Checkbox>
+          </Popconfirm>
+          <Checkbox checked={currentScreen} style={{ paddingLeft: '12px' }} onChange={(e) => setCurrentScreen(e.target.checked)}>
+            Skip Lobby
+          </Checkbox>
           <div className='stats' style={{ padding: 12, marginTop: 8, minHeight: 156, background: colorBgContainer }}>
             <div style={{ fontStyle: "italic", fontWeight: "bold", marginBottom: "12px" }}>Summary</div>
             {summary}
