@@ -11,10 +11,20 @@ const App: React.FC = () => {
   } = theme.useToken();
   const [api, contextHolder] = notification.useNotification();
   const [logsInterval, setLogsInterval] = useState(0)
-  const { command, logs, setLogs, summary, setSummary, setAppVersion } = useAppContext()
+  const {
+    command,
+    logs,
+    setLogs,
+    summary,
+    setSummary,
+    setAppVersion,
+    fastMode,
+    setFastMode,
+    currentScreen,
+    setCurrentScreen
+  } = useAppContext()
   const [windowSize, setWindowSize] = useState(getWindowSize());
-  const [fastMode, setFastMode] = useState(false);
-  const [currentScreen, setCurrentScreen] = useState(false);
+
 
   useEffect(() => {
     function handleWindowResize() {
@@ -145,22 +155,26 @@ const App: React.FC = () => {
           <Button onClick={() => handleStop()}>
             Stop
           </Button>
-          <Popconfirm
-            title="Are you sure you want to use Fast Mode?"
-            description={<span>It's currently very unstable and requires a high-end PC to work properly.</span>}
-            onConfirm={() => setFastMode(true)}
-            onCancel={() => setFastMode(false)}
-            disabled={fastMode === true}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Checkbox checked={fastMode} style={{ paddingLeft: '12px' }} onClick={handleFastMode}>
-              Fast Mode
+          {command.id === "shop" ?
+            <Popconfirm
+              title="Are you sure you want to use Fast Mode?"
+              description={<span>It's currently very unstable and requires a high-end PC to work properly.</span>}
+              onConfirm={() => setFastMode(true)}
+              onCancel={() => setFastMode(false)}
+              disabled={fastMode === true}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Checkbox checked={fastMode} style={{ paddingLeft: '12px' }} onClick={handleFastMode}>
+                Fast Mode
+              </Checkbox>
+            </Popconfirm>
+            : null}
+          {command.id !== "daily" ?
+            <Checkbox checked={currentScreen} style={{ paddingLeft: '12px' }} onChange={(e) => setCurrentScreen(e.target.checked)}>
+              Skip Lobby
             </Checkbox>
-          </Popconfirm>
-          <Checkbox checked={currentScreen} style={{ paddingLeft: '12px' }} onChange={(e) => setCurrentScreen(e.target.checked)}>
-            Skip Lobby
-          </Checkbox>
+            : null}
           <div className='stats' style={{ padding: 12, marginTop: 8, minHeight: 156, background: colorBgContainer }}>
             <div style={{ fontStyle: "italic", fontWeight: "bold", marginBottom: "12px" }}>Summary</div>
             {summary}

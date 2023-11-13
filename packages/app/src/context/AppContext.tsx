@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 
 interface Command {
+    id: string
     label: string;
     description: string;
     python_command: string;
@@ -25,6 +26,10 @@ interface AppContextInterface {
     setSummary: React.Dispatch<React.SetStateAction<JSX.Element>>
     appVersion: string;
     setAppVersion: React.Dispatch<React.SetStateAction<string>>
+    fastMode: boolean
+    setFastMode: React.Dispatch<React.SetStateAction<boolean>>
+    currentScreen: boolean
+    setCurrentScreen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const AppContext = React.createContext<AppContextInterface>({
@@ -38,11 +43,16 @@ export const AppContext = React.createContext<AppContextInterface>({
     setSummary: () => { },
     appVersion: '',
     setAppVersion: () => { },
+    fastMode: false,
+    setFastMode: () => { },
+    currentScreen: false,
+    setCurrentScreen: () => { },
 });
 
 export const AppProvider = ({ children }: { children: any }) => {
     const [commands, setCommands] = useState<Command[]>([
         {
+            "id": "shop",
             "label": "Shop",
             "description": "Secret Shop Auto Buy",
             "python_command": "start_shop",
@@ -50,6 +60,7 @@ export const AppProvider = ({ children }: { children: any }) => {
             "icon": <ShoppingOutlined />,
         },
         {
+            "id": "hunt",
             "label": "Hunt",
             "description": "Hunt Auto Battle",
             "python_command": "start_hunt",
@@ -57,6 +68,7 @@ export const AppProvider = ({ children }: { children: any }) => {
             "icon": <RocketOutlined />,
         },
         {
+            "id": "arena",
             "label": "Arena",
             "description": "Arena NPC Auto Battle",
             "python_command": "start_arena",
@@ -64,6 +76,7 @@ export const AppProvider = ({ children }: { children: any }) => {
             "icon": <BorderlessTableOutlined />,
         },
         {
+            "id": "daily",
             "label": "Daily",
             "description": "Daily Actions",
             "python_command": "start_daily",
@@ -75,9 +88,26 @@ export const AppProvider = ({ children }: { children: any }) => {
     const [logs, setLogs] = useState<JSX.Element[]>([])
     const [summary, setSummary] = useState<JSX.Element>(null as any)
     const [appVersion, setAppVersion] = useState('')
+    const [fastMode, setFastMode] = useState(false);
+    const [currentScreen, setCurrentScreen] = useState(false);
 
     return (
-        <AppContext.Provider value={{ commands, setCommands, command, setCommand, logs, setLogs, summary, setSummary, appVersion, setAppVersion }}>
+        <AppContext.Provider value={{
+            commands,
+            setCommands,
+            command,
+            setCommand,
+            logs,
+            setLogs,
+            summary,
+            setSummary,
+            appVersion,
+            setAppVersion,
+            fastMode,
+            setFastMode,
+            currentScreen,
+            setCurrentScreen
+        }}>
             {children}
         </AppContext.Provider>
     )
