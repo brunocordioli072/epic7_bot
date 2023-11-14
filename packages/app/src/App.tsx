@@ -138,6 +138,12 @@ const App: React.FC = () => {
     }
   }
 
+  function handleCurrentScreen() {
+    if (currentScreen) {
+      setCurrentScreen(false)
+    }
+  }
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       {contextHolder}
@@ -157,8 +163,12 @@ const App: React.FC = () => {
           </Button>
           {command.id === "shop" ?
             <Popconfirm
+              overlayStyle={{ maxWidth: "500px" }}
               title="Are you sure you want to use Fast Mode?"
-              description={<span>It's currently very unstable and requires a high-end PC to work properly.</span>}
+              description={<div>
+                <p style={{ margin: 0 }}>Turns on Fast Mode, which makes the each step of the command faster.</p>
+                <p style={{ margin: 0 }}>Warning: It's currently very unstable and requires a high-end PC to work properly.</p>
+              </div>}
               onConfirm={() => setFastMode(true)}
               onCancel={() => setFastMode(false)}
               disabled={fastMode === true}
@@ -171,9 +181,23 @@ const App: React.FC = () => {
             </Popconfirm>
             : null}
           {command.id !== "daily" ?
-            <Checkbox checked={currentScreen} style={{ paddingLeft: '12px' }} onChange={(e) => setCurrentScreen(e.target.checked)}>
-              Skip Lobby
-            </Checkbox>
+            <Popconfirm
+              overlayStyle={{ maxWidth: "500px" }}
+              title="Are you sure you want to use Skip Lobby?"
+              description={<div>
+                <p style={{ margin: 0 }}>Turns on Skip lobby, which skips the first steps of the current command to get to the desired screen of the command. User must perform theses skipped steps manually.</p>
+                <p style={{ margin: 0 }}>Ex: On Shop Command it would skip the steps to click on the bartender and consider that the screen on bluestacks is already on the shop.</p>
+              </div>}
+              onConfirm={() => setCurrentScreen(true)}
+              onCancel={() => setCurrentScreen(false)}
+              disabled={currentScreen === true}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Checkbox checked={currentScreen} style={{ paddingLeft: '12px' }} onChange={handleCurrentScreen}>
+                Skip Lobby
+              </Checkbox>
+            </Popconfirm>
             : null}
           <div className='stats' style={{ padding: 12, marginTop: 8, minHeight: 156, background: colorBgContainer }}>
             <div style={{ fontStyle: "italic", fontWeight: "bold", marginBottom: "12px" }}>Summary</div>
