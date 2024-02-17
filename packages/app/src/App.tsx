@@ -35,7 +35,7 @@ const App: React.FC = () => {
     const handleKeyDownDevMode = (e: KeyboardEvent) => {
       if (e.key === "F1") {
         e.preventDefault();
-        setDevMode(true);
+        setDevMode((val) => !val);
       }
     };
 
@@ -164,6 +164,7 @@ const App: React.FC = () => {
           <Breadcrumb style={{ marginBottom: '8px' }}>
             <Breadcrumb.Item>{command.label}</Breadcrumb.Item>
             <Breadcrumb.Item>{command.description}</Breadcrumb.Item>
+            {devMode ? <Breadcrumb.Item>Dev Mode</Breadcrumb.Item> : null}
           </Breadcrumb>
           <Button onClick={() => handleStart()} style={{ marginRight: 8 }}>
             Start
