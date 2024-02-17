@@ -36,6 +36,8 @@ const App: React.FC = () => {
       if (e.key === "F1") {
         e.preventDefault();
         setDevMode((val) => !val);
+        setCurrentScreen(false)
+        setFastMode(false)
       }
     };
 
