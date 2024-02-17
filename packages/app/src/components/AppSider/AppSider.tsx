@@ -31,12 +31,20 @@ function getItem(
 
 const AppSider: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
-    const { setCommand, commands, setLogs, setSummary, appVersion } = useAppContext()
+    const {
+        setCommand,
+        commands, setLogs,
+        setSummary, appVersion,
+        setFastMode,
+        setCurrentScreen
+    } = useAppContext()
 
     function handleSelect(key: string) {
         setCommand(commands.find(el => el.label === key) as any)
         setLogs([])
         setSummary(null as any)
+        setFastMode(false)
+        setCurrentScreen(false)
     }
 
     return (

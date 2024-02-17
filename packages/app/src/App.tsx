@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, } from 'react';
-import { Breadcrumb, Button, Layout, notification, theme } from 'antd';
+import { Breadcrumb, Button, Checkbox, Layout, Popconfirm, notification, theme } from 'antd';
 import AppSider from './components/AppSider/AppSider'
 import './App.css'
 import { useAppContext } from './context/AppContext';
@@ -11,20 +11,44 @@ const App: React.FC = () => {
   } = theme.useToken();
   const [api, contextHolder] = notification.useNotification();
   const [logsInterval, setLogsInterval] = useState(0)
-  const { command, logs, setLogs, summary, setSummary, setAppVersion } = useAppContext()
+  const {
+    command,
+    logs,
+    setLogs,
+    summary,
+    setSummary,
+    setAppVersion,
+    fastMode,
+    setFastMode,
+    currentScreen,
+    setCurrentScreen,
+    devMode,
+    setDevMode
+  } = useAppContext()
   const [windowSize, setWindowSize] = useState(getWindowSize());
+
 
   useEffect(() => {
     function handleWindowResize() {
       setWindowSize(getWindowSize());
     }
+    const handleKeyDownDevMode = (e: KeyboardEvent) => {
+      if (e.key === "F1") {
+        e.preventDefault();
+        setDevMode((val) => !val);
+        setCurrentScreen(false)
+        setFastMode(false)
+      }
+    };
 
     window.addEventListener('resize', handleWindowResize);
     window.addEventListener('pywebviewready', getVersionAndCheckForUpdate);
+    window.addEventListener("keydown", handleKeyDownDevMode);
 
     return () => {
       window.removeEventListener('resize', handleWindowResize);
       window.removeEventListener('pywebviewready', getVersionAndCheckForUpdate);
+      window.removeEventListener('keydown', handleKeyDownDevMode);
     };
   }, []);
 
@@ -57,7 +81,7 @@ const App: React.FC = () => {
   }
 
   async function handleStart() {
-    await window.pywebview.api[command.python_command]()
+    await window.pywebview.api[command.python_command]({ '--fast': fastMode, '--current': currentScreen })
     createInterval()
   }
 
@@ -119,6 +143,19 @@ const App: React.FC = () => {
     setLogsInterval(interval)
   }
 
+
+  function handleFastMode() {
+    if (fastMode) {
+      setFastMode(false)
+    }
+  }
+
+  function handleCurrentScreen() {
+    if (currentScreen) {
+      setCurrentScreen(false)
+    }
+  }
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       {contextHolder}
@@ -129,6 +166,7 @@ const App: React.FC = () => {
           <Breadcrumb style={{ marginBottom: '8px' }}>
             <Breadcrumb.Item>{command.label}</Breadcrumb.Item>
             <Breadcrumb.Item>{command.description}</Breadcrumb.Item>
+            {devMode ? <Breadcrumb.Item>Dev Mode</Breadcrumb.Item> : null}
           </Breadcrumb>
           <Button onClick={() => handleStart()} style={{ marginRight: 8 }}>
             Start
@@ -136,6 +174,44 @@ const App: React.FC = () => {
           <Button onClick={() => handleStop()}>
             Stop
           </Button>
+          {command.id === "shop" && devMode ?
+            <Popconfirm
+              overlayStyle={{ maxWidth: "500px" }}
+              title="Are you sure you want to use Fast Mode?"
+              description={<div>
+                <p style={{ margin: 0 }}>Turns on Fast Mode, which makes the each step of the command faster.</p>
+                <p style={{ margin: 0 }}>Warning: It's currently very unstable and requires a high-end PC to work properly.</p>
+              </div>}
+              onConfirm={() => setFastMode(true)}
+              onCancel={() => setFastMode(false)}
+              disabled={fastMode === true}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Checkbox checked={fastMode} style={{ paddingLeft: '12px' }} onClick={handleFastMode}>
+                Fast Mode
+              </Checkbox>
+            </Popconfirm>
+            : null}
+          {command.id !== "daily" && devMode ?
+            <Popconfirm
+              overlayStyle={{ maxWidth: "500px" }}
+              title="Are you sure you want to use Skip Lobby?"
+              description={<div>
+                <p style={{ margin: 0 }}>Turns on Skip lobby, which skips the first steps of the current command to get to the desired screen of the command. User must perform theses skipped steps manually.</p>
+                <p style={{ margin: 0 }}>Ex: On Shop Command it would skip the steps to click on the bartender and consider that the screen on bluestacks is already on the shop.</p>
+              </div>}
+              onConfirm={() => setCurrentScreen(true)}
+              onCancel={() => setCurrentScreen(false)}
+              disabled={currentScreen === true}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Checkbox checked={currentScreen} style={{ paddingLeft: '12px' }} onChange={handleCurrentScreen}>
+                Skip Lobby
+              </Checkbox>
+            </Popconfirm>
+            : null}
           <div className='stats' style={{ padding: 12, marginTop: 8, minHeight: 156, background: colorBgContainer }}>
             <div style={{ fontStyle: "italic", fontWeight: "bold", marginBottom: "12px" }}>Summary</div>
             {summary}

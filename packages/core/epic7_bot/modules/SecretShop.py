@@ -1,6 +1,5 @@
 import logging
 import math
-import asyncio
 import os
 
 from tinydb import TinyDB, table
@@ -29,9 +28,11 @@ class SecretShop(Module):
         db = TinyDB(ROOT_DIR + "\\..\\..\\db.json")
         self.table = db.table("secret_shop")
         if len(self.table.all()) != 1:
-            self.table.insert(table.Document({'covenant_count': 0, "mystic_count": 0, 'refreshes_count': 0}, doc_id=1))
+            self.table.insert(table.Document(
+                {'covenant_count': 0, "mystic_count": 0, 'refreshes_count': 0}, doc_id=1))
         else:
-            self.table.update({'covenant_count': 0, "mystic_count": 0, 'refreshes_count': 0}, doc_ids=[1])
+            self.table.update(
+                {'covenant_count': 0, "mystic_count": 0, 'refreshes_count': 0}, doc_ids=[1])
 
     def check_bookmarks(self):
         logging.info("Check Mystic and Covenant Bookmarks")
@@ -62,8 +63,6 @@ class SecretShop(Module):
 
             self.mystic_count += 1
             self.mystic_bought = True
-            
-            
 
         if coven_pos is not None and self.covenant_bought is not True:
             logging.info("Found Covenant Bookmark")
@@ -84,8 +83,6 @@ class SecretShop(Module):
 
             self.covenant_count += 1
             self.covenant_bought = True
-            
-        
 
     def scroll(self):
         x1, y1 = self.MathUtils.random_point_in_area(
@@ -113,8 +110,9 @@ class SecretShop(Module):
         self.covenant_bought = False
 
     def show_stats(self):
-        self.table.update({'covenant_count': self.covenant_count, "mystic_count": self.mystic_count, 'refreshes_count': self.refreshes_count}, doc_ids=[1])
-    
+        self.table.update({'covenant_count': self.covenant_count, "mystic_count": self.mystic_count,
+                          'refreshes_count': self.refreshes_count}, doc_ids=[1])
+
         # comment = f"\nTotal Covenant: {str(self.covenant_count)}{' '*30}" + \
         #     f"\nTotal Mystic: {str(self.mystic_count)}{' '*30}" + \
         #     f"\nTotal Refreshes: {str(self.refreshes_count)}{' '*30}\n\n\n"
