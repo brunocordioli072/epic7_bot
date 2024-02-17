@@ -8,11 +8,13 @@ To develop locally, fork the Epic7 Bot repository and clone it in your local mac
 
 To develop and test the Epic7 Bot:
 
-1. Run `npm run install` in Epic7 Bot root folder.
+1. Run `npm run install:app` in Epic7 Bot root folder.
 
-2. Run `npm run build:app:watch` in Epic7 Bot root folder.
+2. Run `npm run install:core` in Epic7 Bot root folder.
 
-3. Run `npm run dev:core` in in Epic7 Bot root folder on separate terminal.
+3. Run `npm run build:app:watch` in Epic7 Bot root folder.
+
+4. Run `npm run dev:core` in in Epic7 Bot root folder on separate terminal.
 
 ## Pull Request Guidelines
 
