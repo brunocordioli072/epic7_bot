@@ -112,7 +112,8 @@ export const AppProvider = ({ children }: { children: any }) => {
             setFastMode,
             currentScreen,
             setCurrentScreen,
-            devMode, setDevMode
+            devMode,
+            setDevMode
         }}>
             {children}
         </AppContext.Provider>
