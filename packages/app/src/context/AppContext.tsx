@@ -30,6 +30,8 @@ interface AppContextInterface {
     setFastMode: React.Dispatch<React.SetStateAction<boolean>>
     currentScreen: boolean
     setCurrentScreen: React.Dispatch<React.SetStateAction<boolean>>
+    devMode: boolean
+    setDevMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const AppContext = React.createContext<AppContextInterface>({
@@ -47,6 +49,8 @@ export const AppContext = React.createContext<AppContextInterface>({
     setFastMode: () => { },
     currentScreen: false,
     setCurrentScreen: () => { },
+    devMode: false,
+    setDevMode: () => { },
 });
 
 export const AppProvider = ({ children }: { children: any }) => {
@@ -90,6 +94,7 @@ export const AppProvider = ({ children }: { children: any }) => {
     const [appVersion, setAppVersion] = useState('')
     const [fastMode, setFastMode] = useState(false);
     const [currentScreen, setCurrentScreen] = useState(false);
+    const [devMode, setDevMode] = useState(false);
 
     return (
         <AppContext.Provider value={{
@@ -106,7 +111,8 @@ export const AppProvider = ({ children }: { children: any }) => {
             fastMode,
             setFastMode,
             currentScreen,
-            setCurrentScreen
+            setCurrentScreen,
+            devMode, setDevMode
         }}>
             {children}
         </AppContext.Provider>

@@ -21,7 +21,9 @@ const App: React.FC = () => {
     fastMode,
     setFastMode,
     currentScreen,
-    setCurrentScreen
+    setCurrentScreen,
+    devMode,
+    setDevMode
   } = useAppContext()
   const [windowSize, setWindowSize] = useState(getWindowSize());
 
@@ -30,13 +32,21 @@ const App: React.FC = () => {
     function handleWindowResize() {
       setWindowSize(getWindowSize());
     }
+    const handleKeyDownDevMode = (e: KeyboardEvent) => {
+      if (e.key === "F1") {
+        e.preventDefault();
+        setDevMode(true);
+      }
+    };
 
     window.addEventListener('resize', handleWindowResize);
     window.addEventListener('pywebviewready', getVersionAndCheckForUpdate);
+    window.addEventListener("keydown", handleKeyDownDevMode);
 
     return () => {
       window.removeEventListener('resize', handleWindowResize);
       window.removeEventListener('pywebviewready', getVersionAndCheckForUpdate);
+      window.removeEventListener('keydown', handleKeyDownDevMode);
     };
   }, []);
 
@@ -161,7 +171,7 @@ const App: React.FC = () => {
           <Button onClick={() => handleStop()}>
             Stop
           </Button>
-          {command.id === "shop" ?
+          {command.id === "shop" && devMode ?
             <Popconfirm
               overlayStyle={{ maxWidth: "500px" }}
               title="Are you sure you want to use Fast Mode?"
@@ -180,7 +190,7 @@ const App: React.FC = () => {
               </Checkbox>
             </Popconfirm>
             : null}
-          {command.id !== "daily" ?
+          {command.id !== "daily" && devMode ?
             <Popconfirm
               overlayStyle={{ maxWidth: "500px" }}
               title="Are you sure you want to use Skip Lobby?"
