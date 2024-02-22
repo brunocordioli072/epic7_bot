@@ -1,12 +1,5 @@
 import { useState } from 'react';
 import { Layout, Menu } from 'antd';
-import {
-    DesktopOutlined,
-    ShoppingOutlined,
-    RocketOutlined,
-    BorderlessTableOutlined,
-    RetweetOutlined,
-} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import './AppSider.css'
 import { useAppContext } from '../../context/AppContext';
@@ -15,17 +8,19 @@ const { Sider } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-function getItem(
+function getItem({ label, key, icon, children, disabled }: {
     label: React.ReactNode,
     key: React.Key,
     icon?: React.ReactNode,
     children?: MenuItem[],
-): MenuItem {
+    disabled?: boolean
+}): MenuItem {
     return {
         key,
         icon,
         children,
         label,
+        disabled,
     } as MenuItem;
 }
 
@@ -50,7 +45,12 @@ const AppSider: React.FC = () => {
     return (
         <Sider collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} >
             <Menu theme="dark" onSelect={(e) => handleSelect(e.key)} defaultSelectedKeys={['shop']} mode="inline" items={commands.map(el => {
-                return getItem(el.label, el.label, el.icon)
+                return getItem({
+                    label: el.label,
+                    key: el.label,
+                    icon: el.icon,
+                    disabled: el.disabled
+                })
             })} />
             <div className='version'>Version: {appVersion}</div>
         </Sider>

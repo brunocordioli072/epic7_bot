@@ -13,6 +13,7 @@ interface Command {
     python_command: string;
     table: string
     icon: JSX.Element;
+    disabled?: boolean
 }
 
 interface AppContextInterface {
@@ -86,6 +87,7 @@ export const AppProvider = ({ children }: { children: any }) => {
             "python_command": "start_daily",
             "table": 'daily',
             "icon": <RetweetOutlined />,
+            "disabled": true
         },
     ])
     const [command, setCommand] = useState<Command>(commands.find((el: any) => el.label === "Shop") as any)
