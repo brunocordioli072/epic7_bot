@@ -9,7 +9,6 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 CURRENT_APP_VERSION = "v2.0.6-beta"
 
 
-
 class Api:
     def __init__(self) -> None:
         self.runningCommand = None
