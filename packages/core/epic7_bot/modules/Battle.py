@@ -45,7 +45,7 @@ class Battle(Module):
         logging.info(f"Wait for repeat battling has ended to appear")
         while (
             self.ScreenManager.match_template_on_screen(
-                template=self.HuntTemplates.repeat_battling_has_ended, percentage=0.6
+                template=self.HuntTemplates.repeat_battling_has_ended, percentage=0.7
             )
             is None
         ):  # change this to match other screen
