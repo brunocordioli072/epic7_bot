@@ -49,7 +49,12 @@ class DeviceManager(metaclass=Singleton):
                 stderr=subprocess.PIPE,
                 stdin=subprocess.PIPE,
             ).wait()
-            out = subprocess.check_output("adb devices")
+            out = subprocess.check_output(
+                "adb devices", 
+                shell=True, 
+                stderr=subprocess.PIPE, 
+                stdin=subprocess.PIPE
+            )
         
             if "emulator-" in out.decode():
                 logging.info("ADB is OK")
