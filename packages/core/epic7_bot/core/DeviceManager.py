@@ -40,8 +40,8 @@ class DeviceManager(metaclass=Singleton):
             return None
 
     def ensure_adb_is_running(self):
-        logging.info("Ensuring ADB is running")
         try:
+            logging.info("Ensuring ADB is running")
             subprocess.Popen(
                 ["adb", "start-server"],
                 shell=True,
