@@ -62,8 +62,6 @@ https://github.com/brunocordioli072/epic7_bot/assets/46489264/526ad9a4-53d8-4ba6
 
 All kinds of contributions including enhancements, new features, code improvements, issues and bugs reporting are welcome.
 
-- The `master` branch of Epic7 Bot is the stable version, and all development is done in the `develop` branch. So if you want to open a Pull Request, your commits need to be submitted to the `develop` branch.
-
 For more details, see [Contributing Guide](CONTRIBUTING.md).
 
 ⭐ If you like it, give it a star~ ⭐
