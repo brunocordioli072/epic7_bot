@@ -21,25 +21,44 @@ class DeviceManager(metaclass=Singleton):
             sys.exit()
 
         device = devices[0]
+        devicesWithEpic7 = []
         for d in devices:
-            if self.ensure_device_has_epic7_app(d):
+            hasEpic7 = self.ensure_device_has_epic7_app(d)
+            devicesWithEpic7.append(hasEpic7)
+            if hasEpic7:
                 device = d
+        if all(v is None for v in devicesWithEpic7):
+            logging.error("No epic7 found in devices, are you sure you enables Android Debug Bridge in Bluestacks?")
 
         device.shell("wm size 1600x900")
         return device
 
     def ensure_device_has_epic7_app(self, device):
-        return device.is_installed("com.stove.epic7.google")
+        try:
+            return device.is_installed("com.stove.epic7.google")
+        except Exception as e:
+            return None
 
     def ensure_adb_is_running(self):
-        logging.info("Ensure ADB is running")
-        subprocess.Popen(
-            ["adb", "start-server"],
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            stdin=subprocess.PIPE,
-        ).wait()
+        logging.info("Ensuring ADB is running")
+        try:
+            subprocess.Popen(
+                ["adb", "start-server"],
+                shell=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                stdin=subprocess.PIPE,
+            ).wait()
+            out = subprocess.check_output("adb devices")
+        
+            if "emulator-" in out.decode():
+                logging.info("ADB is OK")
+                return
+            else:
+                logging.info("Something went wrong: " + out.decode())
+                sys.exit()
+        except Exception as e:
+            logging.info("Something went wrong: " + str(e))
 
     def connect_devices_to_adb(self):
         bluestacks_config_path = "C:\\ProgramData\\BlueStacks_nxt\\bluestacks.conf"
