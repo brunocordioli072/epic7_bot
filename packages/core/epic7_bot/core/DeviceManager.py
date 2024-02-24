@@ -28,7 +28,7 @@ class DeviceManager(metaclass=Singleton):
             if hasEpic7:
                 device = d
         if all(device is None for device in devicesWithEpic7):
-            logging.error("No epic7 found in devices, are you sure you enables Android Debug Bridge in Bluestacks?")
+            logging.error("No epic7 found in devices, are you sure you enabled Android Debug Bridge in Bluestacks?")
 
         device.shell("wm size 1600x900")
         return device
