@@ -28,7 +28,7 @@ class DeviceManager(metaclass=Singleton):
             if hasEpic7:
                 device = d
         if all(device is None for device in devicesWithEpic7):
-            logging.error("No epic7 found in devices, are you sure you enabled Android Debug Bridge in Bluestacks?")
+            logging.error("No Epic Seven App found in devices.")
 
         device.shell("wm size 1600x900")
         return device
@@ -41,27 +41,16 @@ class DeviceManager(metaclass=Singleton):
 
     def ensure_adb_is_running(self):
         try:
-            logging.info("Ensuring ADB is running")
-            subprocess.Popen(
+            logging.info("Ensure ADB is running")
+            sp = subprocess.Popen(
                 ["adb", "start-server"],
                 shell=True,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 stdin=subprocess.PIPE,
-            ).wait()
-            out = subprocess.check_output(
-                "adb devices", 
-                shell=True, 
-                stderr=subprocess.PIPE, 
-                stdin=subprocess.PIPE
             )
-        
-            if "emulator-" in out.decode():
-                logging.info("ADB is OK")
-                return
-            else:
-                logging.info("Something went wrong: " + out.decode())
-                sys.exit()
+            sp.wait()
+            sp.terminate()
         except Exception as e:
             logging.info("Something went wrong: " + str(e))
 
