@@ -6,7 +6,6 @@
   "scripts": {
     "install:app": "cd packages/app && npm install",
     "install:core": "cd packages/core && pip install -r requirements.txt",
-    "dev": "concurrently \"npm:build:app:watch\" \"npm:dev:core\"",
     "dev:core": "nodemon --watch \"packages/core/\" -e js,css,py packages/core/view.py",
     "dev:app": "cd packages/app && npm run dev",
     "build": "pyinstaller config/windows.spec",
@@ -14,7 +13,6 @@
     "build:app:watch": "cd packages/app && npm run build:watch"
   },
   "devDependencies": {
-    "concurrently": "^8.2.1",
     "nodemon": "^3.0.1"
   }
 }
