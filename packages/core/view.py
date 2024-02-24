@@ -18,7 +18,10 @@ class Api:
     def get_version(self):
         response = requests.get(
             "https://api.github.com/repos/brunocordioli072/epic7_bot/releases/latest")
-        return {'current_app_version': CURRENT_APP_VERSION, 'latest_app_version': response.json()["name"]}
+        if "name" in response.json():
+            return {'current_app_version': CURRENT_APP_VERSION, 'latest_app_version': response.json()["name"]}
+        else:
+            return {'current_app_version': CURRENT_APP_VERSION, 'latest_app_version': CURRENT_APP_VERSION}
 
     def start_command(self, args):
         if self.runningCommand is not None:
