@@ -40,19 +40,19 @@ class DeviceManager(metaclass=Singleton):
             return None
 
     def ensure_adb_is_running(self):
-        try:
-            logging.info("Ensure ADB is running")
-            sp = subprocess.Popen(
-                ["adb", "start-server"],
-                shell=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                stdin=subprocess.PIPE,
-            )
-            sp.wait()
-            sp.terminate()
-        except Exception as e:
-            logging.info("Something went wrong: " + str(e))
+        logging.info("Ensure ADB is running")
+        sp = subprocess.Popen(
+            ["adb", "start-server"],
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            stdin=subprocess.PIPE,
+        )
+        sp.wait()
+        if (sp.returncode != 0):
+            logging.error(f"Something went wrong: {str(sp.stderr.read().decode())}") 
+
+        sp.terminate()
 
     def connect_devices_to_adb(self):
         bluestacks_config_path = "C:\\ProgramData\\BlueStacks_nxt\\bluestacks.conf"
