@@ -12,15 +12,17 @@ class DeviceManager(metaclass=Singleton):
 
     def setup_device(self):
         self.ensure_adb_is_running()
-        self.connect_devices_to_adb()
 
         client = Client(host="127.0.0.1", port=5037)
         devices = client.devices()
         if len(devices) == 0:
             logging.error("No device found, are you sure your bluestacks is open?")
             sys.exit()
+        logging.info(f"Found {len(devices)} devices")
 
         device = devices[0]
+        logging.info(f"Connected to {device.serial}")
+
         devicesWithEpic7 = []
         for d in devices:
             hasEpic7 = self.ensure_device_has_epic7_app(d)
@@ -29,8 +31,11 @@ class DeviceManager(metaclass=Singleton):
                 device = d
         if all(device is None for device in devicesWithEpic7):
             logging.error("No Epic Seven App found in devices.")
+        logging.info(f"Checked if device {device.serial} has Epic Seven App")
+
 
         device.shell("wm size 1600x900")
+        logging.info(f"Set device {device.serial} size to 1600x900")
         return device
 
     def ensure_device_has_epic7_app(self, device):
@@ -48,28 +53,8 @@ class DeviceManager(metaclass=Singleton):
             stderr=subprocess.PIPE,
             stdin=subprocess.PIPE,
         )
-        sp.wait()
-        if (sp.returncode != 0):
-            logging.error(f"Something went wrong: {str(sp.stderr.read().decode())}") 
+        sp.wait(timeout=5)
+        if sp.returncode != 0:
+            logging.error(f"ensure_adb_is_running - Something went wrong: {str(sp.stderr.read().decode())}") 
 
         sp.terminate()
-
-    def connect_devices_to_adb(self):
-        bluestacks_config_path = "C:\\ProgramData\\BlueStacks_nxt\\bluestacks.conf"
-        with open(bluestacks_config_path, "r") as f:
-            config = f.readlines()
-
-        device_ports = set([])
-        config = [x.strip().split("=", 1) for x in config if "=" in x]
-        for c in config:
-            if "adb_port" in c[0]:
-                device_ports.add(c[1].replace('"', ""))
-
-        for port in device_ports:
-            subprocess.Popen(
-                ["adb", "connect", f"127.0.0.1:{port}"],
-                shell=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                stdin=subprocess.PIPE,
-            ).wait()
