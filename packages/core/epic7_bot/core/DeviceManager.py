@@ -4,9 +4,6 @@ import sys
 from time import sleep
 from ppadb.client import Client
 from epic7_bot.utils.Singleton import Singleton
-import os
-import re
-import win32api
 
 class DeviceManager(metaclass=Singleton):
     def __init__(self):
