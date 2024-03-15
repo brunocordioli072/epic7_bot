@@ -5,6 +5,7 @@ from time import sleep
 from ppadb.client import Client
 from epic7_bot.utils.Singleton import Singleton
 
+
 class DeviceManager(metaclass=Singleton):
     def __init__(self):
         self.device = self.setup_device()
