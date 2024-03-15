@@ -4,7 +4,9 @@ import sys
 from time import sleep
 from ppadb.client import Client
 from epic7_bot.utils.Singleton import Singleton
-
+import os
+import re
+import win32api
 
 class DeviceManager(metaclass=Singleton):
     def __init__(self):
@@ -12,7 +14,6 @@ class DeviceManager(metaclass=Singleton):
 
     def setup_device(self):
         self.ensure_adb_is_running()
-        self.connect_devices_to_adb()
 
         client = Client(host="127.0.0.1", port=5037)
         devices = client.devices()
@@ -59,30 +60,3 @@ class DeviceManager(metaclass=Singleton):
             logging.error(f"ensure_adb_is_running - Something went wrong: {str(sp.stderr.read().decode())}") 
 
         sp.terminate()
-
-    def connect_devices_to_adb(self):
-        try:
-            bluestacks_config_path = "C:\\ProgramData\\BlueStacks_nxt\\bluestacks.conf"
-            with open(bluestacks_config_path, "r") as f:
-                config = f.readlines()
-
-            device_ports = set([])
-            config = [x.strip().split("=", 1) for x in config if "=" in x]
-            for c in config:
-                if "adb_port" in c[0]:
-                    device_ports.add(c[1].replace('"', ""))
-
-            for port in device_ports:
-                sp = subprocess.Popen(
-                    ["adb", "connect", f"127.0.0.1:{port}"],
-                    shell=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                    stdin=subprocess.PIPE,
-                )
-                sp.wait()
-                sp.terminate()
-                if sp.returncode != 0:
-                    logging.error(f"connect_devices_to_adb - Something went wrong: {str(sp.stderr.read().decode())}") 
-        except Exception as e:
-            logging.error(f"connect_devices_to_adb - Something went wrong: {str(e)}") 
