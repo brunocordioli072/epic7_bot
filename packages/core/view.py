@@ -2,6 +2,7 @@ from tinydb import TinyDB
 import webview
 import requests
 import os
+import mimetypes
 import multiprocessing
 from epic7_bot.processes.CommandRunner import CommandRunner
 
@@ -72,7 +73,7 @@ if __name__ == "__main__":
     if os.path.exists(ROOT_DIR + "\\db.json") is not True:
         with open(ROOT_DIR + "\\db.json", "w") as db:
             pass
-
+    mimetypes.add_type("application/javascript", ".js")
     api = Api()
     webview.create_window(
         "Epic7 Bot",
