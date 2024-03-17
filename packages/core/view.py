@@ -79,6 +79,6 @@ if __name__ == "__main__":
         "Epic7 Bot",
         "dist-app/index.html",
         js_api=api,
-        min_size=(600, 470),
+        min_size=(900, 470),
     )
     webview.start(debug=True)
