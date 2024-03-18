@@ -66,11 +66,6 @@ const Header: React.FC = () => {
         }
     }
 
-    function updateLogsScroll() {
-        var element: any = document.getElementById("logs");
-        element.scrollTop = element.scrollHeight;
-    }
-
     async function handleLogs() {
         const res_logs: string = await window.pywebview.api.get_logs()
         let logs: any[] = []
@@ -78,7 +73,6 @@ const Header: React.FC = () => {
             logs.push(<p>{el}</p>)
         })
         setLogs(logs as any)
-        updateLogsScroll()
     }
 
     function createInterval() {
