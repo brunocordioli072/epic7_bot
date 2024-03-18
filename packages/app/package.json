@@ -11,7 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "antd": "^5.9.1",
+    "@babel/runtime": "^7.24.0",
+    "antd": "^5.15.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
