@@ -7,7 +7,7 @@ import multiprocessing
 from epic7_bot.processes.CommandRunner import CommandRunner
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-CURRENT_APP_VERSION = "v2.0.11-beta"
+CURRENT_APP_VERSION = "v2.0.12-beta"
 
 
 class Api:
