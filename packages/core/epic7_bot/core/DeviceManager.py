@@ -71,10 +71,11 @@ class DeviceManager(metaclass=Singleton):
                     if (os.path.isdir(dl) != 0):
                         logging.info(f"Checking Bluestacks Config on: {dl}\\ProgramData\\BlueStacks_nxt\\bluestacks.conf")
                         bluestacks_config_path = f"{dl}\\ProgramData\\BlueStacks_nxt\\bluestacks.conf"
-                        with open(bluestacks_config_path, "r") as f:
-                            config = f.readlines()
-                except:
-                    logging.error("connect_devices_to_adb: failed to find disk drive")
+                        if os.path.isfile(bluestacks_config_path):
+                            with open(bluestacks_config_path, "r") as f:
+                                config = f.readlines()
+                except Exception as e:
+                    logging.error(f"connect_devices_to_adb: {str(e)}")
             if config == None:
                 logging.error("connect_devices_to_adb: failed to find disk drive")
 
