@@ -1,6 +1,7 @@
-#logs {
-  overflow-y: scroll;
-  & p {
-    margin: 0
-  }
+.layout {
+    min-height: 100vh;
+}
+
+.content {
+    margin: 16px 16px;   
 }

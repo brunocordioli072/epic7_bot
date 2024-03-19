@@ -1,0 +1,19 @@
+/* style={{ padding: 12, marginTop: 8, minHeight: 260, maxHeight: 260, height: windowSize.innerHeight - 1000, background: colorBgContainer }} */
+.logs {
+  padding: 12px;
+  margin-top: 8px;
+  min-height: 280px;
+  max-height: 280px;
+  background: var(--ant-color-bg-container);
+  overflow-y: scroll;
+
+  & p {
+    margin: 0
+  }
+
+  .title {
+    font-style: italic;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+}
