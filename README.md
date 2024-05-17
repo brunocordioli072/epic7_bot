@@ -64,9 +64,9 @@ All kinds of contributions including enhancements, new features, code improvemen
 
 For more details, see [Contributing Guide](CONTRIBUTING.md).
 
-⭐ If you like it, give it a star~ ⭐
-
 ## Star History
+
+⭐ If you like it, give it a star~ ⭐
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=brunocordioli072/epic7_bot&type=Date&theme=dark" />
