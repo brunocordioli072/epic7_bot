@@ -66,6 +66,14 @@ For more details, see [Contributing Guide](CONTRIBUTING.md).
 
 ⭐ If you like it, give it a star~ ⭐
 
+## Star History
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=brunocordioli072/epic7_bot&type=Date&theme=dark" />
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=brunocordioli072/epic7_bot&type=Date)" />
+  <img alt="Epic7 Bot Star History Chart" src="https://api.star-history.com/svg?repos=brunocordioli072/epic7_bot&type=Date)" />
+</picture>
+
 
 ## Contributors
 
