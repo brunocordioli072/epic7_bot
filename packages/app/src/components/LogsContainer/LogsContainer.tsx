@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
-import { useAppContext } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import './LogsContainer.css'
+import { useContextSelector } from "use-context-selector";
 
 const AlwaysScrollToBottom = () => {
     const elementRef = useRef<HTMLDivElement>(null);
@@ -13,9 +14,7 @@ const AlwaysScrollToBottom = () => {
 
 
 const Logs: React.FC = () => {
-    const {
-        logs,
-    } = useAppContext()
+    const logs = useContextSelector(AppContext, (state) => state.logs);
 
     return (
         <div className='logs'>

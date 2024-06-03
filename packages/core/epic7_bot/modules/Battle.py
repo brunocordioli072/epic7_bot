@@ -62,16 +62,16 @@ class Battle(Module):
             )
             is not None
         ):
-            self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
+            self.ScreenManager.random_click_on_area_and_check_change_retry(
                 x1=1395, y1=808, x2=1492, y2=839, action="Click on confirm button"
             )
             self.total_rotations += 1
 
-        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_retry(
             x1=1416, x2=1533, y1=810, y2=841, action="Click on try again button"
         )
 
-        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_retry(
             x1=1404, y1=811, x2=1469, y2=842, action="Click on start button"
         )
 
@@ -81,8 +81,9 @@ class Battle(Module):
         self.do_hunt_rotation()
 
     def show_stats(self):
-        self.table.update({'total_rotations': self.total_rotations}, doc_ids=[1])
-        
+        self.table.update(
+            {'total_rotations': self.total_rotations}, doc_ids=[1])
+
         # comment = (
         #     f"\nTotal Rotations: {str(self.total_rotations)}{' '*30} \n"
         #     + f"{' '*30} \n"
@@ -100,7 +101,7 @@ class Battle(Module):
             )
             is None
         ):
-            self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
+            self.ScreenManager.random_click_on_area_and_check_change_retry(
                 x1=705,
                 y1=675,
                 x2=749,
@@ -109,7 +110,7 @@ class Battle(Module):
                 percentage=20,
             )
 
-        self.ScreenManager.random_click_on_area_and_check_change_on_screen_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_retry(
             x1=1404, y1=811, x2=1469, y2=842, action="Click on start button"
         )
 
@@ -118,19 +119,19 @@ class Battle(Module):
     def start_hunt_from_lobby(self):
         self.ScreenManager.ensure_not_on_sleep_mode_on_lobby()
 
-        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_retry(
             x1=1164, y1=803, x2=1254, y2=870, action="Click on Battle button"
         )
 
-        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_retry(
             x1=907, y1=648, x2=1055, y2=715, action="Click on Hunt button"
         )
 
-        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_retry(
             x1=984, y1=259, x2=1113, y2=336, action="Click on Wyvern Hunt"
         )
 
-        self.ScreenManager.random_click_on_area_and_check_change_on_area_retry(
+        self.ScreenManager.random_click_on_area_and_check_change_retry(
             x1=1404, y1=810, x2=1559, y2=848, action="Click on Select Team"
         )
 

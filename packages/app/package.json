@@ -14,7 +14,9 @@
     "@babel/runtime": "^7.24.0",
     "antd": "^5.15.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "scheduler": "^0.23.2",
+    "use-context-selector": "^2.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

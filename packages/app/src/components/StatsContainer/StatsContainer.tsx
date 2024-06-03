@@ -1,10 +1,9 @@
-import { useAppContext } from "../../context/AppContext";
+import { useContextSelector } from "use-context-selector";
+import { AppContext } from "../../context/AppContext";
 import './StatsContainer.css'
 
 const StatsContainer: React.FC = () => {
-    const {
-        summary,
-    } = useAppContext()
+    const summary = useContextSelector(AppContext, (state) => state.summary);
 
     return (
         <div className='stats'>
