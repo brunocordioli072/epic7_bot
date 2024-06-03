@@ -1,20 +1,20 @@
 import { Breadcrumb, Button, Checkbox, Popconfirm } from "antd"
-import { useAppContext } from "../../context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import { useState } from "react";
+import { useContextSelector } from "use-context-selector";
 
 const Header: React.FC = () => {
     const [logsInterval, setLogsInterval] = useState(0)
-    const {
-        command,
-        logs,
-        setLogs,
-        setSummary,
-        fastMode,
-        setFastMode,
-        currentScreen,
-        setCurrentScreen,
-        devMode,
-    } = useAppContext()
+    const command = useContextSelector(AppContext, (state) => state.command);
+    const logs = useContextSelector(AppContext, (state) => state.logs);
+    const setLogs = useContextSelector(AppContext, (state) => state.setLogs);
+    const setSummary = useContextSelector(AppContext, (state) => state.setSummary);
+    const fastMode = useContextSelector(AppContext, (state) => state.fastMode);
+    const setFastMode = useContextSelector(AppContext, (state) => state.setFastMode);
+    const currentScreen = useContextSelector(AppContext, (state) => state.currentScreen);
+    const setCurrentScreen = useContextSelector(AppContext, (state) => state.setCurrentScreen);
+    const devMode = useContextSelector(AppContext, (state) => state.devMode);
+
 
 
     async function handleStop() {

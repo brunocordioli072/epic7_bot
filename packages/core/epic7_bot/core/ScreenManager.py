@@ -8,6 +8,8 @@ import random
 from cv2 import Mat
 
 import numpy as np
+import jax.numpy as jnp
+
 from epic7_bot.core.DeviceManager import DeviceManager
 from epic7_bot.core.MathUtils import MathUtils
 from epic7_bot.templates.Template import Template
@@ -27,9 +29,9 @@ class ScreenManager(metaclass=Singleton):
         time.sleep(random.uniform(waitTime, waitTime + 1))
 
     def get_position_of_template_match(self, matchTemplate):
-        position_x = np.unravel_index(
+        position_x = jnp.unravel_index(
             matchTemplate.argmax(), matchTemplate.shape)[1]
-        position_y = np.unravel_index(
+        position_y = jnp.unravel_index(
             matchTemplate.argmax(), matchTemplate.shape)[0]
         return position_x, position_y
 
@@ -37,7 +39,7 @@ class ScreenManager(metaclass=Singleton):
         png_screenshot_data = self.DeviceManager.device.shell(
             "screencap -p | busybox base64")
         png_screenshot_data = base64.b64decode(png_screenshot_data)
-        nparr = np.frombuffer(png_screenshot_data, np.uint8)
+        nparr = jnp.frombuffer(png_screenshot_data, jnp.uint8)
         img = cv2.imdecode(nparr, 0)
         return img
 
@@ -87,8 +89,8 @@ class ScreenManager(metaclass=Singleton):
         if img1 is None or img2 is None:
             return False
         res = cv2.absdiff(img1, img2)
-        res = res.astype(np.uint8)
-        result = (np.count_nonzero(res) * 100) / res.size
+        res = res.astype(jnp.uint8)
+        result = (jnp.count_nonzero(res) * 100) / res.size
         if action is not None:
             logging.debug(f"{action}, check_if_images_changed: {result}")
         return result >= percentage

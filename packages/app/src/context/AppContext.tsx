@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
     ShoppingOutlined,
     RocketOutlined,
     BorderlessTableOutlined,
     RetweetOutlined,
 } from '@ant-design/icons';
+import { createContext, useContextSelector } from 'use-context-selector';
 
 interface Command {
     id: string
@@ -35,7 +36,7 @@ interface AppContextInterface {
     setDevMode: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const AppContext = React.createContext<AppContextInterface>({
+export const AppContext = createContext<AppContextInterface>({
     commands: [],
     setCommands: () => { },
     command: {} as any,
@@ -122,4 +123,5 @@ export const AppProvider = ({ children }: { children: any }) => {
     )
 }
 
-export const useAppContext = () => useContext(AppContext);
+export const useAppContext = <T,>(selector: (state: AppContextInterface) => T): T =>
+    useContextSelector(AppContext, selector);
