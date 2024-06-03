@@ -31,15 +31,11 @@ class ScreenManager(metaclass=Singleton):
         return position_x, position_y
 
     def take_screenshot(self) -> np.ndarray:
-        logging.info(
-            f"comecei aq")
         png_screenshot_data = self.DeviceManager.device.shell(
             "screencap -p | busybox base64")
         png_screenshot_data = base64.b64decode(png_screenshot_data)
         nparr = np.frombuffer(png_screenshot_data, np.uint8)
         img = cv2.imdecode(nparr, cv2.IMREAD_GRAYSCALE)
-        logging.info(
-            f"terminei aq")
         return img
 
     def take_screenshot_from_area(self, x1: int = None, x2: int = None, y1: int = None, y2: int = None) -> np.ndarray:
